@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #7A1C1C;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #5c1414;
+        }
+        .page-title {
+            text-align: center;
+            color: #7A1C1C;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+        }
+        .table-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-top: 5px solid #7A1C1C;
+            overflow-x: auto;
+        }
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .user-table th, .user-table td {
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+        }
+        .user-table th {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-weight: 700;
+            text-align: center;
+        }
+        .user-table td {
+            color: #334155;
+            height: 55px;
+        }
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .btn-edit {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .btn-edit:hover {
+            background-color: #2563eb;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <h2 class="page-title">User List</h2>
+
+        <div class="table-card">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>NIC</th>
+                        <th>Name</th>
+                        <th>Computer ID</th>
+                        <th>Quarter Assigned</th>
+                        <th style="width: 180px; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>199812345678</td>
+                        <td>A. B. Perera</td>
+                        <td>CMP-001</td>
+                        <td>Quarter A-1</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
+                                <button class="btn-delete"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>199287654321</td>
+                        <td>S. K. Silva</td>
+                        <td>CMP-002</td>
+                        <td>Quarter B-4</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
+                                <button class="btn-delete"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>198533445566</td>
+                        <td>M. N. Fernando</td>
+                        <td>CMP-003</td>
+                        <td>Quarter C-2</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
+                                <button class="btn-delete"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

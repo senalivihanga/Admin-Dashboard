@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .profile-wrapper {
+            max-width: 550px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #7A1C1C;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #5c1414;
+        }
+        .profile-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-top: 5px solid #7A1C1C;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-header h2 {
+            color: #222;
+            font-size: 1.8rem;
+            margin-top: 10px;
+        }
+        .profile-header i {
+            font-size: 3rem;
+            color: #7A1C1C;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 12px 12px 45px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus {
+            border-color: #7A1C1C;
+        }
+        .btn-save {
+            width: 100%;
+            padding: 12px;
+            background-color: #7A1C1C;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-save:hover {
+            background-color: #5c1414;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-wrapper">
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <div class="profile-card">
+            <div class="profile-header">
+                <i class="fa-solid fa-user-pen"></i>
+                <h2>Edit Admin Profile</h2>
+            </div>
+            
+            <form action="index.html" method="GET">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="name" name="name" value="Admin Name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email" name="email" value="admin@railway.gov.lk" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

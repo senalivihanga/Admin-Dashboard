@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Top Header Bar -->
+    <header class="header">
+        <div class="header-spacer"></div>
+        
+        <h1 class="dashboard-title">Admin Dashboard</h1>
+        
+        <div class="profile-container">
+            <div class="profile-trigger" id="profileDropdownBtn">
+                <i class="fa-solid fa-user-circle profile-icon"></i>
+                <span>Admin Name</span>
+                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+            </div>
+            
+            <div class="dropdown-menu" id="profileDropdownMenu">
+                <a href="edit_profile.html" class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
+                <a href="logout.html" class="dropdown-item logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <h2 class="welcome-message">Welcome, Admin Name</h2>
+
+        <!-- Dashboard Action Tiles -->
+        <div class="action-grid">
+
+            <!-- Tile 1: View Users -->
+            <div class="action-card">
+                <div class="card-visual users-bg">
+                    <i class="fa-solid fa-users card-fa-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>View Users</h3>
+                    <p>Manage system administrators and staff access.</p>
+                    <a href="view_users.html" class="tile-btn">Open Page <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Tile 2: Assign System Users -->
+            <div class="action-card">
+                <div class="card-visual assign-bg">
+                    <i class="fa-solid fa-user-gear card-fa-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Assign System Users</h3>
+                    <p>Allocate operational staff to specific routes or stations.</p>
+                    <a href="assign_users.html" class="tile-btn">Open Page <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Tile 3: View System -->
+            <div class="action-card">
+                <div class="card-visual system-bg">
+                    <i class="fa-solid fa-desktop card-fa-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>View System</h3>
+                    <p>Monitor infrastructure status and network health.</p>
+                    <a href="view_system.html" class="tile-btn">Open Page <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const dropdownBtn = document.getElementById('profileDropdownBtn');
+        const dropdownMenu = document.getElementById('profileDropdownMenu');
+
+        dropdownBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        window.addEventListener('click', () => {
+            dropdownMenu.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

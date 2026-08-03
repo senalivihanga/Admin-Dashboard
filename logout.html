@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging Out - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .logout-box {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 5px solid #7A1C1C;
+            max-width: 350px;
+            width: 100%;
+        }
+        .logout-box h2 {
+            color: #7A1C1C;
+            margin-bottom: 10px;
+        }
+        .logout-box p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logout-box">
+        <h2>Logging Out...</h2>
+        <p>Please wait while we securely end your session.</p>
+    </div>
+
+    <script>
+        localStorage.clear();
+        sessionStorage.clear();
+
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+    </script>
+
+</body>
+</html>
