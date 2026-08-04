@@ -3,359 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View System - Sri Lanka Railways Admin</title>
+    <title>Approval System - Sri Lanka Railways</title>
     <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .container {
-            max-width: 1100px;
+        /* Specific styles for the multi-stage approval workflow layout */
+        .approval-container {
+            max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
         }
+
+        .approval-container h2 {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 25px;
+        }
+
+        .approval-section-title {
+            font-size: 1.2rem;
+            color: #444;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .approval-box {
+            background: #ffffff;
+            border: 2px solid #6495ED; /* Cornflower blue border matching design */
+            border-radius: 10px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .approval-form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-grow: 1;
+            max-width: 650px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-row label {
+            width: 140px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .form-row input {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            background-color: #fafafa;
+        }
+
+        .approval-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-left: 30px;
+        }
+
+        .btn-approve, .btn-reject {
+            padding: 10px 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: opacity 0.2s, transform 0.1s;
+            text-align: center;
+        }
+
+        .btn-approve {
+            background-color: #7AA8D2; /* Muted blue tone matching mockups */
+            color: #fff;
+        }
+
+        .btn-approve:hover {
+            background-color: #5c91c4;
+            transform: translateY(-2px);
+        }
+
+        .btn-reject {
+            background-color: #7AA8D2;
+            color: #fff;
+        }
+
+        .btn-reject:hover {
+            background-color: #5c91c4;
+            transform: translateY(-2px);
+        }
+
         .back-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            margin-bottom: 20px;
             color: #7A1C1C;
             text-decoration: none;
             font-weight: 600;
-            margin-bottom: 20px;
-            transition: color 0.2s;
-        }
-        .back-link:hover {
-            color: #5c1414;
-        }
-        .page-title {
-            text-align: center;
-            color: #7A1C1C;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: underline;
-            text-underline-offset: 8px;
-        }
-        .search-section {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-        .search-input {
-            padding: 10px 15px;
-            width: 300px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 1rem;
-            outline: none;
-        }
-        .search-input:focus {
-            border-color: #7A1C1C;
-        }
-        .btn-search {
-            background-color: #93c5fd;
-            color: #1e3a8a;
-            border: 1px solid #60a5fa;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-search:hover {
-            background-color: #60a5fa;
-            color: #fff;
-        }
-        .table-card {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border-top: 5px solid #7A1C1C;
-            overflow-x: auto;
-        }
-        .user-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-        .user-table th, .user-table td {
-            padding: 15px;
-            border: 1px solid #cbd5e1;
-            vertical-align: middle;
-        }
-        .user-table th {
-            background-color: #f8fafc;
-            color: #1e293b;
-            font-weight: 700;
-            text-align: center;
-        }
-        .user-table td {
-            color: #334155;
-            height: 65px;
-        }
-        .form-control-input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid transparent;
-            background: transparent;
-            border-radius: 4px;
-            font-size: 0.95rem;
-            color: #334155;
-            outline: none;
-        }
-        .form-control-input.editable {
-            border-color: #cbd5e1;
-            background-color: #fff;
-        }
-        
-        /* Custom Dropdown Styling */
-        .custom-dropdown-container {
-            position: relative;
-            width: 100%;
-        }
-        .dropdown-select-btn {
-            width: 100%;
-            padding: 8px 12px;
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: default;
-            color: #334155;
-            font-size: 0.95rem;
-            text-align: left;
-            user-select: none;
-        }
-        .custom-dropdown-container.editable .dropdown-select-btn {
-            background-color: #fff;
-            border-color: #cbd5e1;
-            cursor: pointer;
-        }
-        .dropdown-options-list {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            z-index: 50;
-            margin-top: 4px;
-            overflow: hidden;
-        }
-        .dropdown-option-item {
-            padding: 10px 14px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            color: #334155;
-            border-bottom: 1px solid #f1f5f9;
-            transition: background 0.2s;
-        }
-        .dropdown-option-item:last-child {
-            border-bottom: none;
-        }
-        .dropdown-option-item:hover {
-            background-color: #f8fafc;
-            color: #7A1C1C;
         }
 
-        .action-btns-group {
-            display: flex;
-            gap: 6px;
-            justify-content: center;
+        .back-link:hover {
+            text-decoration: underline;
         }
-        .btn-row-action {
-            background-color: #93c5fd;
-            color: #1e3a8a;
-            border: 1px solid #60a5fa;
-            padding: 6px 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-        .btn-row-action:hover {
-            background-color: #3b82f6;
-            color: white;
-        }
-        .btn-delete-row {
-            background-color: #fee2e2;
-            color: #991b1b;
-            border-color: #fca5a5;
-        }
-        .btn-delete-row:hover {
-            background-color: #ef4444;
-            border-color: #ef4444;
-            color: white;
+
+        @media (max-width: 768px) {
+            .approval-box {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 20px;
+            }
+            .approval-actions {
+                flex-direction: row;
+                justify-content: flex-end;
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <a href="index.html" class="back-link">
-            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
-        </a>
+    <!-- Top Header Bar -->
+    <header class="header">
+        <div class="header-brand">
+            <img src="slr-logo.jpg" alt="Sri Lanka Railways Logo" class="header-logo" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid #D4AF37;">
+        </div>
+        
+        <h1 class="dashboard-title" style="text-transform: none;">Admin Dashboard</h1>
+        
+        <div class="profile-container">
+            <div class="profile-trigger" id="profileDropdownBtn">
+                <i class="fa-solid fa-user-circle profile-icon"></i>
+                <span>Admin Name</span>
+                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+            </div>
+            
+            <div class="dropdown-menu" id="profileDropdownMenu">
+                <a href="edit_profile.html" class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
+                <a href="logout.html" class="dropdown-item logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+        </div>
+    </header>
 
-        <h2 class="page-title">View System</h2>
+    <!-- Main Approval Content Area -->
+    <main class="approval-container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        <h2>Approval Process</h2>
 
-        <div class="search-section">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search by NIC..." onkeyup="filterTable()">
-            <button class="btn-search">Search</button>
+        <!-- Stage 1: Immediate Boss -->
+        <div class="approval-section-title">1. Immediate Boss</div>
+        <div class="approval-box">
+            <div class="approval-form-grid">
+                <div class="form-row">
+                    <label>Application No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>NIC :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Name :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Computer No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+            </div>
+            <div class="approval-actions">
+                <button class="btn-approve" onclick="handleAction('Immediate Boss', 'Approved')">Approve</button>
+                <button class="btn-reject" onclick="handleAction('Immediate Boss', 'Rejected')">Reject</button>
+            </div>
         </div>
 
-        <div class="table-card">
-            <table class="user-table" id="viewSystemTable">
-                <thead>
-                    <tr>
-                        <th style="width: 20%;">NIC</th>
-                        <th style="width: 22%;">Name</th>
-                        <th style="width: 18%;">Computer ID</th>
-                        <th style="width: 22%;">Roles</th>
-                        <th style="width: 18%; text-align: center;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" class="form-control-input" value="199812345678" readonly></td>
-                        <td><input type="text" class="form-control-input" value="A. B. Perera" readonly></td>
-                        <td><input type="text" class="form-control-input" value="CMP-001" readonly></td>
-                        <td>
-                            <div class="custom-dropdown-container" id="vs-dropdown-1">
-                                <button type="button" class="dropdown-select-btn" onclick="toggleDropdown(event, 'vs-dropdown-1')">
-                                    <span class="selected-role-text">Immediate Boss</span>
-                                    <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: #64748b;"></i>
-                                </button>
-                                <div class="dropdown-options-list">
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-1', 'Immediate Boss')">Immediate Boss</div>
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-1', 'Personal File')">Personal File</div>
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-1', 'Subject Clerk')">Subject Clerk</div>
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-1', 'Final Approval')">Final Approval</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="action-btns-group">
-                                <button class="btn-row-action" onclick="saveRow(this)">Save</button>
-                                <button class="btn-row-action" onclick="editRow(this)">Edit</button>
-                                <button class="btn-row-action btn-delete-row" onclick="deleteRow(this)">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control-input" value="199287654321" readonly></td>
-                        <td><input type="text" class="form-control-input" value="S. K. Silva" readonly></td>
-                        <td><input type="text" class="form-control-input" value="CMP-002" readonly></td>
-                        <td>
-                            <div class="custom-dropdown-container" id="vs-dropdown-2">
-                                <button type="button" class="dropdown-select-btn" onclick="toggleDropdown(event, 'vs-dropdown-2')">
-                                    <span class="selected-role-text">Subject Clerk</span>
-                                    <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: #64748b;"></i>
-                                </button>
-                                <div class="dropdown-options-list">
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-2', 'Immediate Boss')">Immediate Boss</div>
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-2', 'Personal File')">Personal File</div>
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-2', 'Subject Clerk')">Subject Clerk</div>
-                                    <div class="dropdown-option-item" onclick="selectRole(event, 'vs-dropdown-2', 'Final Approval')">Final Approval</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="action-btns-group">
-                                <button class="btn-row-action" onclick="saveRow(this)">Save</button>
-                                <button class="btn-row-action" onclick="editRow(this)">Edit</button>
-                                <button class="btn-row-action btn-delete-row" onclick="deleteRow(this)">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Stage 2: Personal File -->
+        <div class="approval-section-title">2. Personal File</div>
+        <div class="approval-box">
+            <div class="approval-form-grid">
+                <div class="form-row">
+                    <label>Application No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>NIC :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Name :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Computer No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+            </div>
+            <div class="approval-actions">
+                <button class="btn-approve" onclick="handleAction('Personal File', 'Approved')">Approve</button>
+                <button class="btn-reject" onclick="handleAction('Personal File', 'Rejected')">Reject</button>
+            </div>
         </div>
-    </div>
+
+        <!-- Stage 3: Subject Clerk -->
+        <div class="approval-section-title">3. Subject Clerk</div>
+        <div class="approval-box">
+            <div class="approval-form-grid">
+                <div class="form-row">
+                    <label>Application No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>NIC :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Name :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Computer No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+            </div>
+            <div class="approval-actions">
+                <button class="btn-approve" onclick="handleAction('Subject Clerk', 'Approved')">Approve</button>
+                <button class="btn-reject" onclick="handleAction('Subject Clerk', 'Rejected')">Reject</button>
+            </div>
+        </div>
+
+        <!-- Stage 4: Final Approval -->
+        <div class="approval-section-title">4. Final Approval</div>
+        <div class="approval-box">
+            <div class="approval-form-grid">
+                <div class="form-row">
+                    <label>Application No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>NIC :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Name :</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label>Computer No. :</label>
+                    <input type="text" placeholder="">
+                </div>
+            </div>
+            <div class="approval-actions">
+                <button class="btn-approve" onclick="handleAction('Final Approval', 'Approved')">Approve</button>
+                <button class="btn-reject" onclick="handleAction('Final Approval', 'Rejected')">Reject</button>
+            </div>
+        </div>
+    </main>
 
     <script>
-        function toggleDropdown(event, dropdownId) {
+        // Dropdown toggle functionality
+        const dropdownBtn = document.getElementById('profileDropdownBtn');
+        const dropdownMenu = document.getElementById('profileDropdownMenu');
+
+        dropdownBtn.addEventListener('click', (event) => {
             event.stopPropagation();
-            const container = document.getElementById(dropdownId);
-            if (!container.classList.contains('editable')) return;
-
-            document.querySelectorAll('.custom-dropdown-container').forEach(item => {
-                if (item.id !== dropdownId) {
-                    item.querySelector('.dropdown-options-list').style.display = 'none';
-                }
-            });
-
-            const list = container.querySelector('.dropdown-options-list');
-            list.style.display = list.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function selectRole(event, dropdownId, roleName) {
-            event.stopPropagation();
-            const container = document.getElementById(dropdownId);
-            container.querySelector('.selected-role-text').innerText = roleName;
-            container.querySelector('.dropdown-options-list').style.display = 'none';
-        }
-
-        window.addEventListener('click', () => {
-            document.querySelectorAll('.dropdown-options-list').forEach(list => {
-                list.style.display = 'none';
-            });
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
         });
 
-        function editRow(button) {
-            const row = button.closest('tr');
-            const inputs = row.querySelectorAll('.form-control-input');
-            const dropdown = row.querySelector('.custom-dropdown-container');
+        window.addEventListener('click', () => {
+            dropdownMenu.style.display = 'none';
+        });
 
-            inputs.forEach(input => input.classList.add('editable'));
-            inputs.forEach(input => input.removeAttribute('readonly'));
-            dropdown.classList.add('editable');
-        }
-
-        function saveRow(button) {
-            const row = button.closest('tr');
-            const inputs = row.querySelectorAll('.form-control-input');
-            const dropdown = row.querySelector('.custom-dropdown-container');
-
-            inputs.forEach(input => input.classList.remove('editable'));
-            inputs.forEach(input => input.setAttribute('readonly', true));
-            dropdown.classList.remove('editable');
-            dropdown.querySelector('.dropdown-options-list').style.display = 'none';
-
-            alert('System view data saved successfully!');
-        }
-
-        function deleteRow(button) {
-            if (confirm('Are you sure you want to delete this record?')) {
-                const row = button.closest('tr');
-                row.remove();
-            }
-        }
-
-        function filterTable() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const table = document.getElementById('viewSystemTable');
-            const tr = table.getElementsByTagName('tr');
-
-            for (let i = 1; i < tr.length; i++) {
-                const nicInput = tr[i].querySelectorAll('.form-control-input')[0];
-                if (nicInput) {
-                    const txtValue = nicInput.value || nicInput.innerText;
-                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+        // Simple mock handler for approval buttons
+        function handleAction(stage, status) {
+            alert(stage + ' application has been ' + status + '.');
         }
     </script>
-
 </body>
 </html>
