@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="style.css">
     <!-- FontAwesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional inline styles for new card theme classes if needed */
+        .waiting-bg {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #d97706;
+        }
+        .quarters-bg {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            color: #4f46e5;
+        }
+    </style>
 </head>
 <body>
 
@@ -45,7 +56,7 @@
                 <div class="card-content">
                     <h3>View Users</h3>
                     <p>Manage system administrators and staff access.</p>
-                    <a href="view_users.html" class="tile-btn">Open Page <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="view_users.html" class="tile-btn">Open <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -57,22 +68,45 @@
                 <div class="card-content">
                     <h3>Assign System Users</h3>
                     <p>Allocate operational staff to specific routes or stations.</p>
-                    <a href="assign_users.html" class="tile-btn">Open Page <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="assign_users.html" class="tile-btn">Open <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <!-- Tile 3: View System -->
+            <!-- Tile 3: View Approval System -->
             <div class="action-card">
                 <div class="card-visual system-bg">
-                    <i class="fa-solid fa-desktop card-fa-icon"></i>
+                    <i class="fa-solid fa-clipboard-check card-fa-icon"></i>
                 </div>
                 <div class="card-content">
-                    <h3>View System</h3>
-                    <p>Monitor infrastructure status and network health.</p>
-                    <a href="view_system.html" class="tile-btn">Open Page <i class="fa-solid fa-arrow-right"></i></a>
+                    <h3>View Approval System</h3>
+                    <p>Review and process pending housing or administrative approvals.</p>
+                    <a href="view_system.html" class="tile-btn">Open <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
+            <!-- Tile 4: Waiting List -->
+            <div class="action-card">
+                <div class="card-visual waiting-bg">
+                    <i class="fa-solid fa-hourglass-half card-fa-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Waiting List</h3>
+                    <p>Track applicants currently queued for quarters allocation.</p>
+                    <a href="waiting_lists.html" class="tile-btn">Open <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Tile 5: Quarters List -->
+            <div class="action-card">
+                <div class="card-visual quarters-bg">
+                    <i class="fa-solid fa-house-chimney card-fa-icon"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Quarters List</h3>
+                    <p>View availability, locations, and details of housing units.</p>
+                    <a href="quarters_list.html" class="tile-btn">Open <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
     </main>
 
