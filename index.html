@@ -21,26 +21,30 @@
 <body>
 
     <!-- Top Header Bar -->
-    <header class="header">
-        <div class="header-brand">
-            <img src="slr-logo.jpg" alt="Sri Lanka Railways Logo" class="header-logo" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid #D4AF37;">
-        </div>
-        
-        <h1 class="dashboard-title" style="text-transform: none;">Admin Dashboard</h1>
-        
-        <div class="profile-container">
-            <div class="profile-trigger" id="profileDropdownBtn">
-                <i class="fa-solid fa-user-circle profile-icon"></i>
-                <span>Admin Name</span>
-                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
-            </div>
+    <!-- Top Header Bar -->
+<header class="header">
+    <div class="header-brand" style="display: flex; align-items: center; gap: 15px;">
+        <img src="slr-logo.jpg" alt="Sri Lanka Railways Logo" class="header-logo" style="width: 55px; height: 55px; object-fit: cover; border-radius: 50%; border: 2px solid #D4AF37;">
+        <div style="display: flex; flex-direction: column;">
+            <h1 class="dashboard-title" style="position: static; transform: none; font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: 1px; margin: 0; text-transform: uppercase;">SRI LANKA RAILWAY</h1>
+            <span style="font-size: 0.85rem; font-weight: 700; color: #D4AF37; letter-spacing: 0.5px; text-transform: uppercase;">QUARTER MANAGEMENT SYSTEM</span>
             
-            <div class="dropdown-menu" id="profileDropdownMenu">
-                <a href="edit_profile.html" class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
-                <a href="logout.html" class="dropdown-item logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-            </div>
         </div>
-    </header>
+    </div>
+    
+    <div class="profile-container">
+        <div class="profile-trigger" id="profileDropdownBtn" style="border: 1px solid #D4AF37; background: transparent; color: #fff; border-radius: 30px; padding: 6px 15px;">
+            <i class="fa-solid fa-user-circle profile-icon" style="color: #D4AF37; font-size: 1.4rem;"></i>
+            <span style="color: #fff; font-weight: 500;">Admin Name</span>
+            <i class="fa-solid fa-chevron-down dropdown-arrow" style="color: #fff; font-size: 0.75rem;"></i>
+        </div>
+        
+        <div class="dropdown-menu" id="profileDropdownMenu">
+            <a href="edit_profile.html" class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
+            <a href="logout.html" class="dropdown-item logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </div>
+</header>
 
     <!-- Main Content Area -->
     <main class="main-content">
