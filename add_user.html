@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New User - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f4f4f4; }
+        .form-wrapper { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .card { background: #ffffff; padding: 35px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 5px solid #7A1C1C; }
+        .card h2 { color: #222; font-size: 1.6rem; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; font-size: 0.95rem; }
+        .form-group input, .form-group select { width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; }
+        .form-group input:focus, .form-group select:focus { border-color: #7A1C1C; }
+        .btn-save { width: 100%; padding: 12px; background-color: #10b981; color: #ffffff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; }
+        .btn-save:hover { background-color: #059669; }
+    </style>
+</head>
+<body>
+
+    <div class="form-wrapper">
+        <a href="view_users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to User List</a>
+
+        <div class="card">
+            <h2>Add New Registered User</h2>
+            
+            <form action="view_users.html" method="GET">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" placeholder="Enter Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>NIC</label>
+                    <input type="text" name="nic" placeholder="Enter NIC Number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter Email Address" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Computer Number</label>
+                    <input type="text" name="computer_no" placeholder="Enter Computer Number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" name="mobile" placeholder="Enter Mobile Number" required>
+                </div>
+
+                <button type="submit" class="btn-save"><i class="fa-solid fa-user-plus"></i> Save User </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

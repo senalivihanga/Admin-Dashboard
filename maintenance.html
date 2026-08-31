@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarters Maintenance - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow-x: auto; }
+        .maint-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .maint-table th, .maint-table td { padding: 12px 10px; border: 1px solid #cbd5e1; text-align: center; font-size: 0.9rem; }
+        .maint-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
+        .no-data { text-align: center; padding: 20px; color: #64748b; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="quarters.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Quarters List</a>
+        <h2 class="page-title">Quarters Maintenance Details</h2>
+
+        <div class="table-card">
+            <table class="maint-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Quarter No.</th>
+                        <th>Quarter Location</th>
+                        <th>Quarter Name</th>
+                        <th>Quarter Type</th>
+                        <th>Last Maintenance Date</th>
+                    </tr>
+                </thead>
+                <tbody id="maintBody">
+                    <!-- Dynamic Maintenance Rows -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMaintenanceData();
+        });
+
+        function loadMaintenanceData() {
+            const tbody = document.getElementById('maintBody');
+            tbody.innerHTML = '';
+            
+            const data = JSON.parse(localStorage.getItem('quartersData')) || [];
+            // Filter only quarters that are "Under Maintenance"
+            const maintData = data.filter(item => item.status === 'Under Maintenance');
+
+            if (maintData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="no-data">No quarters are currently under maintenance.</td></tr>`;
+                return;
+            }
+
+            maintData.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${item.quarterNum || '-'}</td>
+                    <td>${item.location || '-'}</td>
+                    <td>${item.quarterName || '-'}</td>
+                    <td>${item.quarterType || '-'}</td>
+                    <td><strong>${item.lastMaint || 'Not Recorded'}</strong></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>

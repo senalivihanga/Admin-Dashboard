@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarters List - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1400px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .top-action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-group { display: flex; gap: 10px; }
+        .add-btn { background-color: #16a34a; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
+        .add-btn:hover { background-color: #15803d; }
+        .maint-page-btn { background-color: #2563eb; }
+        .maint-page-btn:hover { background-color: #1d4ed8; }
+        .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow-x: auto; position: relative; }
+        .quarters-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1100px; }
+        .quarters-table th, .quarters-table td { padding: 10px 8px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
+        .quarters-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
+        .quarters-table td { color: #334155; }
+        .action-cell { display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .action-btn { border: none; padding: 6px 10px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.8rem; }
+        .btn-edit { background-color: #f59e0b; color: white; }
+        .btn-edit:hover { background-color: #d97706; }
+        .btn-save { background-color: #2563eb; color: white; display: none; }
+        .btn-save:hover { background-color: #1d4ed8; }
+        .btn-delete { background-color: #dc2626; color: white; }
+        .btn-delete:hover { background-color: #b91c1c; }
+        .editable-input, .dropdown-select { width: 100%; padding: 5px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.85rem; box-sizing: border-box; }
+        .editable-input[readonly] { background-color: transparent; border: none; text-align: center; color: #334155; }
+        .checkbox-group { display: flex; justify-content: center; gap: 15px; }
+        .checkbox-group label { font-size: 0.8rem; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+        
+        /* Custom Delete Modal / Notification Message Box */
+        .custom-msg-box { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+        .msg-content { background: white; padding: 25px; border-radius: 10px; text-align: center; width: 350px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .msg-content p { margin-bottom: 20px; font-size: 1rem; color: #334155; font-weight: 600; }
+        .msg-btns { display: flex; justify-content: center; gap: 10px; }
+        .msg-btn { padding: 8px 15px; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; }
+        .msg-btn-yes { background-color: #dc2626; color: white; }
+        .msg-btn-no { background-color: #64748b; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        <h2 class="page-title">Quarters Details</h2>
+
+        <div class="top-action-bar">
+            <div class="btn-group">
+                <a href="maintenance.html" class="add-btn maint-page-btn"><i class="fa-solid fa-screwdriver-wrench"></i> Quarters Maintenance Page</a>
+            </div>
+            <a href="add-quarter.html" class="add-btn"><i class="fa-solid fa-plus"></i> Add New Quarter</a>
+        </div>
+
+        <div class="table-card">
+            <table class="quarters-table" id="quartersTable">
+                <thead>
+                    <tr>
+                        <th>Auto Increment Number</th>
+                        <th>Quarter No.</th>
+                        <th>Quarter Location</th>
+                        <th>Quarter Name</th>
+                        <th>Quarter Type</th>
+                        <th>Status</th>
+                        <th>Facility (Electricity & Water)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="quartersBody">
+                    <!-- Dynamic rows -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Custom Delete Confirmation Modal -->
+    <div class="custom-msg-box" id="deleteModal">
+        <div class="msg-content">
+            <p><i class="fa-solid fa-triangle-exclamation" style="color: #dc2626; font-size: 1.5rem; margin-bottom: 10px; display:block;"></i> Are you sure you want to delete this quarter record?</p>
+            <div class="msg-btns">
+                <button class="msg-btn msg-btn-yes" id="confirmDeleteBtn">Yes, Delete</button>
+                <button class="msg-btn msg-btn-no" onclick="closeDeleteModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const defaultData = [
+            {
+                quarterNum: "Q-01",
+                location: "Colombo",
+                quarterName: "Bungalow A",
+                quarterType: "Bungalows",
+                status: "Under Maintenance",
+                electric: true,
+                water: true,
+                lastMaint: "2025-05-12"
+            }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadTableData();
+        });
+
+        function getStoredData() {
+            const data = localStorage.getItem('quartersData');
+            return data ? JSON.parse(data) : defaultData;
+        }
+
+        function saveStoredData(data) {
+            localStorage.setItem('quartersData', JSON.stringify(data));
+        }
+
+        function loadTableData() {
+            const tbody = document.getElementById('quartersBody');
+            tbody.innerHTML = '';
+            const data = getStoredData();
+
+            data.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><input type="text" class="editable-input" value="${item.quarterNum}" readonly></td>
+                    <td><input type="text" class="editable-input" value="${item.location}" readonly></td>
+                    <td><input type="text" class="editable-input" value="${item.quarterName || ''}" readonly></td>
+                    <td><input type="text" class="editable-input" value="${item.quarterType}" readonly></td>
+                    <td>
+                        <select class="dropdown-select" disabled>
+                            <option value="Occupied" ${item.status === 'Occupied' ? 'selected' : ''}>Occupied</option>
+                            <option value="Vacant" ${item.status === 'Vacant' ? 'selected' : ''}>Vacant</option>
+                            <option value="Under Maintenance" ${item.status === 'Under Maintenance' ? 'selected' : ''}>Under Maintenance</option>
+                            <option value="Unusable" ${item.status === 'Unusable' ? 'selected' : ''}>Unusable</option>
+                            <option value="Other" ${item.status === 'Other' ? 'selected' : ''}>Other</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" class="elec-check" ${item.electric ? 'checked' : ''} disabled> Electricity</label>
+                            <label><input type="checkbox" class="water-check" ${item.water ? 'checked' : ''} disabled> Water</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="action-cell">
+                            <button class="action-btn btn-edit" onclick="enableEdit(this)">Edit</button>
+                            <button class="action-btn btn-save" onclick="saveRow(this, ${index})">Save</button>
+                            <button class="action-btn btn-delete" onclick="promptDelete(${index})">Delete</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function enableEdit(button) {
+            const row = button.closest('tr');
+            row.querySelectorAll('.editable-input').forEach(input => input.removeAttribute('readonly'));
+            row.querySelectorAll('.dropdown-select').forEach(select => select.removeAttribute('disabled'));
+            row.querySelectorAll('input[type="checkbox"]').forEach(chk => chk.removeAttribute('disabled'));
+            row.querySelector('.btn-edit').style.display = 'none';
+            row.querySelector('.btn-save').style.display = 'inline-block';
+        }
+
+        function saveRow(button, index) {
+            const row = button.closest('tr');
+            const inputs = row.querySelectorAll('.editable-input');
+            const select = row.querySelector('.dropdown-select');
+
+            const quarterNum = inputs[0].value;
+            const location = inputs[1].value;
+            const quarterName = inputs[2].value;
+            const quarterType = inputs[3].value;
+            const status = select.value;
+            const electric = row.querySelector('.elec-check').checked;
+            const water = row.querySelector('.water-check').checked;
+
+            const data = getStoredData();
+            // Preserve existing lastMaint if it exists
+            const lastMaint = data[index].lastMaint || "";
+            data[index] = { quarterNum, location, quarterName, quarterType, status, electric, water, lastMaint };
+
+            saveStoredData(data);
+            loadTableData();
+            alert("Record saved successfully!");
+        }
+
+        let deleteTargetIndex = null;
+        function promptDelete(index) {
+            deleteTargetIndex = index;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            deleteTargetIndex = null;
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+            if (deleteTargetIndex !== null) {
+                const data = getStoredData();
+                data.splice(deleteTargetIndex, 1);
+                saveStoredData(data);
+                loadTableData();
+                closeDeleteModal();
+            }
+        });
+    </script>
+</body>
+</html>

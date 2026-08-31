@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Application Details - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f4f4f4; }
+        .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .card { background: #ffffff; padding: 35px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 5px solid #8b5cf6; }
+        .card h2 { color: #1e293b; font-size: 1.6rem; margin-bottom: 20px; text-transform: uppercase; text-align: center; }
+        .app-badge { display: inline-block; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        .badge-sinhala { background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+        .badge-english { background-color: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+        .detail-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        .detail-row span:first-child { font-weight: 600; color: #475569; }
+        .detail-row span:last-child { color: #1e293b; }
+        .app-content-box { margin-top: 25px; padding: 20px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; }
+        .app-content-box h4 { margin-bottom: 10px; color: #7A1C1C; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="view_users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to User List</a>
+
+        <div class="card">
+            <h2>User Application Details</h2>
+            <div style="text-align: center;">
+                <div id="appBadgeContainer"></div>
+            </div>
+
+            <div class="detail-row">
+                <span>Full Name:</span>
+                <span id="lblName">A. B. Perera</span>
+            </div>
+            <div class="detail-row">
+                <span>NIC Number:</span>
+                <span id="lblNic">199812345678</span>
+            </div>
+            <div class="detail-row">
+                <span>Email Address:</span>
+                <span id="lblEmail">abperera@railway.gov.lk</span>
+            </div>
+            <div class="detail-row">
+                <span>Computer Number:</span>
+                <span id="lblComp">COMP-405</span>
+            </div>
+            <div class="detail-row">
+                <span>Mobile Number:</span>
+                <span id="lblMobile">0771234567</span>
+            </div>
+
+            <div class="app-content-box" id="appContentBox">
+                <!-- Dynamic application text will load here based on choice -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL eken parameters (nic saha app type eka) read karala user fill karapu application eka pennanna
+        const urlParams = new URLSearchParams(window.location.search);
+        const appType = urlParams.get('app') || 'sinhala';
+        const nicVal = urlParams.get('nic');
+
+        const badgeContainer = document.getElementById('appBadgeContainer');
+        const contentBox = document.getElementById('appContentBox');
+
+        if (appType === 'sinhala') {
+            badgeContainer.innerHTML = `<span class="app-badge badge-sinhala"><i class="fa-solid fa-file-lines"></i> Filled via Sinhala Application (සිංහල අයදුම්පත)</span>`;
+            contentBox.innerHTML = `<h4>සිංහල අයදුම්පත් විස්තර</h4>
+                                    <p>මෙම පරිශීලකයා විසින් ශ්‍රී ලංකා දුම්රිය දෙපාර්තමේන්තුවේ නිල <strong>සිංහල අයදුම්පත</strong> සම්පූර්ණ කර ඉදිරිපත් කර ඇත. සියලුම තොරතුරු නිවැරදි බව තහවුරු කර ඇත.</p>`;
+        } else {
+            badgeContainer.innerHTML = `<span class="app-badge badge-english"><i class="fa-solid fa-file-lines"></i> Filled via English Application</span>`;
+            contentBox.innerHTML = `<h4>English Application Details</h4>
+                                    <p>This user has successfully filled and submitted the official <strong>English Application</strong> form for the Sri Lanka Railways quarter management system.</p>`;
+        }
+
+        if (nicVal) {
+            document.getElementById('lblNic').textContent = nicVal;
+        }
+    </script>
+</body>
+</html>
