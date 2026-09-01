@@ -20,8 +20,8 @@
         .user-table { width: 100%; border-collapse: collapse; text-align: left; }
         .user-table th, .user-table td { padding: 12px 15px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.95rem; }
         .user-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; text-align: center; }
-        .action-btns { display: flex; gap: 6px; justify-content: center; }
-        .btn-action { padding: 6px 10px; border-radius: 5px; border: none; color: white; cursor: pointer; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+        .action-btns { display: flex; gap: 6px; justify-content: center; align-items: center; }
+        .btn-action { padding: 6px 10px; border-radius: 5px; border: none; color: white; cursor: pointer; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
         .btn-view { background-color: #8b5cf6; }
         .btn-view:hover { background-color: #7c3aed; }
         .btn-edit { background-color: #3b82f6; }
@@ -52,7 +52,6 @@
                 <input type="text" id="searchInput" placeholder="Search by NIC Number..." onkeyup="filterTable()">
                 <button class="btn-search" onclick="filterTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
-            <!-- Add New User button connected to add_user.html -->
             <a href="add_user.html" class="btn-add"><i class="fa-solid fa-user-plus"></i> Add New User</a>
         </div>
 
@@ -65,7 +64,7 @@
                         <th>Email</th>
                         <th>Computer Number</th>
                         <th>Mobile Number</th>
-                        <th style="width: 180px; text-align: center;">Actions</th>
+                        <th style="width: 150px; text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,10 +76,9 @@
                         <td>0771234567</td>
                         <td>
                             <div class="action-btns">
-                                <!-- View button connected to view_user_details.html with application type -->
-                                <a href="view_user_details.html?nic=199812345678&app=sinhala" class="btn-action btn-view"><i class="fa-solid fa-eye"></i> View</a>
-                                <a href="edit_view_users.html?nic=199812345678" class="btn-action btn-edit"><i class="fa-solid fa-pen"></i></a>
-                                <button class="btn-action btn-delete" onclick="openDeleteModal(this)"><i class="fa-solid fa-trash"></i></button>
+                                <a href="view_user_details.html?nic=199812345678&app=sinhala" class="btn-action btn-view" title="View Details"><i class="fa-solid fa-eye"></i></a>
+                                <a href="edit_view_users.html?nic=199812345678" class="btn-action btn-edit" title="Edit Details"><i class="fa-solid fa-pen"></i></a>
+                                <button class="btn-action btn-delete" onclick="openDeleteModal(this)" title="Delete Record"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -92,9 +90,9 @@
                         <td>0719876543</td>
                         <td>
                             <div class="action-btns">
-                                <a href="view_user_details.html?nic=199287654321&app=english" class="btn-action btn-view"><i class="fa-solid fa-eye"></i> View</a>
-                                <a href="edit_view_users.html?nic=199287654321" class="btn-action btn-edit"><i class="fa-solid fa-pen"></i></a>
-                                <button class="btn-action btn-delete" onclick="openDeleteModal(this)"><i class="fa-solid fa-trash"></i></button>
+                                <a href="view_user_details.html?nic=199287654321&app=english" class="btn-action btn-view" title="View Details"><i class="fa-solid fa-eye"></i></a>
+                                <a href="edit_view_users.html?nic=199287654321" class="btn-action btn-edit" title="Edit Details"><i class="fa-solid fa-pen"></i></a>
+                                <button class="btn-action btn-delete" onclick="openDeleteModal(this)" title="Delete Record"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -103,10 +101,9 @@
         </div>
     </div>
 
-    <!-- Custom Modal -->
     <div class="custom-modal-overlay" id="deleteModal">
         <div class="custom-modal">
-            <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: #ef4444;"></i>
+            <i class="fa-solid fa-triangle-exclamation"></i>
             <h3>Are you sure?</h3>
             <p>Do you really want to delete this user record?</p>
             <div class="modal-buttons">

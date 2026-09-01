@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit System User Details - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .form-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #1e293b; font-size: 0.9rem; }
+        .form-control, .form-select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; box-sizing: border-box; }
+        .submit-btn { background-color: #2563eb; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 15px; }
+        .submit-btn:hover { background-color: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="system-users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to System Users List</a>
+        <h2 class="page-title">Edit System User & Password</h2>
+
+        <div class="form-card">
+            <form onsubmit="updateUser(event)">
+                <input type="hidden" id="userIndex">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>NIC Number</label>
+                    <input type="text" id="nic" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Designation</label>
+                    <input type="text" id="designation" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Current Workplace</label>
+                    <input type="text" id="workplace" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Computer No.</label>
+                    <input type="text" id="computerNo" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>System Role</label>
+                    <select id="role" class="form-select" required>
+                        <option value="">-- Select System Role --</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Immediate Boss">Immediate Boss</option>
+                        <option value="Personal File">Personal File</option>
+                        <option value="Subject Clerk">Subject Clerk</option>
+                        <option value="Branch Officer">Branch Officer</option>
+                        <option value="Final Approval">Final Approval</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>New Password (Leave blank to keep old password)</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter new password if changing">
+                </div>
+                <button type="submit" class="submit-btn"><i class="fa-solid fa-save"></i> Update Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let editIndex = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            editIndex = urlParams.get('index');
+            const users = JSON.parse(localStorage.getItem('systemUsersList')) || [];
+
+            if (editIndex !== null && users[editIndex]) {
+                const user = users[editIndex];
+                document.getElementById('userIndex').value = editIndex;
+                document.getElementById('fullName').value = user.fullName;
+                document.getElementById('nic').value = user.nic;
+                document.getElementById('designation').value = user.designation;
+                document.getElementById('workplace').value = user.workplace;
+                document.getElementById('computerNo').value = user.computerNo;
+                document.getElementById('role').value = user.role;
+                document.getElementById('phone').value = user.phone;
+                document.getElementById('email').value = user.email;
+            }
+        });
+
+        function updateUser(event) {
+            event.preventDefault();
+            let users = JSON.parse(localStorage.getItem('systemUsersList')) || [];
+            
+            if (editIndex !== null && users[editIndex]) {
+                users[editIndex].fullName = document.getElementById('fullName').value;
+                users[editIndex].nic = document.getElementById('nic').value;
+                users[editIndex].designation = document.getElementById('designation').value;
+                users[editIndex].workplace = document.getElementById('workplace').value;
+                users[editIndex].computerNo = document.getElementById('computerNo').value;
+                users[editIndex].role = document.getElementById('role').value;
+                users[editIndex].phone = document.getElementById('phone').value;
+                users[editIndex].email = document.getElementById('email').value;
+                
+                const newPass = document.getElementById('password').value;
+                if (newPass.trim() !== "") {
+                    users[editIndex].password = newPass;
+                }
+
+                localStorage.setItem('systemUsersList', JSON.stringify(users));
+                alert("System user details updated successfully!");
+                window.location.href = 'system-users.html';
+            }
+        }
+    </script>
+</body>
+</html>

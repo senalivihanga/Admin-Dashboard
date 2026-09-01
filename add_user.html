@@ -14,7 +14,7 @@
         .card h2 { color: #222; font-size: 1.6rem; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; font-size: 0.95rem; }
-        .form-group input, .form-group select { width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; }
+        .form-group input, .form-group select { width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; box-sizing: border-box; }
         .form-group input:focus, .form-group select:focus { border-color: #7A1C1C; }
         .btn-save { width: 100%; padding: 12px; background-color: #10b981; color: #ffffff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; }
         .btn-save:hover { background-color: #059669; }
@@ -28,7 +28,7 @@
         <div class="card">
             <h2>Add New Registered User</h2>
             
-            <form action="view_users.html" method="GET">
+            <form onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" name="name" placeholder="Enter Full Name" required>
@@ -54,10 +54,40 @@
                     <input type="tel" name="mobile" placeholder="Enter Mobile Number" required>
                 </div>
 
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirm_password" placeholder="Re-enter Password" required>
+                </div>
+
                 <button type="submit" class="btn-save"><i class="fa-solid fa-user-plus"></i> Save User </button>
             </form>
         </div>
     </div>
+
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault(); // ෆෝම් එක සාමාන්‍ය ආකාරයට සබ්මිට් වීම වළක්වයි
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // මුරපද දෙක සමානදැයි පරීක්ෂා කිරීම
+            if (password !== confirmPassword) {
+                alert("Passwords do not match! Please check again.");
+                document.getElementById('confirmPassword').focus();
+                return;
+            }
+
+            // සියල්ල නිවැරදි නම් view_users.html වෙත යොමු කිරීම (අවශ්‍ය නම් මෙහිදී LocalStorage හෝ Backend වෙත දත්ත යැවීම කළ හැක)
+            alert("User registered successfully!");
+            window.location.href = "view_users.html";
+        }
+    </script>
 
 </body>
 </html>

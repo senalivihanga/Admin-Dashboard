@@ -241,3 +241,8 @@ body {
     background-color: #5c1414;
     transform: translateX(3px);
 }
+
+.assign-quarters-bg {
+    background: linear-gradient(135deg, #fae8ff 0%, #f5d0fe 100%);
+    color: #a855f7;
+}

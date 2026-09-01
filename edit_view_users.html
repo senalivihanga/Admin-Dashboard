@@ -14,7 +14,7 @@
         .card h2 { color: #222; font-size: 1.6rem; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; font-size: 0.95rem; }
-        .form-group input { width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; }
+        .form-group input { width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; box-sizing: border-box; }
         .form-group input:focus { border-color: #7A1C1C; }
         .btn-save { width: 100%; padding: 12px; background-color: #7A1C1C; color: #ffffff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; }
         .btn-save:hover { background-color: #5c1414; }
@@ -28,7 +28,7 @@
         <div class="card">
             <h2>Edit User Information</h2>
             
-            <form action="view_users.html" method="GET">
+            <form onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" name="name" value="A. B. Perera" required>
@@ -54,10 +54,39 @@
                     <input type="tel" name="mobile" value="0771234567" required>
                 </div>
 
+                <div class="form-group">
+                    <label>New Password (Leave blank to keep old password)</label>
+                    <input type="password" id="password" name="password" placeholder="Enter new password if changing">
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="confirmPassword" name="confirm_password" placeholder="Re-enter new password">
+                </div>
+
                 <button type="submit" class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Save & Return to List</button>
             </form>
         </div>
     </div>
+
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // මුරපදය වෙනස් කිරීමට යමක් ටයිප් කර ඇත්නම් පමණක් ඒවා සමානදැයි පරීක්ෂා කිරීම
+            if (password !== "" && password !== confirmPassword) {
+                alert("Passwords do not match! Please check again.");
+                document.getElementById('confirmPassword').focus();
+                return;
+            }
+
+            alert("User details updated successfully!");
+            window.location.href = "view_users.html";
+        }
+    </script>
 
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Quarter Details - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .view-container { max-width: 600px; margin: 40px auto; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
+        .page-title { color: #7A1C1C; margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 1px; font-size: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; }
+        .view-row { display: flex; margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #f8fafc; padding-bottom: 10px; }
+        .view-label { font-weight: 700; width: 200px; color: #475569; }
+        .view-value { color: #1e293b; flex: 1; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .badge-active { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .badge-inactive { background-color: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-container { display: flex; gap: 10px; margin-top: 25px; }
+        .action-link-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 600; text-decoration: none; color: white; }
+        .btn-edit-link { background-color: #f59e0b; }
+        .btn-edit-link:hover { background-color: #d97706; }
+        .btn-back-link { background-color: #64748b; }
+        .btn-back-link:hover { background-color: #475569; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 40px auto 0 auto; padding: 0 20px;">
+        <a href="quarters-list.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Quarters List</a>
+    </div>
+
+    <div class="view-container">
+        <h2 class="page-title"><i class="fa-solid fa-circle-info"></i> Quarter Detailed View</h2>
+        
+        <div id="quarterDetailsBody">
+            <!-- Dynamic data will load here -->
+        </div>
+
+        <div class="btn-container" id="actionButtonsContainer">
+            <!-- Dynamic action buttons -->
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const quarterId = urlParams.get('id');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const data = JSON.parse(localStorage.getItem('quartersData')) || [];
+            
+            if (quarterId !== null && data[quarterId]) {
+                const item = data[quarterId];
+                const container = document.getElementById('quarterDetailsBody');
+                
+                const electricBadge = item.electric 
+                    ? `<span class="badge badge-active"><i class="fa-solid fa-bolt"></i> Available</span>` 
+                    : `<span class="badge badge-inactive"><i class="fa-solid fa-bolt"></i> Not Available</span>`;
+                
+                const waterBadge = item.water 
+                    ? `<span class="badge badge-active"><i class="fa-solid fa-droplet"></i> Available</span>` 
+                    : `<span class="badge badge-inactive"><i class="fa-solid fa-droplet"></i> Not Available</span>`;
+
+                container.innerHTML = `
+                    <div class="view-row"><div class="view-label">Auto Index ID:</div><div class="view-value">${parseInt(quarterId) + 1}</div></div>
+                    <div class="view-row"><div class="view-label">Quarter No:</div><div class="view-value"><b>${item.quarterNum}</b></div></div>
+                    <div class="view-row"><div class="view-label">Location:</div><div class="view-value">${item.location}</div></div>
+                    <div class="view-row"><div class="view-label">Quarter Name:</div><div class="view-value">${item.quarterName || 'N/A'}</div></div>
+                    <div class="view-row"><div class="view-label">Address:</div><div class="view-value">${item.address || 'N/A'}</div></div>
+                    <div class="view-row"><div class="view-label">Quarter Type:</div><div class="view-value">${item.quarterType}</div></div>
+                    <div class="view-row"><div class="view-label">Assessment Rent:</div><div class="view-value"><b>Rs. ${item.assessmentRent || '0.00'}</b></div></div>
+                    <div class="view-row"><div class="view-label">Status:</div><div class="view-value">${item.status}</div></div>
+                    <div class="view-row"><div class="view-label">Electricity Facility:</div><div class="view-value">${electricBadge}</div></div>
+                    <div class="view-row"><div class="view-label">Water Facility:</div><div class="view-value">${waterBadge}</div></div>
+                `;
+
+                document.getElementById('actionButtonsContainer').innerHTML = `
+                    <a href="edit-quarter.html?id=${quarterId}" class="action-link-btn btn-edit-link"><i class="fa-solid fa-pen-to-square"></i> Edit Record</a>
+                    <a href="quarters-list.html" class="action-link-btn btn-back-link"><i class="fa-solid fa-list"></i> Back to List</a>
+                `;
+            } else {
+                document.getElementById('quarterDetailsBody').innerHTML = `<p style="text-align: center; color: #dc2626; font-weight: 600;">Record not found or invalid ID!</p>`;
+                document.getElementById('actionButtonsContainer').innerHTML = `<a href="quarters-list.html" class="action-link-btn btn-back-link" style="width: 100%;">Back to List</a>`;
+            }
+        });
+    </script>
+</body>
+</html>

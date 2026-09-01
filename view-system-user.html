@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View System User Details - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .details-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
+        .detail-row { display: flex; border-bottom: 1px solid #f1f5f9; padding: 12px 0; }
+        .detail-label { font-weight: 600; width: 40%; color: #475569; }
+        .detail-value { width: 60%; color: #1e293b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="system-users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to System Users List</a>
+        <h2 class="page-title">System User Profile Details</h2>
+
+        <div class="details-card" id="detailsCard">
+            <!-- Dynamic Data -->
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const index = urlParams.get('index');
+            const users = JSON.parse(localStorage.getItem('systemUsersList')) || [];
+
+            if (index !== null && users[index]) {
+                const user = users[index];
+                const card = document.getElementById('detailsCard');
+                card.innerHTML = `
+                    <div class="detail-row"><div class="detail-label">Full Name</div><div class="detail-value">${user.fullName}</div></div>
+                    <div class="detail-row"><div class="detail-label">NIC</div><div class="detail-value">${user.nic}</div></div>
+                    <div class="detail-row"><div class="detail-label">Designation</div><div class="detail-value">${user.designation}</div></div>
+                    <div class="detail-row"><div class="detail-label">Current Workplace</div><div class="detail-value">${user.workplace}</div></div>
+                    <div class="detail-row"><div class="detail-label">Computer No.</div><div class="detail-value">${user.computerNo}</div></div>
+                    <div class="detail-row"><div class="detail-label">System Role</div><div class="detail-value">${user.role}</div></div>
+                    <div class="detail-row"><div class="detail-label">Phone Number</div><div class="detail-value">${user.phone}</div></div>
+                    <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${user.email}</div></div>
+                `;
+            } else {
+                document.getElementById('detailsCard').innerHTML = `<p style="text-align:center; color:red;">System User not found!</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
