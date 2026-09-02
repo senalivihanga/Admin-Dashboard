@@ -10,12 +10,17 @@
         .container { max-width: 1400px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
-        .top-action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .search-section { display: flex; gap: 10px; }
-        .search-input { padding: 10px 15px; width: 300px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; outline: none; }
-        .search-input:focus { border-color: #7A1C1C; }
+        .top-action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        
+        /* Search Section Styling */
+        .search-section { display: flex; gap: 10px; flex-grow: 1; max-width: 450px; }
+        .search-input { flex-grow: 1; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 0.95rem; }
+        .btn-search { background-color: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
+        .btn-search:hover { background-color: #1d4ed8; }
+
         .add-btn { background-color: #16a34a; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
         .add-btn:hover { background-color: #15803d; }
+        
         .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow-x: auto; }
         .user-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1200px; }
         .user-table th, .user-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
@@ -49,6 +54,7 @@
         <div class="top-action-bar">
             <div class="search-section">
                 <input type="text" class="search-input" id="searchInput" placeholder="Search by NIC..." onkeyup="filterTable()">
+                <button class="btn-search" onclick="filterTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
             <a href="add-system-user.html" class="add-btn"><i class="fa-solid fa-user-plus"></i> Add System User</a>
         </div>
@@ -175,14 +181,18 @@
         });
 
         function filterTable() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
+            const input = document.getElementById('searchInput').value.toLowerCase().trim();
             const rows = document.querySelectorAll('#userTableBody tr');
+            
             rows.forEach(row => {
-                const nicText = row.cells[2].innerText.toLowerCase();
-                if (nicText.includes(input)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
+                const nicCell = row.cells[2]; // NIC තීරුව (Index 2)
+                if (nicCell) {
+                    const nicText = nicCell.innerText.toLowerCase();
+                    if (nicText.includes(input)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
                 }
             });
         }

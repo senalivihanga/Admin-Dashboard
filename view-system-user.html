@@ -14,6 +14,7 @@
         .detail-row { display: flex; border-bottom: 1px solid #f1f5f9; padding: 12px 0; }
         .detail-label { font-weight: 600; width: 40%; color: #475569; }
         .detail-value { width: 60%; color: #1e293b; }
+        
     </style>
 </head>
 <body>
@@ -21,33 +22,53 @@
     <div class="container">
         <a href="system-users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to System Users List</a>
         <h2 class="page-title">System User Profile Details</h2>
-
+        
         <div class="details-card" id="detailsCard">
-            <!-- Dynamic Data -->
-        </div>
+            </div>
     </div>
 
     <script>
+        const defaultSystemUsers = [
+            {
+                fullName: "A. B. Perera",
+                nic: "199812345678",
+                designation: "Clerk",
+                workplace: "Colombo Fort",
+                computerNo: "COMP-405",
+                role: "Admin",
+                phone: "0771234567",
+                email: "abperera@railway.gov.lk"
+            }
+        ];
+
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const index = urlParams.get('index');
-            const users = JSON.parse(localStorage.getItem('systemUsersList')) || [];
+            // 'index' හෝ 'id' යන ක්‍රම දෙකම සාර්ථකව ලබා ගැනීමට පහත පරිදි සකසා ඇත
+            const index = urlParams.get('index') !== null ? urlParams.get('index') : urlParams.get('id');
+            
+            let users = JSON.parse(localStorage.getItem('systemUsersList'));
+            
+            // LocalStorage එක හිස් නම් හෝ දත්ත නැත්නම් default දත්ත පාවිච්චි කරන්න
+            if (!users || users.length === 0) {
+                users = defaultSystemUsers;
+                localStorage.setItem('systemUsersList', JSON.stringify(users));
+            }
 
             if (index !== null && users[index]) {
                 const user = users[index];
                 const card = document.getElementById('detailsCard');
                 card.innerHTML = `
-                    <div class="detail-row"><div class="detail-label">Full Name</div><div class="detail-value">${user.fullName}</div></div>
-                    <div class="detail-row"><div class="detail-label">NIC</div><div class="detail-value">${user.nic}</div></div>
-                    <div class="detail-row"><div class="detail-label">Designation</div><div class="detail-value">${user.designation}</div></div>
-                    <div class="detail-row"><div class="detail-label">Current Workplace</div><div class="detail-value">${user.workplace}</div></div>
-                    <div class="detail-row"><div class="detail-label">Computer No.</div><div class="detail-value">${user.computerNo}</div></div>
-                    <div class="detail-row"><div class="detail-label">System Role</div><div class="detail-value">${user.role}</div></div>
-                    <div class="detail-row"><div class="detail-label">Phone Number</div><div class="detail-value">${user.phone}</div></div>
-                    <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${user.email}</div></div>
+                    <div class="detail-row"><div class="detail-label">Full Name</div><div class="detail-value">${user.fullName || 'N/A'}</div></div>
+                    <div class="detail-row"><div class="detail-label">NIC</div><div class="detail-value">${user.nic || 'N/A'}</div></div>
+                    <div class="detail-row"><div class="detail-label">Designation</div><div class="detail-value">${user.designation || 'N/A'}</div></div>
+                    <div class="detail-row"><div class="detail-label">Current Workplace</div><div class="detail-value">${user.workplace || 'N/A'}</div></div>
+                    <div class="detail-row"><div class="detail-label">Computer No.</div><div class="detail-value">${user.computerNo || 'N/A'}</div></div>
+                    <div class="detail-row"><div class="detail-label">System Role</div><div class="detail-value">${user.role || 'N/A'}</div></div>
+                    <div class="detail-row"><div class="detail-label">Phone Number</div><div class="detail-value">${user.phone || 'N/A'}</div></div>
+                    <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${user.email || 'N/A'}</div></div>
                 `;
             } else {
-                document.getElementById('detailsCard').innerHTML = `<p style="text-align:center; color:red;">System User not found!</p>`;
+                document.getElementById('detailsCard').innerHTML = `<p style="text-align:center; color:red; font-weight:600;">System User not found!</p>`;
             }
         });
     </script>
