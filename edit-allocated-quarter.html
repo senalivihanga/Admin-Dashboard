@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Allocated Quarter - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .form-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #334155; font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; color: #1e293b; outline: none; transition: border-color 0.2s; }
+        .form-control:focus { border-color: #7A1C1C; }
+        .form-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 30px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; font-size: 0.95rem; text-decoration: none; }
+        .btn-submit { background-color: #f59e0b; color: white; }
+        .btn-submit:hover { background-color: #d97706; }
+        .btn-cancel { background-color: #64748b; color: white; }
+        .btn-cancel:hover { background-color: #475569; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="allocated-quarters.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to List</a>
+        <h2 class="page-title">Edit Allocation Details</h2>
+
+        <div class="form-card">
+            <form id="editForm" onsubmit="updateAllocation(event)">
+                <div class="form-group">
+                    <label for="nic">NIC</label>
+                    <input type="text" id="nic" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="computerNo">Computer No.</label>
+                    <input type="text" id="computerNo" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="quarterType">Quarter Type</label>
+                    <input type="text" id="quarterType" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="residentName">Resident Name</label>
+                    <input type="text" id="residentName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="designation">Designation</label>
+                    <input type="text" id="designation" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="workplace">Workplace</label>
+                    <input type="text" id="workplace" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="allocatedDate">Allocated Date</label>
+                    <input type="date" id="allocatedDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="other">Other</label>
+                    <textarea id="other" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <a href="allocated-quarters.html" class="btn btn-cancel">Cancel</a>
+                    <button type="submit" class="btn btn-submit">Update Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    const defaultAllocatedData = [
+        {
+            nic: "199812345678",
+            computerNo: "CMP-101",
+            quarterType: "Grade II",
+            residentName: "A. B. Perera",
+            designation: "Clerk",
+            workplace: "Colombo Fort",
+            allocatedDate: "2026-01-10",
+            other: "None"
+        }
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const index = urlParams.get('id');
+    let data = [];
+
+    window.addEventListener('DOMContentLoaded', () => {
+        data = JSON.parse(localStorage.getItem('allocatedQuartersData'));
+        if (!data || data.length === 0) {
+            data = defaultAllocatedData;
+            localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
+        }
+
+        if (index !== null && data[index]) {
+            const item = data[index];
+            document.getElementById('nic').value = item.nic;
+            document.getElementById('computerNo').value = item.computerNo;
+            document.getElementById('quarterType').value = item.quarterType;
+            document.getElementById('residentName').value = item.residentName;
+            document.getElementById('designation').value = item.designation;
+            document.getElementById('workplace').value = item.workplace;
+            document.getElementById('allocatedDate').value = item.allocatedDate;
+            document.getElementById('other').value = item.other;
+        } else {
+            alert('Record not found!');
+            window.location.href = 'allocated-quarters.html';
+        }
+    });
+
+    function updateAllocation(event) {
+        event.preventDefault();
+
+        data[index] = {
+            nic: document.getElementById('nic').value,
+            computerNo: document.getElementById('computerNo').value,
+            quarterType: document.getElementById('quarterType').value,
+            residentName: document.getElementById('residentName').value,
+            designation: document.getElementById('designation').value,
+            workplace: document.getElementById('workplace').value,
+            allocatedDate: document.getElementById('allocatedDate').value,
+            other: document.getElementById('other').value || 'None'
+        };
+
+        localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
+        window.location.href = 'allocated-quarters.html';
+    }
+</script>
+</body>
+</html>

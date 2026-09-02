@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Allocated Quarter - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .view-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
+        .view-row { display: flex; border-bottom: 1px solid #f1f5f9; padding: 12px 0; font-size: 0.95rem; }
+        .view-row:last-child { border-bottom: none; }
+        .view-label { font-weight: 700; width: 220px; color: #475569; }
+        .view-value { color: #1e293b; flex: 1; }
+        .btn-back-list { display: block; width: 100%; text-align: center; background-color: #7A1C1C; color: white; padding: 10px; border-radius: 6px; font-weight: 600; text-decoration: none; margin-top: 25px; }
+        .btn-back-list:hover { background-color: #5c1414; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="allocated-quarters.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to List</a>
+        <h2 class="page-title">Allocation Detailed View</h2>
+
+        <div class="view-card" id="viewCard">
+            <!-- Dynamic Data will load here -->
+        </div>
+
+        <a href="allocated-quarters.html" class="btn-back-list">Back to Table</a>
+    </div>
+
+    <script>
+    const defaultAllocatedData = [
+        {
+            nic: "199812345678",
+            computerNo: "CMP-101",
+            quarterType: "Grade II",
+            residentName: "A. B. Perera",
+            designation: "Clerk",
+            workplace: "Colombo Fort",
+            allocatedDate: "2026-01-10",
+            other: "None"
+        }
+    ];
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const index = urlParams.get('id');
+        
+        // localStorage එකේ දත්ත නැත්නම් හෝ හිස් නම් default data එක පාවිච්චි කරන්න
+        let data = JSON.parse(localStorage.getItem('allocatedQuartersData'));
+        if (!data || data.length === 0) {
+            data = defaultAllocatedData;
+            localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
+        }
+
+        if (index !== null && data[index]) {
+            const item = data[index];
+            const card = document.getElementById('viewCard');
+            card.innerHTML = `
+                <div class="view-row"><div class="view-label">Auto ID:</div><div class="view-value">${parseInt(index) + 1}</div></div>
+                <div class="view-row"><div class="view-label">NIC:</div><div class="view-value">${item.nic}</div></div>
+                <div class="view-row"><div class="view-label">Computer No:</div><div class="view-value"><b>${item.computerNo}</b></div></div>
+                <div class="view-row"><div class="view-label">Quarter Type:</div><div class="view-value">${item.quarterType}</div></div>
+                <div class="view-row"><div class="view-label">Resident Name:</div><div class="view-value">${item.residentName}</div></div>
+                <div class="view-row"><div class="view-label">Designation:</div><div class="view-value">${item.designation}</div></div>
+                <div class="view-row"><div class="view-label">Workplace:</div><div class="view-value">${item.workplace}</div></div>
+                <div class="view-row"><div class="view-label">Allocated Date:</div><div class="view-value">${item.allocatedDate}</div></div>
+                <div class="view-row"><div class="view-label">Other:</div><div class="view-value">${item.other || 'None'}</div></div>
+            `;
+        } else {
+            document.getElementById('viewCard').innerHTML = `<p style="text-align: center; color: #dc2626; font-weight: 600;">Record not found!</p>`;
+        }
+    });
+</script>
+</body>
+</html>
