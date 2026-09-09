@@ -76,12 +76,36 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const quarterId = urlParams.get('id');
+        const idParam = urlParams.get('id');
+
+        if (idParam === null || !/^\d+$/.test(idParam)) {
+            alert("Invalid record ID!");
+            window.location.href = "quarters-list.html";
+        }
+
+        const id = parseInt(idParam, 10);
 
         window.addEventListener('DOMContentLoaded', () => {
-            const data = JSON.parse(localStorage.getItem('quartersData')) || [];
-            if (quarterId !== null && data[quarterId]) {
-                const item = data[quarterId];
+            let data = JSON.parse(localStorage.getItem('quartersData')) || [];
+            
+            // LocalStorage එකේ ඩේටා නැත්නම් default record එකක් දාලා දෙන්න
+            if (data.length === 0) {
+                data = [{
+                    quarterNum: "Q-01",
+                    location: "Colombo",
+                    quarterName: "Bungalow A",
+                    address: "No. 12, Railway Avenue, Colombo 10",
+                    quarterType: "Bungalows",
+                    assessmentRent: "5500.00",
+                    status: "Under Maintenance",
+                    electric: true,
+                    water: true
+                }];
+                localStorage.setItem('quartersData', JSON.stringify(data));
+            }
+
+            if (data[id]) {
+                const item = data[id];
                 document.getElementById('editQuarterNum').value = item.quarterNum || '';
                 document.getElementById('editLocation').value = item.location || '';
                 document.getElementById('editQuarterName').value = item.quarterName || '';
@@ -101,8 +125,8 @@
             e.preventDefault();
             const data = JSON.parse(localStorage.getItem('quartersData')) || [];
             
-            if (quarterId !== null && data[quarterId]) {
-                data[quarterId] = {
+            if (data[id]) {
+                data[id] = {
                     quarterNum: document.getElementById('editQuarterNum').value,
                     location: document.getElementById('editLocation').value,
                     quarterName: document.getElementById('editQuarterName').value,

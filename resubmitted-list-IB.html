@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Approval List - Sri Lanka Railways</title>
+    <title>Application Approval Resubmitted List - Sri Lanka Railways</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,7 +13,7 @@
         }
 
         .approval-container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 30px auto;
             padding: 0 20px;
         }
@@ -33,7 +33,7 @@
 
         .title-underline {
             width: 100%;
-            max-width: 600px;
+            max-width: 750px;
             height: 4px;
             background: linear-gradient(to right, #7A1C1C, #e11d48);
             margin: 0 auto;
@@ -88,12 +88,14 @@
             border-collapse: collapse;
             text-align: left;
             font-size: 0.9rem;
+            min-width: 1250px;
         }
 
         th, td {
             padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         th {
@@ -107,6 +109,19 @@
 
         tr:hover {
             background-color: #f1f5f9;
+        }
+
+        .reason-badge {
+            background-color: #fef2f2;
+            color: #dc2626;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #fecaca;
+            display: inline-block;
+            max-width: 220px;
+            text-align: left;
         }
 
         .btn-view {
@@ -176,6 +191,7 @@
             display: flex;
             gap: 6px;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
@@ -243,7 +259,7 @@
     <main class="approval-container">
         <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Immediate Boss Dashboard</a>
         <div class="approval-header">
-            <h2>Application Approval List</h2>
+            <h2>Application Approval Resubmitted List</h2>
             <div class="title-underline"></div>
         </div>
 
@@ -262,6 +278,7 @@
                         <th>Computer Number</th>
                         <th>Name</th>
                         <th>Designation</th>
+                        <th>Previous Rejection Reason</th>
                         <th>View Application</th>
                         <th>Action</th>
                     </tr>
@@ -274,6 +291,9 @@
                         <td>COM-101</td>
                         <td>A. B. Perera</td>
                         <td>Station Master</td>
+                        <td>
+                            <span class="reason-badge">Missing required income proof document signature.</span>
+                        </td>
                         <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
                         <td>
                             <div class="action-group">
@@ -290,7 +310,10 @@
                         <td>COM-102</td>
                         <td>K. D. Silva</td>
                         <td>Signal Inspector</td>
-                         <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
+                        <td>
+                            <span class="reason-badge">Incorrect workplace address specified in section 3.</span>
+                        </td>
+                        <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
                         <td>
                             <div class="action-group">
                                 <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
@@ -339,10 +362,9 @@
             }, 5000);
         }
 
-        // Fix: Smoothly remove row from table when Approved
         function handleApprove(button) {
             const row = button.closest('tr');
-            showSystemMessage("Application has been successfully approved and removed from the pending list.", "success");
+            showSystemMessage("Resubmitted application has been successfully approved.", "success");
             
             row.classList.add('fade-out');
             setTimeout(() => {
@@ -362,7 +384,6 @@
             currentRowTarget = null;
         }
 
-        // Fix: Smoothly remove row from table when Rejected
         function confirmRejection() {
             const reason = document.getElementById('rejectionReasonInput').value.trim();
             if (!reason) {
@@ -370,7 +391,7 @@
                 return;
             }
             
-            showSystemMessage("Application rejected successfully. Reason recorded in system log.", "error");
+            showSystemMessage("Application rejected successfully. New reason recorded in system log.", "error");
             closeRejectModal();
 
             if (currentRowTarget) {
@@ -385,13 +406,13 @@
 
         function openEditApprovalModal(button) {
             currentRowTarget = button.closest('tr');
-            showSystemMessage("Edit mode active for this application status record.", "success");
+            showSystemMessage("Edit mode active for this resubmitted application status record.", "success");
         }
 
         function checkEmptyTable() {
             const tbody = document.getElementById('tableBody');
             if (tbody.children.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #64748b; padding: 25px;">No pending applications available.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #64748b; padding: 25px;">No resubmitted applications available.</td></tr>`;
             }
         }
     </script>

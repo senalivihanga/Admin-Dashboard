@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Approval List - Sri Lanka Railways</title>
+    <title>Application Approval Resubmitted List - Sri Lanka Railways</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,7 +13,7 @@
         }
 
         .approval-container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 30px auto;
             padding: 0 20px;
         }
@@ -31,10 +31,9 @@
             letter-spacing: 1px;
         }
 
-        /* Full width underline for header */
         .title-underline {
             width: 100%;
-            max-width: 500px;
+            max-width: 750px;
             height: 4px;
             background: linear-gradient(to right, #7A1C1C, #e11d48);
             margin: 0 auto;
@@ -55,7 +54,6 @@
             text-decoration: underline;
         }
 
-        /* System Custom Alert Box instead of Browser alerts */
         .system-alert {
             background-color: #fef2f2;
             color: #991b1b;
@@ -76,7 +74,6 @@
             border-color: #bbf7d0;
         }
 
-        /* Table Styling */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -91,11 +88,14 @@
             border-collapse: collapse;
             text-align: left;
             font-size: 0.9rem;
+            min-width: 1250px;
         }
 
         th, td {
             padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
         }
 
         th {
@@ -111,7 +111,19 @@
             background-color: #f1f5f9;
         }
 
-        /* View Button with Symbol and Word */
+        .reason-badge {
+            background-color: #fef2f2;
+            color: #dc2626;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #fecaca;
+            display: inline-block;
+            max-width: 220px;
+            text-align: left;
+        }
+
         .btn-view {
             background-color: #3b82f6;
             color: white;
@@ -179,10 +191,10 @@
             display: flex;
             gap: 6px;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
-        /* Modal Overlay for Rejection and Edit Confirmations */
         .modal {
             display: none;
             position: fixed;
@@ -210,13 +222,6 @@
             font-size: 1.2rem;
         }
 
-        .modal-content p {
-            color: #334155;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
         .modal-content textarea {
             width: 100%;
             height: 100px;
@@ -242,40 +247,22 @@
             cursor: pointer;
         }
 
-        .btn-confirm-action {
-            background-color: #f59e0b;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .btn-confirm-action:hover {
-            background-color: #d97706;
-        }
-
-        /* Block printing via CSS */
-        @media print {
-            body {
-                display: none !important;
-            }
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 0.4s ease;
         }
     </style>
 </head>
 <body>
 
     <main class="approval-container">
-        <!-- Connected back to Immediate Boss Dashboard -->
-        <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Immediate Boss Dashboard</a>
-        
+        <a href="PF.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Personal File Dashboard</a>
         <div class="approval-header">
-            <h2>Application Approval List</h2>
+            <h2>Application Approval Resubmitted List</h2>
             <div class="title-underline"></div>
         </div>
 
-        <!-- System Message Notification Area -->
         <div id="systemAlert" class="system-alert">
             <i id="alertIcon" class="fa-solid fa-circle-check"></i> 
             <span id="alertMessageText">System message goes here...</span>
@@ -291,19 +278,22 @@
                         <th>Computer Number</th>
                         <th>Name</th>
                         <th>Designation</th>
+                        <th>Previous Rejection Reason</th>
                         <th>View Application</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Sample Data Rows -->
-                    <tr>
+                    <tr id="row-1">
                         <td>1</td>
                         <td>APP-2026-001</td>
                         <td>981234567V</td>
                         <td>COM-101</td>
                         <td>A. B. Perera</td>
                         <td>Station Master</td>
+                        <td>
+                            <span class="reason-badge">Missing required income proof document signature.</span>
+                        </td>
                         <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
                         <td>
                             <div class="action-group">
@@ -313,14 +303,17 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="row-2">
                         <td>2</td>
                         <td>APP-2026-002</td>
                         <td>957891234V</td>
                         <td>COM-102</td>
                         <td>K. D. Silva</td>
                         <td>Signal Inspector</td>
-                        <td><a href="view-application-details.html?id=2" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
+                        <td>
+                            <span class="reason-badge">Incorrect workplace address specified in section 3.</span>
+                        </td>
+                        <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
                         <td>
                             <div class="action-group">
                                 <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
@@ -334,7 +327,6 @@
         </div>
     </main>
 
-    <!-- Rejection Reason Modal -->
     <div id="rejectModal" class="modal">
         <div class="modal-content">
             <h3>Provide Rejection Reason</h3>
@@ -346,22 +338,9 @@
         </div>
     </div>
 
-    <!-- Edit Approval Confirmation Modal (Are You Sure prompt) -->
-    <div id="editApprovalModal" class="modal">
-        <div class="modal-content">
-            <h3>Modify Application Status</h3>
-            <p id="editApprovalPromptText">Are you sure you want to change this decision? </p>
-            <div class="modal-buttons">
-                <button type="button" class="btn-cancel" onclick="closeEditApprovalModal()">Cancel</button>
-                <button type="button" class="btn-confirm-action" onclick="confirmEditApproval()">Yes, Change Status</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         let currentRowTarget = null;
 
-        // System message display function
         function showSystemMessage(message, type = 'success') {
             const alertBox = document.getElementById('systemAlert');
             const alertText = document.getElementById('alertMessageText');
@@ -378,31 +357,20 @@
             }
 
             alertBox.style.display = 'flex';
-            
-            // Auto hide after 5 seconds
             setTimeout(() => {
                 alertBox.style.display = 'none';
             }, 5000);
         }
 
         function handleApprove(button) {
-            showSystemMessage("Application has been successfully approved by the system.", "success");
-        }
-
-        // Open Edit Approval confirmation modal ("Are you sure..." check for status correction)
-        function openEditApprovalModal(button) {
-            currentRowTarget = button.closest('tr');
-            document.getElementById('editApprovalModal').style.display = 'flex';
-        }
-
-        function closeEditApprovalModal() {
-            document.getElementById('editApprovalModal').style.display = 'none';
-            currentRowTarget = null;
-        }
-
-        function confirmEditApproval() {
-            showSystemMessage("System Auto-Message: Application decision status has been successfully corrected/updated.", "success");
-            closeEditApprovalModal();
+            const row = button.closest('tr');
+            showSystemMessage("Resubmitted application has been successfully approved.", "success");
+            
+            row.classList.add('fade-out');
+            setTimeout(() => {
+                row.remove();
+                checkEmptyTable();
+            }, 400);
         }
 
         function openRejectModal(button) {
@@ -422,17 +390,31 @@
                 showSystemMessage("Error: Please provide a valid rejection reason.", "error");
                 return;
             }
-            showSystemMessage("Application rejected successfully. Reason recorded in system log.", "error");
+            
+            showSystemMessage("Application rejected successfully. New reason recorded in system log.", "error");
             closeRejectModal();
+
+            if (currentRowTarget) {
+                currentRowTarget.classList.add('fade-out');
+                setTimeout(() => {
+                    currentRowTarget.remove();
+                    checkEmptyTable();
+                    currentRowTarget = null;
+                }, 400);
+            }
         }
 
-        // Security restriction block for printing shortcuts
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
-                e.preventDefault();
-                showSystemMessage("Access Restricted: Printing applications directly is disabled for security compliance.", "error");
+        function openEditApprovalModal(button) {
+            currentRowTarget = button.closest('tr');
+            showSystemMessage("Edit mode active for this resubmitted application status record.", "success");
+        }
+
+        function checkEmptyTable() {
+            const tbody = document.getElementById('tableBody');
+            if (tbody.children.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #64748b; padding: 25px;">No resubmitted applications available.</td></tr>`;
             }
-        });
+        }
     </script>
 </body>
 </html>

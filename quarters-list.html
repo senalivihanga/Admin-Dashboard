@@ -18,10 +18,20 @@
         .maint-page-btn:hover { background-color: #1d4ed8; }
         .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow-x: auto; position: relative; }
         .quarters-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1300px; }
-        .quarters-table th, .quarters-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
+        
+        /* Updated all table cells (headers and data) to center alignment */
+        .quarters-table th, .quarters-table td { 
+            padding: 12px 10px; 
+            border: 1px solid #cbd5e1; 
+            vertical-align: middle; 
+            font-size: 0.85rem; 
+            text-align: center; 
+        }
+        
         .quarters-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
         .quarters-table td { color: #334155; }
-        .quarters-table td:nth-child(4), .quarters-table td:nth-child(5) { text-align: left; } 
+        
+        /* Removed previous left-alignment overrides for columns 4 and 5 so everything centers uniformly */
         
         .facility-container { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
