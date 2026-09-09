@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Quarters Management - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 25px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        
+        /* Dashboard Tiles Grid */
+        .tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; justify-content: center; }
+        .tile-card { background: #ffffff; padding: 40px 30px; border-radius: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.06); border-top: 6px solid #7A1C1C; text-align: center; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .tile-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .tile-icon { font-size: 3rem; color: #7A1C1C; margin-bottom: 10px; }
+        .tile-title { color: #1e293b; font-size: 1.4rem; font-weight: 700; margin: 0; text-transform: uppercase; }
+        .tile-desc { color: #64748b; font-size: 0.95rem; line-height: 1.5; margin: 0; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Subject Clerk Dashboard</a>
+        <h2 class="page-title">Assign Quarters Management</h2>
+
+        <div class="tiles-grid">
+            <!-- Tile 1: Waiting Lists -->
+            <a href="waiting-list-SC.html" class="tile-card">
+                <div class="tile-icon"><i class="fa-solid fa-list-check"></i></div>
+                <h3 class="tile-title">Waiting Lists</h3>
+                <p class="tile-desc">View all applicant waiting lists including General, Guard, Station Master, Controller, and Deputy Superintendent Colombo lists.</p>
+            </a>
+
+            <!-- Tile 2: Available Quarters -->
+            <a href="available-quarters-SC.html" class="tile-card">
+                <div class="tile-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                <h3 class="tile-title">Available Quarters</h3>
+                <p class="tile-desc">Manage and view all available quarters, their conditions, station locations, and status details.</p>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

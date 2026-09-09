@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Inquiries & Complaints - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1350px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #5c060d; text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: color 0.2s; }
+        .back-link:hover { color: #4a050a; }
+        .page-title { text-align: center; color: #5c060d; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        
+        .management-section { background: #ffffff; padding: 30px; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid #e5e7eb; border-top: 5px solid #5c060d; margin-bottom: 40px; }
+        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        .section-subtitle { color: #111827; font-size: 1.25rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 12px; }
+        .section-subtitle i { width: 40px; height: 40px; border-radius: 0.75rem; background: #5c060d; color: #fcd34d; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+
+        .btn-new-inquiry { display: inline-flex; align-items: center; gap: 8px; background-color: #5c060d; color: #ffffff; hover:background-color: #4a050a; padding: 10px 18px; border-radius: 0.75link; font-weight: 600; font-size: 0.875rem; text-decoration: none; transition: all 0.2s ease; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+        .btn-new-inquiry:hover { background-color: #4a050a; color: #fcd34d; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 950px; }
+        .data-table th, .data-table td { padding: 14px 16px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; font-size: 0.875rem; }
+        .data-table th { background-color: #f9fafb; color: #374151; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
+        .data-table td { color: #4b5563; }
+        .data-table tbody tr { transition: background-color 0.15s ease; }
+        .data-table tbody tr:hover { background-color: #fdf8f8; }
+
+        .badge-issue { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 9999px; font-weight: 600; font-size: 0.75rem; }
+        .issue-water { background-color: #e0f2fe; color: #0369a1; }
+        .issue-electricity { background-color: #fef9c3; color: #a16207; }
+        .issue-maintenance { background-color: #fee2e2; color: #991b1b; }
+        .issue-other { background-color: #f3f4f6; color: #374151; }
+
+        .badge-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 9999px; font-weight: 600; font-size: 0.75rem; }
+        .status-pending { background-color: #fff7ed; color: #c2410c; }
+        .status-progress { background-color: #fef9c3; color: #854d0e; }
+        .status-resolved { background-color: #f0fdf4; color: #15803d; }
+
+        .complaint-text { max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #1f2937; font-weight: 500; }
+        
+        .action-btns { display: flex; gap: 8px; align-items: center; }
+        .btn-view { background-color: #f3f4f6; color: #374151; border: none; padding: 6px 12px; border-radius: 0.5rem; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-view:hover { background-color: #e5e7eb; color: #111827; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Subject Clerk Dashboard</a>
+        <h2 class="page-title">My Inquiries & Complaints</h2>
+
+        <div class="management-section">
+            <div class="section-header-bar">
+                <h3 class="section-subtitle">
+                    <i class="fa-solid fa-file-lines"></i> Submitted Inquiries Overview
+                </h3>
+                <a href="new-complaint.php" class="btn-new-inquiry">
+                    <i class="fa-solid fa-plus"></i> New Complaint
+                </a>
+            </div>
+
+            <div class="table-responsive" style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Related Issue / Subject</th>
+                            <th>Complaints Description</th>
+                            <th>Submitted Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <span class="badge-issue issue-water">
+                                    <i class="fa-solid fa-droplet mr-1.5"></i> Water Supply
+                                </span>
+                            </td>
+                            <td>
+                                <div class="complaint-text" title="Low water pressure during morning hours in the kitchen area.">
+                                    Low water pressure during morning hours in the kitchen area.
+                                </div>
+                            </td>
+                            <td>2026-09-08</td>
+                            <td>
+                                <span class="badge-status status-pending">
+                                    <i class="fa-solid fa-clock text-[10px]"></i> Pending
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-btns">
+                                    <a href="view-complaint.php?id=1" class="btn-view">
+                                        <i class="fa-solid fa-eye text-xs"></i> View
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <span class="badge-issue issue-electricity">
+                                    <i class="fa-solid fa-bolt mr-1.5"></i> Electricity / Light
+                                </span>
+                            </td>
+                            <td>
+                                <div class="complaint-text" title="Main street light pole outside quarter gate is flickering continuously.">
+                                    Main street light pole outside quarter gate is flickering continuously.
+                                </div>
+                            </td>
+                            <td>2026-09-06</td>
+                            <td>
+                                <span class="badge-status status-progress">
+                                    <i class="fa-solid fa-spinner text-[10px] animate-spin"></i> In Progress
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-btns">
+                                    <a href="view-complaint.php?id=2" class="btn-view">
+                                        <i class="fa-solid fa-eye text-xs"></i> View
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <span class="badge-issue issue-maintenance">
+                                    <i class="fa-solid fa-house-chimney-crack mr-1.5"></i> Quarter Maintenance
+                                </span>
+                            </td>
+                            <td>
+                                <div class="complaint-text" title="Bathroom window latch is broken and needs replacement.">
+                                    Bathroom window latch is broken and needs replacement.
+                                </div>
+                            </td>
+                            <td>2026-09-01</td>
+                            <td>
+                                <span class="badge-status status-resolved">
+                                    <i class="fa-solid fa-check text-[10px]"></i> Resolved
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-btns">
+                                    <a href="view-complaint.php?id=3" class="btn-view">
+                                        <i class="fa-solid fa-eye text-xs"></i> View
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

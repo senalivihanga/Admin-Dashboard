@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting Lists - Sri Lanka Railways Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1350px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        
+        .management-section { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; margin-bottom: 40px; }
+        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .section-subtitle { color: #7A1C1C; font-size: 1.4rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        
+        .tab-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        .tab-btn { background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.2s ease; }
+        .tab-btn:hover { background-color: #e2e8f0; }
+        .tab-btn.active { background-color: #7A1C1C; color: white; border-color: #7A1C1C; }
+
+        .table-card-inner { display: none; overflow-x: auto; }
+        .table-card-inner.active-table { display: block; }
+
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 950px; }
+        .data-table th, .data-table td { padding: 10px 8px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
+        .data-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; text-transform: uppercase; font-size: 0.78rem; }
+        .data-table td { color: #334155; }
+        .data-table td:nth-child(4), .data-table td:nth-child(7) { text-align: left; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="assign-quarters-SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Assign Quarters Management</a>
+        <h2 class="page-title">Waiting Lists Portal</h2>
+
+        <div class="management-section" id="waitingListsTile">
+            <div class="section-header-bar">
+                <h3 class="section-subtitle"><i class="fa-solid fa-list-check"></i> Waiting Lists Overview</h3>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="showTable('general', event)">1. General List</button>
+                <button class="tab-btn" onclick="showTable('guard', event)">2. Guard List</button>
+                <button class="tab-btn" onclick="showTable('station_master', event)">3. Station Master List</button>
+                <button class="tab-btn" onclick="showTable('controller', event)">4. Controller List</button>
+                <button class="tab-btn" onclick="showTable('deputy_commissioner', event)">5. Deputy Superintendent (Transportation) Colombo List</button>
+            </div>
+
+            <!-- 1. General List Table -->
+            <div id="general" class="table-card-inner active-table">
+                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">General List</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIC</th>
+                            <th>Computer No.</th>
+                            <th>Applicant's Name</th>
+                            <th>Designation</th>
+                            <th>Housing Type</th>
+                            <th>Workplace</th>
+                            <th>Allocated Date</th>
+                            <th>Allocated House Type</th>
+                            <th>Other</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>199812345678</td>
+                            <td><b>CMP-101</b></td>
+                            <td style="text-align: center;">A. B. Perera</td>
+                            <td>Clerk</td>
+                            <td>Grade II</td>
+                            <td style="text-align: center;">Colombo Fort</td>
+                            <td>2026-01-10</td>
+                            <td>None</td>
+                            <td>None</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 2. Guard List Table -->
+            <div id="guard" class="table-card-inner">
+                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Guard List</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIC</th>
+                            <th>Computer No.</th>
+                            <th>Applicant's Name</th>
+                            <th>Designation</th>
+                            <th>Housing Type</th>
+                            <th>Workplace</th>
+                            <th>Allocated Date</th>
+                            <th>Allocated House Type</th>
+                            <th>Other</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>199287654321</td>
+                            <td><b>CMP-102</b></td>
+                            <td style="text-align: center;">S. K. Silva</td>
+                            <td>Train Guard</td>
+                            <td>Grade III</td>
+                            <td style="text-align: center;">Maradana</td>
+                            <td>2026-02-14</td>
+                            <td>Pending</td>
+                            <td>None</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 3. Station Master List Table -->
+            <div id="station_master" class="table-card-inner">
+                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Station Master List</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIC</th>
+                            <th>Computer No.</th>
+                            <th>Applicant's Name</th>
+                            <th>Designation</th>
+                            <th>Housing Type</th>
+                            <th>Workplace</th>
+                            <th>Allocated Date</th>
+                            <th>Allocated House Type</th>
+                            <th>Other</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>198533445566</td>
+                            <td><b>CMP-103</b></td>
+                            <td style="text-align: center;">M. N. Fernando</td>
+                            <td>Station Master</td>
+                            <td>Grade I</td>
+                            <td style="text-align: center;">Gampaha</td>
+                            <td>2026-03-01</td>
+                            <td>Urgent</td>
+                            <td>None</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 4. Controller List Table -->
+            <div id="controller" class="table-card-inner">
+                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Controller List</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIC</th>
+                            <th>Computer No.</th>
+                            <th>Applicant's Name</th>
+                            <th>Designation</th>
+                            <th>Housing Type</th>
+                            <th>Workplace</th>
+                            <th>Allocated Date</th>
+                            <th>Allocated House Type</th>
+                            <th>Other</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>199022334455</td>
+                            <td><b>CMP-104</b></td>
+                            <td style="text-align: center;">T. G. Rathnayake</td>
+                            <td>Controller</td>
+                            <td>Grade I</td>
+                            <td style="text-align: center;">HQ Colombo</td>
+                            <td>2026-03-10</td>
+                            <td>None</td>
+                            <td>None</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 5. Deputy Commissioner List Table -->
+            <div id="deputy_commissioner" class="table-card-inner">
+                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Deputy Superintendent (Transportation) Colombo List</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIC</th>
+                            <th>Computer No.</th>
+                            <th>Applicant's Name</th>
+                            <th>Designation</th>
+                            <th>Housing Type</th>
+                            <th>Workplace</th>
+                            <th>Allocated Date</th>
+                            <th>Allocated House Type</th>
+                            <th>Other</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>198211223344</td>
+                            <td><b>CMP-105</b></td>
+                            <td style="text-align: center;">W. M. D. Wickramasinghe</td>
+                            <td>Deputy Commissioner</td>
+                            <td>Executive</td>
+                            <td style="text-align: center;">Main Office</td>
+                            <td>2026-04-05</td>
+                            <td>Approved</td>
+                            <td>None</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTable(tableId, event) {
+            document.querySelectorAll('.table-card-inner').forEach(card => card.classList.remove('active-table'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tableId).classList.add('active-table');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

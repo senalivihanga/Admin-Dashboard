@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarters Maintenance - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        
+        /* Table Card containing both table and buttons */
+        .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
+        .table-responsive { overflow-x: auto; margin-bottom: 25px; }
+        
+        .maint-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .maint-table th, .maint-table td { padding: 12px 10px; border: 1px solid #cbd5e1; text-align: center; font-size: 0.9rem; }
+        .maint-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
+        .no-data { text-align: center; padding: 20px; color: #64748b; font-style: italic; }
+
+        /* Button Container & Styles inside the card */
+        .btn-container { display: flex; gap: 10px; border-top: 2px solid #f1f5f9; padding-top: 20px; }
+        .action-link-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-weight: 600; text-decoration: none; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-dashboard { background-color: #64748b; }
+        .btn-dashboard:hover { background-color: #475569; }
+        .btn-details { background-color: #7A1C1C; }
+        .btn-details:hover { background-color: #5c1515; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="page-title">Quarters Maintenance Details</h2>
+
+        <div class="table-card">
+            <div class="table-responsive">
+                <table class="maint-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Quarter No.</th>
+                            <th>Quarter Location</th>
+                            <th>Quarter Name</th>
+                            <th>Quarter Type</th>
+                            <th>Last Maintenance Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="maintBody">
+                        <!-- Dynamic Maintenance Rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Navigation Buttons inside the table container border -->
+            <div class="btn-container">
+                <a href="BO.html" class="action-link-btn btn-dashboard"><i class="fa-solid fa-house"></i> Back to BO Dashboard</a>
+                <a href="quarter-details-BO.html" class="action-link-btn btn-details"><i class="fa-solid fa-building"></i> Quarters Details Table</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize Dummy Data if LocalStorage is empty to ensure 'lastMaint' is present
+            if (!localStorage.getItem('quartersData')) {
+                const dummyQuarters = [
+                    {
+                        quarterNum: "Q-101",
+                        location: "Colombo Fort",
+                        quarterName: "Station View Bungalow",
+                        address: "123, Railway Avenue, Colombo 01",
+                        quarterType: "Grade I",
+                        assessmentRent: "15,000.00",
+                        status: "Available",
+                        electric: true,
+                        water: true,
+                        lastMaint: "2026-01-15"
+                    },
+                    {
+                        quarterNum: "Q-102",
+                        location: "Maradana",
+                        quarterName: "Yard Master Quarters",
+                        address: "45, Technical Junction, Maradana",
+                        quarterType: "Grade II",
+                        assessmentRent: "10,000.00",
+                        status: "Under Maintenance",
+                        electric: true,
+                        water: false,
+                        lastMaint: "2026-02-10"
+                    },
+                    {
+                        quarterNum: "Q-103",
+                        location: "Gampaha",
+                        quarterName: "Suburban Quarters",
+                        address: "78, Station Road, Gampaha",
+                        quarterType: "Grade III",
+                        assessmentRent: "7,500.00",
+                        status: "Under Maintenance",
+                        electric: true,
+                        water: true,
+                        lastMaint: "2026-03-05"
+                    }
+                ];
+                localStorage.setItem('quartersData', JSON.stringify(dummyQuarters));
+            }
+
+            loadMaintenanceData();
+        });
+
+        function loadMaintenanceData() {
+            const tbody = document.getElementById('maintBody');
+            tbody.innerHTML = '';
+            
+            const data = JSON.parse(localStorage.getItem('quartersData')) || [];
+            const maintData = data.filter(item => item.status === 'Under Maintenance');
+
+            if (maintData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="no-data">No quarters are currently under maintenance.</td></tr>`;
+                return;
+            }
+
+            maintData.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${item.quarterNum || '-'}</td>
+                    <td>${item.location || '-'}</td>
+                    <td>${item.quarterName || '-'}</td>
+                    <td>${item.quarterType || '-'}</td>
+                    <td><strong>${item.lastMaint || '2026-02-20'}</strong></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>

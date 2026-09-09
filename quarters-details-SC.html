@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarters & Allocations Dashboard - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2.2rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        
+        .tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; justify-content: center; }
+        
+        .dashboard-tile { 
+            background: #ffffff; 
+            padding: 40px 30px; 
+            border-radius: 14px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06); 
+            border-top: 6px solid #7A1C1C; 
+            text-align: center; 
+            text-decoration: none; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dashboard-tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .tile-icon {
+            font-size: 3rem;
+            color: #7A1C1C;
+            margin-bottom: 20px;
+            background: #fdf2f2;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .tile-title {
+            color: #1e293b;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .tile-desc {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Connected to Subject Clerk Dashboard (SC.html) -->
+        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Subject Clerk Dashboard</a>
+        <h2 class="page-title">Quarters & Allocations Management</h2>
+
+        <div class="tiles-grid">
+            <!-- Tile 1: Quarters List Page Link -->
+            <a href="quarter-list-SC.html" class="dashboard-tile">
+                <div class="tile-icon">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <h3 class="tile-title">Quarters List</h3>
+                <p class="tile-desc">View, manage, and print complete details of all railway quarters, locations, and facilities.</p>
+            </a>
+
+            <!-- Tile 2: Allocated Quarters History Page Link -->
+            <a href="quarters-history-SC.html" class="dashboard-tile">
+                <div class="tile-icon">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <h3 class="tile-title">Allocated Quarters History</h3>
+                <p class="tile-desc">View, monitor, and print historical records of quarters allocated to staff members.</p>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
