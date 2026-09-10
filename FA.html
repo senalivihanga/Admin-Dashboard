@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subject Clerk Dashboard - Sri Lanka Railways</title>
+    <title>Final Approval Dashboard - Sri Lanka Railways</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -166,10 +166,10 @@
             cursor: pointer;
         }
 
-        /* Top Row: Amount Cards */
+        /* Top Row: 4 Amount Cards */
         .row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             margin-bottom: 35px;
         }
@@ -199,7 +199,7 @@
         }
 
         .stat-card h3 {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #64748b;
             margin: 0 0 8px 0;
             font-weight: 600;
@@ -225,7 +225,7 @@
 
         .management-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 40px;
         }
@@ -241,7 +241,6 @@
             flex-direction: column;
             gap: 12px;
             transition: all 0.2s ease;
-            position: relative;
         }
 
         .manage-tile:hover {
@@ -291,16 +290,16 @@
         <!-- Dashboard Header -->
         <div class="dashboard-header">
             <div>
-                <h2>Subject Clerk Dashboard</h2>
+                <h2>Final Approval Dashboard</h2>
                 <p style="color: #64748b; margin: 5px 0 0 0;">Sri Lanka Railways - AOT</p>
             </div>
             
             <!-- User Profile with Dropdown Menu -->
             <div class="user-profile-wrapper">
                 <div class="user-profile-badge" onclick="toggleDropdown()">
-                    <div style="width: 35px; height: 35px; background: #7A1C1C; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">SC</div>
+                    <div style="width: 35px; height: 35px; background: #7A1C1C; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">FA</div>
                     <div>
-                        <div style="font-weight: 600; font-size: 0.9rem;">Subject Clerk</div>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Final Approver</div>
                     </div>
                     <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; color: #64748b; margin-left: 5px;"></i>
                 </div>
@@ -313,27 +312,34 @@
             </div>
         </div>
 
-        <!-- Top Row: Statistic Cards -->
+        <!-- Top Row: 4 Amount Cards -->
         <div class="row">
             <!-- Card 1: Total Approval List -->
             <div class="stat-card">
-                <i class="fa-solid fa-folder-open"></i>
+                <i class="fa-solid fa-list-check"></i>
                 <h3>Total Approval List</h3>
-                <div class="stat-count">42</div>
+                <div class="stat-count">24</div>
             </div>
 
             <!-- Card 2: Pending List -->
             <div class="stat-card">
-                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-clock-rotate-left"></i>
                 <h3>Pending List</h3>
-                <div class="stat-count">10</div>
+                <div class="stat-count">08</div>
             </div>
 
-            <!-- Card 3: Approved List -->
+            <!-- Card 3: Approval List -->
             <div class="stat-card">
-                <i class="fa-solid fa-house-chimney"></i>
+                <i class="fa-solid fa-clipboard-check"></i>
                 <h3>Approved List</h3>
-                <div class="stat-count">85</div>
+                <div class="stat-count">12</div>
+            </div>
+
+            <!-- Card 4: Rejected List -->
+            <div class="stat-card">
+                <i class="fa-solid fa-ban"></i>
+                <h3>Rejected List</h3>
+                <div class="stat-count">04</div>
             </div>
         </div>
 
@@ -342,93 +348,53 @@
         
         <div class="management-grid">
             <!-- Tile 1: Application Approval -->
-            <a href="appli-approve-SC.html" class="manage-tile">
+            <a href="appli-approve-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Application Approval</h4>
                     <i class="fa-solid fa-file-shield"></i>
                 </div>
-                <p>Process incoming applications, review applicant details, and advance them through clerical reviews.</p>
+                <p>Process incoming applications, review primary credentials, and execute initial approvals.</p>
                 <span class="tile-link-text">Open Approval Queue <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 2: Approved List -->
-            <a href="approve-list-SC.html" class="manage-tile">
+            <!-- Tile 2: Approve / Reject List with green tick symbol -->
+            <a href="approve-reject-list-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
-                    <h4>Approved List</h4>
+                    <h4>Approved / Rejected List</h4>
                     <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
                 </div>
-                <p>View the comprehensive log and records of all successfully approved applications.</p>
-                <span class="tile-link-text">View Approve List <i class="fa-solid fa-arrow-right"></i></span>
+                <p>Browse through historical records of fully processed, approved, or rejected applications.</p>
+                <span class="tile-link-text">View Records <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 3: Total Request Applications -->
-            <a href="appli-list-SC.html" class="manage-tile">
+            <!-- Tile 3: Application Status -->
+            <a href="status-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
-                    <h4>Total Request Applications</h4>
-                    <i class="fa-solid fa-folder-open" style="color: #6366f1;"></i>
+                    <h4>Application Status</h4>
+                    <i class="fa-solid fa-spinner" style="color: #0284c7;"></i>
                 </div>
-                <p>Access the master archive containing all submitted housing requests and pending files.</p>
-                <span class="tile-link-text">View All Requests <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-
-            <!-- Tile 4: Status -->
-            <a href="status-SC.html" class="manage-tile">
-                <div class="manage-tile-header">
-                    <h4>Status</h4>
-                    <i class="fa-solid fa-chart-line" style="color: #14b8a6;"></i>
-                </div>
-                <p>Track real-time progress, review stages, and active workflow states for all applications.</p>
+                <p>Track real-time progress, stages, and current workflow states of submitted applications.</p>
                 <span class="tile-link-text">Check Status <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 5: Quarters Details -->
-            <a href="quarters-details-SC.html" class="manage-tile">
+            <!-- Tile 4: Waiting Lists -->
+            <a href="waiting-list-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
-                    <h4>Quarters Details</h4>
-                    <i class="fa-solid fa-building-user" style="color: #0284c7;"></i>
+                    <h4>Waiting Lists</h4>
+                    <i class="fa-solid fa-list-ol" style="color: #d97706;"></i>
                 </div>
-                <p>Manage database records of railway quarters, availability status, locations, and housing conditions.</p>
-                <span class="tile-link-text">Manage Quarters <i class="fa-solid fa-arrow-right"></i></span>
+                <p>Manage and review candidates lined up in priority queue sequences for allocation.</p>
+                <span class="tile-link-text">View Waiting List <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 6: Assign Quarters -->
-            <a href="assign-quarters-SC.html" class="manage-tile">
+            <!-- Tile 5: Quarters Allocation -->
+            <a href="quarters-allocation-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
-                    <h4>Assign Quarters</h4>
-                    <i class="fa-solid fa-key" style="color: #d97706;"></i>
+                    <h4>Quarters Allocation</h4>
+                    <i class="fa-solid fa-house-chimney" style="color: #7A1C1C;"></i>
                 </div>
-                <p>Allocate available railway housing units to approved applicants based on seniority and eligibility.</p>
-                <span class="tile-link-text">Assign Quarters <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-
-            <!-- Tile 7: Final Approval Approve List -->
-            <a href="final-Approve-SC.html" class="manage-tile">
-                <div class="manage-tile-header">
-                    <h4>Final Approval Approved List</h4>
-                    <i class="fa-solid fa-award" style="color: #7A1C1C;"></i>
-                </div>
-                <p>Monitor applications that have cleared final departmental boards and completed final approvals.</p>
-                <span class="tile-link-text">View Final Approvals <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-
-            <!-- Tile 8: Inquiries -->
-            <a href="inquiry.html" class="manage-tile">
-                <div class="manage-tile-header">
-                    <h4>Inquiries</h4>
-                    <i class="fa-solid fa-circle-question" style="color: #ec4899;"></i>
-                </div>
-                <p>Review and respond to applicant questions, feedback, and support through the portal.</p>
-                <span class="tile-link-text">View Inquiries <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-
-            <!-- Tile 9: Generate Letter (Newly Added) -->
-            <a href="generate-letter-SC.html" class="manage-tile">
-                <div class="manage-tile-header">
-                    <h4>Generate Letter</h4>
-                    <i class="fa-solid fa-file-pen" style="color: #8b5cf6;"></i>
-                </div>
-                <p>Create, preview, and print official department notification or allocation response letters for applicants.</p>
-                <span class="tile-link-text">Generate Now <i class="fa-solid fa-arrow-right"></i></span>
+                <p>Oversee railway housing unit distributions, assignments, and accommodation availability records.</p>
+                <span class="tile-link-text">Manage Allocations <i class="fa-solid fa-arrow-right"></i></span>
             </a>
         </div>
     </div>
@@ -438,7 +404,7 @@
         <div class="custom-modal-content">
             <i class="fa-solid fa-triangle-exclamation"></i>
             <h3>Confirm Logout</h3>
-            <p>Are you sure you want to log out from the Subject Clerk portal?</p>
+            <p>Are you sure you want to log out from the Final Approver portal?</p>
             <div class="modal-action-btns">
                 <button type="button" class="btn-modal-cancel" onclick="closeLogoutModal()">Cancel</button>
                 <button type="button" class="btn-modal-confirm" onclick="executeLogout()">Logout</button>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Request Applications - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container { max-width: 1750px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #5c060d; text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: color 0.2s; }
+        .back-link:hover { color: #4a050a; }
+        .page-title { text-align: center; color: #5c060d; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        
+        .management-section { background: #ffffff; padding: 30px; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid #e5e7eb; border-top: 5px solid #5c060d; margin-bottom: 40px; }
+        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        .section-subtitle { color: #111827; font-size: 1.25rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 12px; }
+        .section-subtitle i { width: 40px; height: 40px; border-radius: 0.75rem; background: #5c060d; color: #fcd34d; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+
+        /* Search Box Styling */
+        .search-action-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .search-box-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-box-wrapper i {
+            position: absolute;
+            left: 12px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .search-input {
+            padding: 9px 14px 9px 36px;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            outline: none;
+            width: 260px;
+            transition: all 0.2s;
+        }
+        .search-input:focus {
+            border-color: #5c060d;
+            box-shadow: 0 0 0 3px rgba(92, 6, 13, 0.1);
+        }
+
+        .data-table { width: 100%; border-collapse: collapse; text-align: center; min-width: 1400px; }
+        .data-table th, .data-table td { padding: 12px 10px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; font-size: 0.82rem; text-align: center; }
+        .data-table th { background-color: #f9fafb; color: #374151; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
+        .data-table td { color: #4b5563; font-weight: normal; }
+        .data-table tbody tr { transition: background-color 0.15s ease; }
+        .data-table tbody tr:hover { background-color: #fdf8f8; }
+
+        .app-no { color: #333333; font-family: monospace; font-weight: 600; }
+        .applicant-nic { font-family: monospace; color: #333333; }
+        .computer-no { font-family: monospace; color: #333333; }
+        
+        .badge-type { color: #333333; }
+
+        /* Status Badge UI Styling */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .status-submit { background-color: #e6f4ea; color: #137333; border: 1px solid #ceead6; }
+        .status-boss { background-color: #fef7e0; color: #b06000; border: 1px solid #fef0cd; }
+        .status-file { background-color: #f1f3f4; color: #5f6368; border: 1px solid #e8eaed; }
+        .status-clerk { background-color: #f1f3f4; color: #5f6368; border: 1px solid #e8eaed; }
+        .status-branch { background-color: #f1f3f4; color: #5f6368; border: 1px solid #e8eaed; }
+        .status-final { background-color: #f1f3f4; color: #5f6368; border: 1px solid #e8eaed; }
+
+        /* No Results Row Styling */
+        #noResultsRow {
+            display: none;
+            text-align: center;
+            color: #64748b;
+            font-weight: 500;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="FA.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Final Approval Dashboard</a>
+        <h2 class="page-title">Total Request Applications Status</h2>
+
+        <div class="management-section">
+            <div class="section-header-bar">
+                <h3 class="section-subtitle">
+                    <i class="fa-solid fa-folder-open"></i> All Requests Overview
+                </h3>
+                
+                <div class="search-action-group">
+                    <!-- Search Input Field -->
+                    <div class="search-box-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search Application No (e.g. 001)..." onkeyup="filterTable()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-x: auto;">
+                <table class="data-table" id="requestsTable">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Application No</th>
+                            <th>Applicant NIC</th>
+                            <th>Computer No</th>
+                            <th>Applicant Name</th>
+                            <th>Designation</th>
+                            <th>Application Submitted Date</th>
+                            <th>Request Quarter Type</th>
+                            <th>Request Date</th>
+                            <th>Current Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><span class="app-no">APP-2026-001</span></td>
+                            <td><span class="applicant-nic">854712093V</span></td>
+                            <td><span class="computer-no">CMP-4021</span></td>
+                            <td>H. M. Gunawardena</td>
+                            <td>Station Master</td>
+                            <td>2026-09-07</td>
+                            <td><span class="badge-type">Grade B Quarters</span></td>
+                            <td>2026-09-06</td>
+                            <td>
+                                <span class="status-badge status-boss">
+                                    <i class="fa-solid fa-clock"></i> 2. Immediate Boss
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><span class="app-no">APP-2026-002</span></td>
+                            <td><span class="applicant-nic">901245678V</span></td>
+                            <td><span class="computer-no">CMP-4189</span></td>
+                            <td>P. R. Jayasinghe</td>
+                            <td>Permanent Way Inspector</td>
+                            <td>2026-09-05</td>
+                            <td><span class="badge-type">Grade A Quarters</span></td>
+                            <td>2026-09-04</td>
+                            <td>
+                                <span class="status-badge status-submit">
+                                    <i class="fa-solid fa-check"></i> 1. Application Submit
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><span class="app-no">APP-2026-003</span></td>
+                            <td><span class="applicant-nic">934512786V</span></td>
+                            <td><span class="computer-no">CMP-5024</span></td>
+                            <td>K. L. Wickramasinghe</td>
+                            <td>Locomotive Driver</td>
+                            <td>2026-08-30</td>
+                            <td><span class="badge-type">Grade C Quarters</span></td>
+                            <td>2026-08-28</td>
+                            <td>
+                                <span class="status-badge status-clerk">
+                                    <i class="fa-solid fa-user-pen"></i> 4. Subject Clerk
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="noResultsRow">No matching application found.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase().trim();
+            const table = document.getElementById('requestsTable');
+            const tr = table.getElementsByTagName('tr');
+            const noResults = document.getElementById('noResultsRow');
+            let visibleCount = 0;
+
+            // Loop through all table rows (excluding the header)
+            for (let i = 1; i < tr.length; i++) {
+                const tdAppNo = tr[i].getElementsByTagName('td')[1]; // Application No column
+                if (tdAppNo) {
+                    const txtValue = tdAppNo.textContent || tdAppNo.innerText;
+                    // Check if application number matches search text
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        visibleCount++;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+            // Show or hide "No matching application found" message
+            if (visibleCount === 0) {
+                noResults.style.display = "block";
+            } else {
+                noResults.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
