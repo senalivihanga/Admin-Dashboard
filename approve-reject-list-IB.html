@@ -20,7 +20,7 @@
 
         .approval-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .approval-container h2 {
@@ -29,11 +29,9 @@
             margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-decoration: underline; /* Underlined full title as requested */
+            text-decoration: underline;
             text-underline-offset: 6px;
         }
-
-        /* Removed the extra gradient line below title to avoid double lines */
 
         .back-link {
             display: inline-flex;
@@ -49,12 +47,77 @@
             text-decoration: underline;
         }
 
-        /* Top Action Bar with Print Button */
+        /* Tab Switcher Buttons */
+        .tab-buttons-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background-color: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background-color: #7A1C1C;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(122, 28, 28, 0.2);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #cbd5e1;
+        }
+
+        /* Top Action Bar: Search Box and Print Button */
         .top-action-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #ffffff;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 10px 15px 10px 38px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 300px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #7A1C1C;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            color: #64748b;
         }
 
         .btn-print {
@@ -78,12 +141,13 @@
 
         /* Status Badge Styling */
         .badge {
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
         }
 
         .badge-approved {
@@ -109,7 +173,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
+            text-align: center;
             font-size: 0.9rem;
         }
 
@@ -136,20 +200,19 @@
             font-style: italic;
         }
 
-        .no-reason {
-            color: #94a3b8;
-            font-style: italic;
-        }
-
-        /* Print Media Styles - Forces table content, colors, and rejection reasons to appear cleanly when printed */
+        /* Print Media Styles */
         @media print {
             body {
                 background-color: #ffffff !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .back-link, .top-action-bar {
+            .back-link, .top-action-bar, .tab-buttons-bar {
                 display: none !important;
+            }
+            .table-section {
+                display: block !important;
+                margin-bottom: 30px;
             }
             .table-responsive {
                 overflow: visible !important;
@@ -166,89 +229,171 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .badge-approved {
-                background-color: #dcfce7 !important;
-                color: #166534 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .badge-rejected {
-                background-color: #fee2e2 !important;
-                color: #991b1b !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
         }
     </style>
 </head>
 <body>
 
     <main class="approval-container">
-        <!-- Connected back to Immediate Boss Dashboard -->
+        <!-- Back Link to Dashboard -->
         <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Immediate Boss Dashboard</a>
         
         <div class="approval-header">
             <h2>Approved & Rejected Applications Log</h2>
-            <!-- Extra title-underline div removed to fix the double underline issue -->
         </div>
 
+        <!-- Tab Switcher Buttons (Approved / Rejected) -->
+        <div class="tab-buttons-bar">
+            <button type="button" id="approvedTabBtn" class="tab-btn active" onclick="switchTab('approved')">
+                <i class="fa-solid fa-clipboard-check"></i> Approved List
+            </button>
+            <button type="button" id="rejectedTabBtn" class="tab-btn" onclick="switchTab('rejected')">
+                <i class="fa-solid fa-ban"></i> Rejected List
+            </button>
+        </div>
+
+        <!-- Top Action Bar: Search Box and Print Button -->
         <div class="top-action-bar">
-            <p style="color: #64748b; font-weight: 500;">Complete historical record of processed applications with review remarks.</p>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="renderTables()">
+            </div>
             <button type="button" class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Report</button>
         </div>
 
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Application Number</th>
-                        <th>NIC</th>
-                        <th>Computer Number</th>
-                        <th>Name</th>
-                        <th>Designation</th>
-                        <th>Status</th>
-                        <th>Remarks / Reason</th>
-                    </tr>
-                </thead>
-                <tbody id="processedTableBody">
-                    <!-- Row 1: Approved (No reason shown) -->
-                    <tr>
-                        <td>1</td>
-                        <td>APP-2026-001</td>
-                        <td>981234567V</td>
-                        <td>COM-101</td>
-                        <td>A. B. Perera</td>
-                        <td>Station Master</td>
-                        <td><span class="badge badge-approved">Approved</span></td>
-                        <td><span class="no-reason">-</span></td>
-                    </tr>
-                    <!-- Row 2: Rejected (Reason shown) -->
-                    <tr>
-                        <td>2</td>
-                        <td>APP-2026-002</td>
-                        <td>957891234V</td>
-                        <td>COM-102</td>
-                        <td>K. D. Silva</td>
-                        <td>Signal Inspector</td>
-                        <td><span class="badge badge-rejected">Rejected</span></td>
-                        <td><span class="reason-text">Incomplete documentation regarding current technical qualifications.</span></td>
-                    </tr>
-                    <!-- Row 3: Approved (No reason shown) -->
-                    <tr>
-                        <td>3</td>
-                        <td>APP-2026-003</td>
-                        <td>923456789V</td>
-                        <td>COM-105</td>
-                        <td>M. N. Fernando</td>
-                        <td>Locomotive Driver</td>
-                        <td><span class="badge badge-approved">Approved</span></td>
-                        <td><span class="no-reason">-</span></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 1. Approved Table Section (from approved-list-IB.html) -->
+        <div id="approvedSection" class="table-section">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Application Number</th>
+                            <th>NIC</th>
+                            <th>Computer Number</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="approvedTableBody">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. Rejected Table Section (from rejected-list-IB.html) -->
+        <div id="rejectedSection" class="table-section" style="display: none;">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Application Number</th>
+                            <th>NIC</th>
+                            <th>Computer Number</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Status</th>
+                            <th>Remarks / Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rejectedTableBody">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 
+    <script>
+        // Combined Data from both approved-list and rejected-list
+        const logData = [
+            { id: 1, appNo: "SLR/AOT/2026/0001", nic: "981234567V", compNo: "101", name: "A. B. Perera", desig: "Station Master", status: "Approved", reason: "-" },
+            { id: 2, appNo: "SLR/AOT/2026/0002", nic: "957891234V", compNo: "102", name: "K. D. Silva", desig: "Signal Inspector", status: "Rejected", reason: "Incomplete documentation regarding current technical qualifications." },
+            { id: 3, appNo: "SLR/AOT/2026/0003", nic: "923456789V", compNo: "105", name: "M. N. Fernando", desig: "Locomotive Driver", status: "Approved", reason: "-" },
+            { id: 4, appNo: "SLR/AOT/2026/0004", nic: "904561238V", compNo: "110", name: "S. K. Jayasundara", desig: "Way Inspector", status: "Rejected", reason: "Does not meet the minimum service requirement period." },
+            { id: 5, appNo: "SLR/AOT/2026/0005", nic: "945612378V", compNo: "112", name: "P. R. Gunawardena", desig: "Telecommunication Tech", status: "Approved", reason: "-" }
+        ];
+
+        function switchTab(tabName) {
+            const approvedSec = document.getElementById('approvedSection');
+            const rejectedSec = document.getElementById('rejectedSection');
+            const approvedBtn = document.getElementById('approvedTabBtn');
+            const rejectedBtn = document.getElementById('rejectedTabBtn');
+
+            if (tabName === 'approved') {
+                approvedSec.style.display = 'block';
+                rejectedSec.style.display = 'none';
+                approvedBtn.classList.add('active');
+                rejectedBtn.classList.remove('active');
+            } else {
+                approvedSec.style.display = 'none';
+                rejectedSec.style.display = 'block';
+                rejectedBtn.classList.add('active');
+                approvedBtn.classList.remove('active');
+            }
+        }
+
+        function renderTables() {
+            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            const approvedTbody = document.getElementById('approvedTableBody');
+            const rejectedTbody = document.getElementById('rejectedTableBody');
+
+            approvedTbody.innerHTML = "";
+            rejectedTbody.innerHTML = "";
+
+            const filteredData = logData.filter(item => {
+                return item.nic.toLowerCase().includes(searchVal) || item.name.toLowerCase().includes(searchVal);
+            });
+
+            const approvedList = filteredData.filter(item => item.status === 'Approved');
+            const rejectedList = filteredData.filter(item => item.status === 'Rejected');
+
+            // Render Approved Table Data
+            if (approvedList.length === 0) {
+                approvedTbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #64748b; padding: 25px;">No approved records found.</td></tr>`;
+            } else {
+                approvedList.forEach((item, index) => {
+                    approvedTbody.innerHTML += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td><strong>${item.appNo}</strong></td>
+                            <td>${item.nic}</td>
+                            <td>${item.compNo}</td>
+                            <td>${item.name}</td>
+                            <td>${item.desig}</td>
+                            <td><span class="badge badge-approved"><i class="fa-solid fa-check" title="Approved"></i></span></td>
+                        </tr>
+                    `;
+                });
+            }
+
+            // Render Rejected Table Data
+            if (rejectedList.length === 0) {
+                rejectedTbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #64748b; padding: 25px;">No rejected records found.</td></tr>`;
+            } else {
+                rejectedList.forEach((item, index) => {
+                    rejectedTbody.innerHTML += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td><strong>${item.appNo}</strong></td>
+                            <td>${item.nic}</td>
+                            <td>${item.compNo}</td>
+                            <td>${item.name}</td>
+                            <td>${item.desig}</td>
+                            <td><span class="badge badge-rejected"><i class="fa-solid fa-xmark" title="Rejected"></i></span></td>
+                            <td><span class="reason-text">${item.reason}</span></td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        window.onload = function() {
+            renderTables();
+        }
+    </script>
 </body>
 </html>

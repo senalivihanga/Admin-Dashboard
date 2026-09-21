@@ -8,37 +8,82 @@
     <!-- FontAwesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
         .approval-container {
-            max-width: 1000px;
-            margin: 40px auto;
+            max-width: 1100px;
+            margin: 20px auto;
             padding: 0 20px;
         }
 
-        /* Header section with underline */
+        /* Header Style as shown in the reference image */
         .approval-header {
-            text-align: center;
-            margin-bottom: 45px;
+            background: linear-gradient(135deg, #7A1C1C 100%, #4a1010 0%);
+            padding: 20px 100px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(122, 28, 28, 0.2);
+            border-bottom: 4px solid #D4AF37;
         }
 
-        .approval-container h2 {
-            font-size: 2rem;
-            color: #7A1C1C;
-            margin-bottom: 10px;
+        /* Left Logo & Title section */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #D4AF37;
+            background: #fff;
+        }
+
+        .header-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-brand {
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            display: inline-block;
+            margin: 0;
         }
 
-        /* Red underline style */
-        .title-underline {
-            width: 400px;
-            height: 4px;
-            background-color: #7A1C1C; /* Changed to Red */
-            margin: 0 auto;
-            border-radius: 2px;
+        .header-subtext {
+            font-size: 0.65rem;
+            color: #D4AF37;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 2px;
         }
 
-        /* Balanced layout using flexbox for 5 tiles (3 top, 2 centered bottom) */
+        /* Center Title */
+        .header-center h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+        }
+
+        /* Balanced layout using flexbox */
         .dashboard-flex-container {
             display: flex;
             flex-direction: column;
@@ -49,79 +94,133 @@
         .row {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             width: 100%;
+            flex-wrap: wrap;
         }
 
+        /* Compact & Clean Tile Size */
         .dash-tile {
             background: #ffffff;
-            border: 2px solid #6495ED;
-            border-radius: 20px;
-            padding: 20px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-            transition: transform 0.2s, box-shadow 0.2s;
             text-decoration: none;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 260px; /* Fixed smaller width for balance */
+            width: 300px;
+            transition: all 0.3s ease;
         }
 
         .dash-tile:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            border-color: #7A1C1C;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: #cbd5e1;
         }
 
-        .dash-tile i {
+        /* Top visual header inside each tile */
+        .card-visual {
+            width: 100%;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .dash-tile i.tile-main-icon {
             font-size: 2rem;
-            color: #7A1C1C;
-            margin-bottom: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .dash-tile:hover i.tile-main-icon {
+            transform: scale(1.1);
+        }
+
+        /* Tile text content area */
+        .card-content {
+            padding: 15px 18px 20px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
         }
 
         .dash-tile h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #1e293b;
-            margin-bottom: 8px;
+            margin: 0 0 6px 0;
             font-weight: 700;
         }
 
         .dash-tile p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #64748b;
-            margin-bottom: 15px;
+            margin: 0 0 15px 0;
             line-height: 1.4;
         }
 
+        /* Button Style */
         .tile-btn {
-            background-color: #7AA8D2;
-            color: #fff;
-            padding: 6px 16px;
-            border-radius: 5px;
+            background-color: #7A1C1C;
+            color: #ffffff;
+            padding: 6px 18px;
+            border-radius: 6px;
             font-weight: 600;
-            font-size: 0.85rem;
-            transition: background-color 0.2s;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            margin-top: auto;
+            box-shadow: 0 2px 8px rgba(122, 28, 28, 0.2);
         }
 
         .dash-tile:hover .tile-btn {
-            background-color: #7A1C1C;
+            background-color: #5d1515;
+            gap: 10px;
         }
 
         .back-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #7A1C1C;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
+            transition: gap 0.2s;
         }
 
         .back-link:hover {
+            gap: 12px;
             text-decoration: underline;
         }
+
+        /* Requested Color Gradients & Icon Colors */
+        /* 1. Immediate Boss (IB) - Purple */
+        .bg-gradient-ib { background: linear-gradient(135deg, rgba(243, 232, 255, 0.95) 0%, rgba(216, 180, 254, 0.5) 100%); }
+        .icon-ib { color: #7e22ce; }
+
+        /* 2. Personal File (PF) - Emerald */
+        .bg-gradient-pf { background: linear-gradient(135deg, rgba(209, 250, 229, 0.95) 0%, rgba(167, 243, 208, 0.5) 100%); }
+        .icon-pf { color: #047857; }
+
+        /* 3. Subject Clerk (SC) - Indigo */
+        .bg-gradient-sc { background: linear-gradient(135deg, rgba(224, 231, 255, 0.95) 0%, rgba(199, 210, 254, 0.5) 100%); }
+        .icon-sc { color: #4338ca; }
+
+        /* 4. Branch Officer (BO) - Amber */
+        .bg-gradient-bo { background: linear-gradient(135deg, rgba(254, 243, 199, 0.95) 0%, rgba(253, 230, 138, 0.5) 100%); }
+        .icon-bo { color: #b45309; }
+
+        /* 5. Final Approval (FA) - Rose */
+        .bg-gradient-fa { background: linear-gradient(135deg, rgba(ffe4e6, 0.95) 0%, rgba(254, 205, 211, 0.5) 100%); background: linear-gradient(135deg, rgba(255, 228, 230, 0.95) 0%, rgba(254, 205, 211, 0.5) 100%); }
+        .icon-fa { color: #be123c; }
     </style>
 </head>
 <body>
@@ -130,55 +229,88 @@
     <main class="approval-container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
-        <div class="approval-header">
-            <h2>Approval Dashboards</h2>
-            <div class="title-underline"></div>
-        </div>
+        <!-- Header Bar without Admin Name -->
+        <header class="approval-header">
+            <div class="header-left">
+                <img src="logo.png" alt="Railway Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/44'">
+                <div class="header-title-group">
+                    <h1 class="header-brand">Sri Lanka Railway</h1>
+                    <span class="header-subtext">Quarter Management System</span>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <h2>Approval Dashboards</h2>
+            </div>
+            
+            <!-- Empty div to balance flex space on the right since Admin Name was removed -->
+            <div style="width: 44px;"></div>
+        </header>
 
         <div class="dashboard-flex-container">
             <!-- Top Row: 3 Tiles -->
             <div class="row">
-                <!-- Tile 1: Immediate Boss -->
+                <!-- Tile 1: Immediate Boss (IB - Purple) -->
                 <a href="IB.html" class="dash-tile">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <h3>Immediate Boss</h3>
-                    <p>Manage and review requests at the immediate supervisor level.</p>
-                    <span class="tile-btn">Open Dashboard</span>
+                    <div class="card-visual bg-gradient-ib">
+                        <i class="fa-solid fa-user-tie tile-main-icon icon-ib"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Immediate Boss</h3>
+                        <p>Manage and review requests at the immediate supervisor level.</p>
+                        <span class="tile-btn">Open <i class="fa-solid fa-arrow-right" style="font-size: 0.7rem;"></i></span>
+                    </div>
                 </a>
 
-                <!-- Tile 2: Personal File -->
+                <!-- Tile 2: Personal File (PF - Emerald) -->
                 <a href="PF.html" class="dash-tile">
-                    <i class="fa-solid fa-folder-open"></i>
-                    <h3>Personal File</h3>
-                    <p>Verify records and documents from employee personal files.</p>
-                    <span class="tile-btn">Open Dashboard</span>
+                    <div class="card-visual bg-gradient-pf">
+                        <i class="fa-solid fa-folder-open tile-main-icon icon-pf"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Personal File</h3>
+                        <p>Verify records and documents from employee personal files.</p>
+                        <span class="tile-btn">Open <i class="fa-solid fa-arrow-right" style="font-size: 0.7rem;"></i></span>
+                    </div>
                 </a>
 
-                <!-- Tile 3: Subject Clerk -->
+                <!-- Tile 3: Subject Clerk (SC - Indigo) -->
                 <a href="SC.html" class="dash-tile">
-                    <i class="fa-solid fa-user-pen"></i>
-                    <h3>Subject Clerk</h3>
-                    <p>Process initial applications and subject-related entries.</p>
-                    <span class="tile-btn">Open Dashboard</span>
+                    <div class="card-visual bg-gradient-sc">
+                        <i class="fa-solid fa-user-pen tile-main-icon icon-sc"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Subject Clerk</h3>
+                        <p>Process initial applications and subject-related entries.</p>
+                        <span class="tile-btn">Open <i class="fa-solid fa-arrow-right" style="font-size: 0.7rem;"></i></span>
+                    </div>
                 </a>
             </div>
 
             <!-- Bottom Row: 2 Tiles (Centered) -->
             <div class="row">
-                <!-- Tile 4: Branch Officer -->
+                <!-- Tile 4: Branch Officer (BO - Amber) -->
                 <a href="BO.html" class="dash-tile">
-                    <i class="fa-solid fa-building-user"></i>
-                    <h3>Branch Officer</h3>
-                    <p>Review and authorize workflows at the branch officer level.</p>
-                    <span class="tile-btn">Open Dashboard</span>
+                    <div class="card-visual bg-gradient-bo">
+                        <i class="fa-solid fa-building-user tile-main-icon icon-bo"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Branch Officer</h3>
+                        <p>Review and authorize workflows at the branch officer level.</p>
+                        <span class="tile-btn">Open <i class="fa-solid fa-arrow-right" style="font-size: 0.7rem;"></i></span>
+                    </div>
                 </a>
 
-                <!-- Tile 5: Final Approval -->
+                <!-- Tile 5: Final Approval (FA - Rose) -->
                 <a href="FA.html" class="dash-tile">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <h3>Final Approval</h3>
-                    <p>Provide final authorization and complete workflow requests.</p>
-                    <span class="tile-btn">Open Dashboard</span>
+                    <div class="card-visual bg-gradient-fa">
+                        <i class="fa-solid fa-circle-check tile-main-icon icon-fa"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Final Approval</h3>
+                        <p>Provide final authorization and complete workflow requests.</p>
+                        <span class="tile-btn">Open <i class="fa-solid fa-arrow-right" style="font-size: 0.7rem;"></i></span>
+                    </div>
                 </a>
             </div>
         </div>

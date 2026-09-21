@@ -20,7 +20,7 @@
 
         .approval-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .approval-container h2 {
@@ -31,7 +31,6 @@
             letter-spacing: 1px;
         }
 
-        /* Full width underline for header */
         .title-underline {
             width: 100%;
             max-width: 500px;
@@ -55,7 +54,39 @@
             text-decoration: underline;
         }
 
-        /* System Custom Alert Box instead of Browser alerts */
+        .top-action-bar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 10px 15px 10px 38px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 320px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #7A1C1C;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            color: #64748b;
+        }
+
         .system-alert {
             background-color: #fef2f2;
             color: #991b1b;
@@ -76,7 +107,6 @@
             border-color: #bbf7d0;
         }
 
-        /* Table Styling */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -89,13 +119,14 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
             font-size: 0.9rem;
         }
 
+        /* Center aligning table headers and cells */
         th, td {
             padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
+            text-align: center !important;
         }
 
         th {
@@ -111,78 +142,41 @@
             background-color: #f1f5f9;
         }
 
-        /* View Button with Symbol and Word */
-        .btn-view {
-            background-color: #3b82f6;
-            color: white;
-            padding: 6px 12px;
+        .btn-view, .btn-approve, .btn-reject, .btn-edit-approval {
+            width: 34px;
+            height: 34px;
             border-radius: 6px;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            color: white;
             transition: background-color 0.2s;
+            text-decoration: none;
         }
 
-        .btn-view:hover {
-            background-color: #2563eb;
-        }
+        .btn-view { background-color: #3b82f6; }
+        .btn-view:hover { background-color: #2563eb; }
 
-        .btn-approve {
-            background-color: #10b981;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
+        .btn-approve { background-color: #10b981; }
+        .btn-approve:hover { background-color: #059669; }
 
-        .btn-approve:hover {
-            background-color: #059669;
-        }
+        .btn-reject { background-color: #ef4444; }
+        .btn-reject:hover { background-color: #dc2626; }
 
-        .btn-reject {
-            background-color: #ef4444;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .btn-reject:hover {
-            background-color: #dc2626;
-        }
-
-        .btn-edit-approval {
-            background-color: #f59e0b;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .btn-edit-approval:hover {
-            background-color: #d97706;
-        }
+        .btn-edit-approval { background-color: #f59e0b; }
+        .btn-edit-approval:hover { background-color: #d97706; }
 
         .action-group {
             display: flex;
             gap: 6px;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
-        /* Modal Overlay for Rejection and Edit Confirmations */
         .modal {
             display: none;
             position: fixed;
@@ -256,7 +250,6 @@
             background-color: #d97706;
         }
 
-        /* Block printing via CSS */
         @media print {
             body {
                 display: none !important;
@@ -267,7 +260,6 @@
 <body>
 
     <main class="approval-container">
-        <!-- Connected back to Immediate Boss Dashboard -->
         <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Immediate Boss Dashboard</a>
         
         <div class="approval-header">
@@ -275,7 +267,13 @@
             <div class="title-underline"></div>
         </div>
 
-        <!-- System Message Notification Area -->
+        <div class="top-action-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="filterTable()">
+            </div>
+        </div>
+
         <div id="systemAlert" class="system-alert">
             <i id="alertIcon" class="fa-solid fa-circle-check"></i> 
             <span id="alertMessageText">System message goes here...</span>
@@ -291,62 +289,27 @@
                         <th>Computer Number</th>
                         <th>Name</th>
                         <th>Designation</th>
-                        <th>View Application</th>
+                        <th>View</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Sample Data Rows -->
-                    <tr>
-                        <td>1</td>
-                        <td>APP-2026-001</td>
-                        <td>981234567V</td>
-                        <td>COM-101</td>
-                        <td>A. B. Perera</td>
-                        <td>Station Master</td>
-                        <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
-                        <td>
-                            <div class="action-group">
-                                <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
-                                <button type="button" class="btn-reject" onclick="openRejectModal(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                                <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit Approval</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>APP-2026-002</td>
-                        <td>957891234V</td>
-                        <td>COM-102</td>
-                        <td>K. D. Silva</td>
-                        <td>Signal Inspector</td>
-                        <td><a href="view-application-details.html?id=2" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
-                        <td>
-                            <div class="action-group">
-                                <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
-                                <button type="button" class="btn-reject" onclick="openRejectModal(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                                <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit Approval</button>
-                            </div>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
     </main>
 
-    <!-- Rejection Reason Modal -->
     <div id="rejectModal" class="modal">
         <div class="modal-content">
             <h3>Provide Rejection Reason</h3>
             <textarea id="rejectionReasonInput" placeholder="Enter reason for rejecting this application..."></textarea>
             <div class="modal-buttons">
                 <button type="button" class="btn-cancel" onclick="closeRejectModal()">Cancel</button>
-                <button type="button" class="btn-reject" onclick="confirmRejection()">Confirm Rejection</button>
+                <button type="button" class="btn-reject" onclick="confirmRejection()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px;"><i class="fa-solid fa-xmark"></i> Confirm Rejection</button>
             </div>
         </div>
     </div>
 
-    <!-- Edit Approval Confirmation Modal (Are You Sure prompt) -->
     <div id="editApprovalModal" class="modal">
         <div class="modal-content">
             <h3>Modify Application Status</h3>
@@ -359,9 +322,55 @@
     </div>
 
     <script>
+        // Updated data with format SLR/AOT/2026/xxxx and numeric-only computer numbers
+        const applicationData = [
+            { id: 1, appNo: "SLR/AOT/2026/0001", nic: "981234567V", compNo: "1054", name: "A. B. Perera", desig: "Station Master" },
+            { id: 2, appNo: "SLR/AOT/2026/0002", nic: "957891234V", compNo: "1055", name: "K. D. Silva", desig: "Signal Inspector" },
+            { id: 3, appNo: "SLR/AOT/2026/0003", nic: "923456789V", compNo: "1056", name: "M. N. Fernando", desig: "Locomotive Driver" }
+        ];
+
         let currentRowTarget = null;
 
-        // System message display function
+        function renderTable(dataToRender) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = "";
+
+            if (dataToRender.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #64748b; padding: 30px;">No applications found matching your search.</td></tr>`;
+                return;
+            }
+
+            dataToRender.forEach((item, index) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><strong>${item.appNo}</strong></td>
+                    <td>${item.nic}</td>
+                    <td>${item.compNo}</td>
+                    <td>${item.name}</td>
+                    <td>${item.desig}</td>
+                    <td><a href="view-application-details.html?id=${item.id}" class="btn-view" title="View Application"><i class="fa-solid fa-eye"></i></a></td>
+                    <td>
+                        <div class="action-group">
+                            <button type="button" class="btn-approve" onclick="handleApprove(this)" title="Approve"><i class="fa-solid fa-check"></i></button>
+                            <button type="button" class="btn-reject" onclick="openRejectModal(this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                            <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterTable() {
+            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = applicationData.filter(item => {
+                return item.nic.toLowerCase().includes(searchVal) || 
+                       item.name.toLowerCase().includes(searchVal);
+            });
+            renderTable(filtered);
+        }
+
         function showSystemMessage(message, type = 'success') {
             const alertBox = document.getElementById('systemAlert');
             const alertText = document.getElementById('alertMessageText');
@@ -379,7 +388,6 @@
 
             alertBox.style.display = 'flex';
             
-            // Auto hide after 5 seconds
             setTimeout(() => {
                 alertBox.style.display = 'none';
             }, 5000);
@@ -389,7 +397,6 @@
             showSystemMessage("Application has been successfully approved by the system.", "success");
         }
 
-        // Open Edit Approval confirmation modal ("Are you sure..." check for status correction)
         function openEditApprovalModal(button) {
             currentRowTarget = button.closest('tr');
             document.getElementById('editApprovalModal').style.display = 'flex';
@@ -426,13 +433,16 @@
             closeRejectModal();
         }
 
-        // Security restriction block for printing shortcuts
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
                 e.preventDefault();
                 showSystemMessage("Access Restricted: Printing applications directly is disabled for security compliance.", "error");
             }
         });
+
+        window.onload = function() {
+            renderTable(applicationData);
+        }
     </script>
 </body>
 </html>
