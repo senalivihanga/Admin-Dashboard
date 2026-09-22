@@ -139,7 +139,14 @@
             background-color: #0369a1;
         }
 
-        /* Status Badge Styling */
+        .section-print-title {
+            font-size: 1.3rem;
+            color: #7A1C1C;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
         .badge {
             width: 32px;
             height: 32px;
@@ -160,7 +167,6 @@
             color: #991b1b;
         }
 
-        /* Table Styling */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -168,6 +174,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
         }
 
         table {
@@ -200,7 +207,6 @@
             font-style: italic;
         }
 
-        /* Print Media Styles */
         @media print {
             body {
                 background-color: #ffffff !important;
@@ -211,8 +217,10 @@
                 display: none !important;
             }
             .table-section {
+                display: none !important;
+            }
+            .table-section.print-active {
                 display: block !important;
-                margin-bottom: 30px;
             }
             .table-responsive {
                 overflow: visible !important;
@@ -236,13 +244,13 @@
 
     <main class="approval-container">
         <!-- Back Link to Dashboard -->
-        <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Immediate Boss Dashboard</a>
+        <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
         <div class="approval-header">
             <h2>Approved & Rejected Applications Log</h2>
         </div>
 
-        <!-- Tab Switcher Buttons (Approved / Rejected) -->
+        <!-- Tab Switcher Buttons -->
         <div class="tab-buttons-bar">
             <button type="button" id="approvedTabBtn" class="tab-btn active" onclick="switchTab('approved')">
                 <i class="fa-solid fa-clipboard-check"></i> Approved List
@@ -252,7 +260,7 @@
             </button>
         </div>
 
-        <!-- Top Action Bar: Search Box and Print Button -->
+        <!-- Top Action Bar -->
         <div class="top-action-bar">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -261,8 +269,9 @@
             <button type="button" class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Report</button>
         </div>
 
-        <!-- 1. Approved Table Section (from approved-list-IB.html) -->
-        <div id="approvedSection" class="table-section">
+        <!-- 1. Approved Table Section -->
+        <div id="approvedSection" class="table-section print-active">
+            <h3 class="section-print-title">Approved List</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -276,15 +285,14 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody id="approvedTableBody">
-                        <!-- Populated via JS -->
-                    </tbody>
+                    <tbody id="approvedTableBody"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- 2. Rejected Table Section (from rejected-list-IB.html) -->
+        <!-- 2. Rejected Table Section -->
         <div id="rejectedSection" class="table-section" style="display: none;">
+            <h3 class="section-print-title">Rejected List</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -299,16 +307,13 @@
                             <th>Remarks / Reason</th>
                         </tr>
                     </thead>
-                    <tbody id="rejectedTableBody">
-                        <!-- Populated via JS -->
-                    </tbody>
+                    <tbody id="rejectedTableBody"></tbody>
                 </table>
             </div>
         </div>
     </main>
 
     <script>
-        // Combined Data from both approved-list and rejected-list
         const logData = [
             { id: 1, appNo: "SLR/AOT/2026/0001", nic: "981234567V", compNo: "101", name: "A. B. Perera", desig: "Station Master", status: "Approved", reason: "-" },
             { id: 2, appNo: "SLR/AOT/2026/0002", nic: "957891234V", compNo: "102", name: "K. D. Silva", desig: "Signal Inspector", status: "Rejected", reason: "Incomplete documentation regarding current technical qualifications." },
@@ -326,11 +331,15 @@
             if (tabName === 'approved') {
                 approvedSec.style.display = 'block';
                 rejectedSec.style.display = 'none';
+                approvedSec.classList.add('print-active');
+                rejectedSec.classList.remove('print-active');
                 approvedBtn.classList.add('active');
                 rejectedBtn.classList.remove('active');
             } else {
                 approvedSec.style.display = 'none';
                 rejectedSec.style.display = 'block';
+                approvedSec.classList.remove('print-active');
+                rejectedSec.classList.add('print-active');
                 rejectedBtn.classList.add('active');
                 approvedBtn.classList.remove('active');
             }
@@ -351,7 +360,6 @@
             const approvedList = filteredData.filter(item => item.status === 'Approved');
             const rejectedList = filteredData.filter(item => item.status === 'Rejected');
 
-            // Render Approved Table Data
             if (approvedList.length === 0) {
                 approvedTbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #64748b; padding: 25px;">No approved records found.</td></tr>`;
             } else {
@@ -370,7 +378,6 @@
                 });
             }
 
-            // Render Rejected Table Data
             if (rejectedList.length === 0) {
                 rejectedTbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #64748b; padding: 25px;">No rejected records found.</td></tr>`;
             } else {
@@ -391,7 +398,17 @@
             }
         }
 
+        // Auto select tab based on URL parameters when page loads
         window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tabParam = urlParams.get('tab');
+            
+            if (tabParam === 'rejected') {
+                switchTab('rejected');
+            } else {
+                switchTab('approved');
+            }
+
             renderTables();
         }
     </script>

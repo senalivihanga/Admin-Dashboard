@@ -111,17 +111,18 @@
 <body>
 
     <div class="profile-wrapper">
-        <a href="index.html" class="back-link">
-            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
-        </a>
+        <!-- Back Link එක මෙලෙස වෙනස් කරන්න -->
+<a href="#" onclick="history.back(); return false;" class="back-link">
+    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+</a>
 
         <div class="profile-card">
             <div class="profile-header">
                 <i class="fa-solid fa-user-pen"></i>
-                <h2>Edit Admin Profile</h2>
+                <h2>Edit Profile</h2>
             </div>
             
-            <form action="index.html" method="GET">
+            <form action="index.html" method="GET" onsubmit="event.preventDefault(); history.back();">
                 <!-- Email Address -->
                 <div class="form-group">
                     <label for="email">Email Address</label>

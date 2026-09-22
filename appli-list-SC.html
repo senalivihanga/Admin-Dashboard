@@ -7,30 +7,161 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .container { max-width: 1750px; margin: 40px auto; padding: 0 20px; }
-        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #5c060d; text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: color 0.2s; }
-        .back-link:hover { color: #4a050a; }
-        .page-title { text-align: center; color: #5c060d; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container { 
+            max-width: 1750px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+        }
+
+        .back-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            color: #7A1C1C; 
+            text-decoration: none; 
+            font-weight: 600; 
+            margin-bottom: 20px; 
+            transition: color 0.2s; 
+        }
+        .back-link:hover { 
+            color: #5a1313; 
+        }
+
+        .page-title { 
+            text-align: center; 
+            color: #7A1C1C; 
+            font-size: 2rem; 
+            margin-bottom: 30px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-decoration: underline; 
+            text-underline-offset: 8px; 
+        }
         
-        .management-section { background: #ffffff; padding: 30px; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid #e5e7eb; border-top: 5px solid #5c060d; margin-bottom: 40px; }
-        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-        .section-subtitle { color: #111827; font-size: 1.25rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 12px; }
-        .section-subtitle i { width: 40px; height: 40px; border-radius: 0.75rem; background: #5c060d; color: #fcd34d; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+        .management-section { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); 
+            border: 1px solid #e5e7eb; 
+            border-top: 5px solid #7A1C1C; 
+            margin-bottom: 40px; 
+        }
 
-        .btn-print { display: inline-flex; align-items: center; gap: 8px; background-color: #5c060d; color: #ffffff; padding: 10px 18px; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); text-decoration: none; }
-        .btn-print:hover { background-color: #4a050a; color: #fcd34d; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        /* Search Box and Print Button container alignment */
+        .section-header-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 25px; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
 
-        .data-table { width: 100%; border-collapse: collapse; text-align: center; min-width: 1200px; }
-        .data-table th, .data-table td { padding: 12px 10px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; font-size: 0.82rem; text-align: center; }
-        .data-table th { background-color: #f9fafb; color: #374151; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
-        .data-table td { color: #4b5563; font-weight: normal; }
-        .data-table tbody tr { transition: background-color 0.15s ease; }
-        .data-table tbody tr:hover { background-color: #fdf8f8; }
+        .search-box-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box-wrapper i {
+            position: absolute;
+            left: 14px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .search-input {
+            padding: 10px 14px 10px 40px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 300px;
+            outline: none;
+            transition: all 0.2s;
+            background-color: #ffffff;
+        }
+
+        .search-input:focus {
+            border-color: #7A1C1C;
+            box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1);
+        }
+
+        /* Print Button Style */
+        .btn-print { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            background-color: #0284c7; 
+            color: #ffffff; 
+            padding: 10px 18px; 
+            border-radius: 0.75rem; 
+            font-weight: 600; 
+            font-size: 0.875rem; 
+            border: none; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); 
+            text-decoration: none; 
+        }
+        .btn-print:hover { 
+            background-color: #0369a1; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .data-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            text-align: center; 
+            min-width: 1200px; 
+        }
+
+        .data-table th, .data-table td { 
+            padding: 14px 12px; 
+            border-bottom: 1px solid #e2e8f0; 
+            vertical-align: middle; 
+            font-size: 0.85rem; 
+            text-align: center; 
+        }
+
+        .data-table th { 
+            background-color: #7A1C1C; 
+            color: #ffffff; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
+            letter-spacing: 0.05em; 
+            border-top: 1px solid #7A1C1C; 
+            border-bottom: 1px solid #7A1C1C; 
+        }
+
+        .data-table td { 
+            color: #4b5563; 
+            font-weight: normal; 
+        }
+
+        .data-table tbody tr { 
+            transition: background-color 0.15s ease; 
+        }
+        .data-table tbody tr:hover { 
+            background-color: #f1f5f9; 
+        }
 
         .app-no { color: #333333; font-family: monospace; }
         .applicant-nic { font-family: monospace; color: #333333; }
         .computer-no { font-family: monospace; color: #333333; }
-        
         .badge-type { color: #333333; }
 
         /* Print Styles */
@@ -41,16 +172,15 @@
             }
             body { background-color: #ffffff; color: #000000; font-size: 9pt; }
             .container { max-width: 100%; margin: 0; padding: 0; }
-            .back-link, .btn-print, .management-section { box-shadow: none; border: none; padding: 0; margin: 0; }
+            .back-link, .btn-print, .search-box-wrapper, .management-section { box-shadow: none; border: none; padding: 0; margin: 0; }
             .management-section { border-top: none; }
             .page-title { font-size: 1.3rem; margin-bottom: 10px; color: #000000; text-decoration: underline; }
             .section-header-bar { margin-bottom: 10px; }
-            .section-subtitle { font-size: 0.95rem; color: #000000; }
-            .section-subtitle i, .btn-print, .back-link { display: none; }
+            .section-subtitle, .section-subtitle i, .btn-print, .back-link, .search-box-wrapper { display: none; }
             .table-responsive { overflow: visible !important; width: 100%; }
             .data-table { width: 100% !important; min-width: 100% !important; font-size: 8.5pt; border: 1px solid #000000; table-layout: fixed; }
             .data-table th, .data-table td { border: 1px solid #000000; padding: 6px 4px; color: #000000; font-weight: normal; text-align: center; word-wrap: break-word; }
-            .data-table th { background-color: #f0f0f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .data-table th { background-color: #f0f0f0 !important; color: #000000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .data-table tbody tr:hover { background-color: transparent; }
         }
     </style>
@@ -58,28 +188,33 @@
 <body>
 
     <div class="container">
-        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Subject Clerk Dashboard</a>
+        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         <h2 class="page-title">Total Request Applications</h2>
 
         <div class="management-section">
+            <!-- Search bar left alli, Print button right alli baroke space-between use madide -->
             <div class="section-header-bar">
-                <h3 class="section-subtitle">
-                    <i class="fa-solid fa-folder-open"></i> All Requests Overview
-                </h3>
+                <!-- Search Bar by NIC or Name -->
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." onkeyup="searchTable()">
+                </div>
+
+                <!-- Print Button (Right Side) -->
                 <button onclick="window.print()" class="btn-print">
-                    <i class="fa-solid fa-print"></i> Print Table
+                    <i class="fa-solid fa-print"></i> Print / Save as PDF
                 </button>
             </div>
 
-            <div class="table-responsive" style="overflow-x: auto;">
-                <table class="data-table">
+            <div class="table-responsive">
+                <table class="data-table" id="requestTable">
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Application No</th>
-                            <th>Applicant NIC</th>
-                            <th>Computer No</th>
-                            <th>Applicant Name</th>
+                            <th>Application Number</th>
+                            <th>NIC</th>
+                            <th>Computer Number</th>
+                            <th>Name</th>
                             <th>Designation</th>
                             <th>Application Submitted Date</th>
                             <th>Request Quarter Type</th>
@@ -89,47 +224,35 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td><span class="app-no">APP-2026-001</span></td>
+                            <td><span class="app-no">SLR/AOT/2026/0001</span></td>
                             <td><span class="applicant-nic">854712093V</span></td>
-                            <td><span class="computer-no">CMP-4021</span></td>
+                            <td><span class="computer-no">4021</span></td>
                             <td>H. M. Gunawardena</td>
                             <td>Station Master</td>
                             <td>2026-09-07</td>
-                            <td>
-                                <span class="badge-type">
-                                    Grade B Quarters
-                                </span>
-                            </td>
+                            <td><span class="badge-type">Grade B Quarters</span></td>
                             <td>2026-09-06</td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td><span class="app-no">APP-2026-002</span></td>
+                            <td><span class="app-no">SLR/AOT/2026/0002</span></td>
                             <td><span class="applicant-nic">901245678V</span></td>
-                            <td><span class="computer-no">CMP-4189</span></td>
+                            <td><span class="computer-no">4189</span></td>
                             <td>P. R. Jayasinghe</td>
                             <td>Permanent Way Inspector</td>
                             <td>2026-09-05</td>
-                            <td>
-                                <span class="badge-type">
-                                    Grade A Quarters
-                                </span>
-                            </td>
+                            <td><span class="badge-type">Grade A Quarters</span></td>
                             <td>2026-09-04</td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td><span class="app-no">APP-2026-003</span></td>
+                            <td><span class="app-no">SLR/AOT/2026/0003</span></td>
                             <td><span class="applicant-nic">934512786V</span></td>
-                            <td><span class="computer-no">CMP-5024</span></td>
+                            <td><span class="computer-no">5024</span></td>
                             <td>K. L. Wickramasinghe</td>
                             <td>Locomotive Driver</td>
                             <td>2026-08-30</td>
-                            <td>
-                                <span class="badge-type">
-                                    Grade C Quarters
-                                </span>
-                            </td>
+                            <td><span class="badge-type">Grade C Quarters</span></td>
                             <td>2026-08-28</td>
                         </tr>
                     </tbody>
@@ -138,5 +261,34 @@
         </div>
     </div>
 
+    <script>
+        function searchTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("requestTable");
+            const tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                let rowMatched = false;
+                const nicTd = tr[i].getElementsByTagName("td")[2];
+                const nameTd = tr[i].getElementsByTagName("td")[4];
+
+                if (nicTd && nameTd) {
+                    const nicText = nicTd.textContent || nicTd.innerText;
+                    const nameText = nameTd.textContent || nameTd.innerText;
+
+                    if (nicText.toLowerCase().indexOf(filter) > -1 || nameText.toLowerCase().indexOf(filter) > -1) {
+                        rowMatched = true;
+                    }
+                }
+
+                if (rowMatched) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>

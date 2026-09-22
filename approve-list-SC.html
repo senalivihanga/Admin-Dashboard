@@ -10,6 +10,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
@@ -63,24 +65,34 @@
             gap: 15px;
         }
 
-        .btn-print {
-            background-color: #0284c7;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
+        /* Search Box Styling */
+        .search-box-wrapper {
+            position: relative;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: background-color 0.2s;
         }
 
-        .btn-print:hover {
-            filter: brightness(0.9);
+        .search-box-wrapper i {
+            position: absolute;
+            left: 14px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .search-input {
+            padding: 10px 14px 10px 40px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 280px;
+            outline: none;
+            transition: all 0.2s;
+            background-color: #ffffff;
+        }
+
+        .search-input:focus {
+            border-color: #7A1C1C;
+            box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1);
         }
 
         .table-responsive {
@@ -95,7 +107,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
+            text-align: center;
             font-size: 0.9rem;
         }
 
@@ -117,33 +129,17 @@
             background-color: #f1f5f9;
         }
 
-        .status-badge {
+        /* Status Badge with Symbol Only */
+        .status-badge-icon {
             background-color: #d1fae5;
             color: #065f46;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.75rem;
-            display: inline-block;
-            text-transform: uppercase;
-        }
-
-        .btn-view {
-            background-color: #3b82f6;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            text-decoration: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
-
-        .btn-view:hover {
-            background-color: #2563eb;
+            justify-content: center;
+            font-size: 0.9rem;
         }
 
         @media print {
@@ -163,7 +159,7 @@
 <body>
 
     <main class="approval-container">
-        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Subject Clerk Dashboard</a>
+        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
         <div class="approval-header">
             <h2>Approved Applications List</h2>
@@ -172,10 +168,16 @@
 
         <div class="top-action-bar">
             <p style="color: #64748b; margin: 0; font-weight: 500;">Official records of successfully approved quarter applications.</p>
+            
+            <!-- Search Bar -->
+            <div class="search-box-wrapper">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." onkeyup="searchTable()">
+            </div>
         </div>
 
         <div class="table-responsive">
-            <table>
+            <table id="approvedTable">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -184,7 +186,7 @@
                         <th>Computer Number</th>
                         <th>Name</th>
                         <th>Designation</th>
-                        <th>Status</th>
+                        <th style="text-align: center;">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -195,7 +197,7 @@
                         <td>COM-101</td>
                         <td>A. B. Perera</td>
                         <td>Station Master</td>
-                        <td><span class="status-badge">Approved</span></td>
+                        <td style="text-align: center;"><span class="status-badge-icon" title="Approved"><i class="fa-solid fa-check"></i></span></td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -204,12 +206,40 @@
                         <td>COM-105</td>
                         <td>M. N. Fernando</td>
                         <td>Locomotive Driver</td>
-                        <td><span class="status-badge">Approved</span></td>
+                        <td style="text-align: center;"><span class="status-badge-icon" title="Approved"><i class="fa-solid fa-check"></i></span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </main>
+
+    <script>
+        // Simple client-side search functionality
+        function searchTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("approvedTable");
+            const tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                let found = false;
+                const td = tr[i].getElementsByTagName("td");
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        if (td[j].innerText.toLowerCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (found) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>

@@ -56,9 +56,11 @@
 
         .top-action-bar {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .search-box {
@@ -85,6 +87,25 @@
             position: absolute;
             left: 12px;
             color: #64748b;
+        }
+
+        .btn-print {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-print:hover {
+            background-color: #0369a1;
         }
 
         .system-alert {
@@ -250,9 +271,38 @@
             background-color: #d97706;
         }
 
+        /* Print Media Styles: Hides navigation, search box, and action buttons during print, and ensures the whole table is neatly formatted for PDF/Print */
         @media print {
             body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .back-link, .top-action-bar, .system-alert, .action-group th:nth-child(8), .action-group td:nth-child(8), th:nth-child(8), td:nth-child(8), th:nth-child(7), td:nth-child(7) {
+                /* If you want to hide action buttons and view buttons completely in print, uncomment below: */
+            }
+            .back-link, .top-action-bar, .system-alert {
                 display: none !important;
+            }
+            /* Hide the Action and View columns when printing if desired, or keep them. Let's keep table clean: hide Action column elements */
+            td .action-group, td .btn-view {
+                display: none !important;
+            }
+            /* Or simply remove borders/shadows for neat PDF look */
+            .table-responsive {
+                overflow: visible !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            table {
+                width: 100% !important;
+                font-size: 10pt;
+            }
+            th {
+                background-color: #7A1C1C !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
     </style>
@@ -260,7 +310,7 @@
 <body>
 
     <main class="approval-container">
-        <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Immediate Boss Dashboard</a>
+        <a href="IB.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
         <div class="approval-header">
             <h2>Application Approval List</h2>
@@ -272,6 +322,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="filterTable()">
             </div>
+            <button type="button" class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
         </div>
 
         <div id="systemAlert" class="system-alert">
@@ -322,7 +373,6 @@
     </div>
 
     <script>
-        // Updated data with format SLR/AOT/2026/xxxx and numeric-only computer numbers
         const applicationData = [
             { id: 1, appNo: "SLR/AOT/2026/0001", nic: "981234567V", compNo: "1054", name: "A. B. Perera", desig: "Station Master" },
             { id: 2, appNo: "SLR/AOT/2026/0002", nic: "957891234V", compNo: "1055", name: "K. D. Silva", desig: "Signal Inspector" },
@@ -432,13 +482,6 @@
             showSystemMessage("Application rejected successfully. Reason recorded in system log.", "error");
             closeRejectModal();
         }
-
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
-                e.preventDefault();
-                showSystemMessage("Access Restricted: Printing applications directly is disabled for security compliance.", "error");
-            }
-        });
 
         window.onload = function() {
             renderTable(applicationData);

@@ -201,6 +201,7 @@
             overflow: hidden;
             transition: all 0.25s ease;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .stat-card:hover {
@@ -308,7 +309,7 @@
         <div class="dashboard-header">
             <div>
                 <h2>Immediate Boss Dashboard</h2>
-                <p>Sri Lanka Railways - Quarter Administration & Operation Team (AOT)</p>
+                <p>Sri Lanka Railways - AOT</p>
             </div>
             
             <!-- User Profile with Dropdown Menu -->
@@ -322,7 +323,7 @@
                 </div>
 
                 <div id="profileDropdown" class="profile-dropdown">
-                    <a href="edit-profile.html"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                    <a href="edit_profile.html"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
                     <a href="view_system.html"><i class="fa-solid fa-arrow-left"></i> Back to Approval Dashboard</a>
                     <a href="#" class="logout-btn" onclick="openLogoutModal(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                 </div>
@@ -346,18 +347,18 @@
             </a>
 
             <!-- Card 3: Approved List -->
-            <a href="approve-reject-list-IB.html" class="stat-card">
+            <div class="stat-card" onclick="location.href='approve-reject-list-IB.html?tab=approved'">
                 <i class="fa-solid fa-clipboard-check"></i>
                 <h3>Approved List</h3>
                 <div class="stat-count">12</div>
-            </a>
+            </div>
 
             <!-- Card 4: Rejected List -->
-            <a href="approve-reject-list-IB.html" class="stat-card">
+            <div class="stat-card" onclick="location.href='approve-reject-list-IB.html?tab=rejected'">
                 <i class="fa-solid fa-ban"></i>
                 <h3>Rejected List</h3>
                 <div class="stat-count">04</div>
-            </a>
+            </div>
         </div>
 
         <!-- Application Management Modules -->

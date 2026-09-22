@@ -20,13 +20,13 @@
 
         .approval-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .approval-container h2 {
             font-size: 2rem;
             color: #7A1C1C;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -34,7 +34,7 @@
         /* Full width underline for header */
         .title-underline {
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             height: 4px;
             background: linear-gradient(to right, #7A1C1C, #e11d48);
             margin: 0 auto;
@@ -55,7 +55,62 @@
             text-decoration: underline;
         }
 
-        /* System Custom Alert Box instead of Browser alerts */
+        /* Top Action Bar for Search & Print */
+        .top-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 10px 15px 10px 38px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 300px;
+            outline: none;
+            background: #ffffff;
+        }
+
+        .search-box input:focus {
+            border-color: #7A1C1C;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            color: #64748b;
+        }
+
+        .btn-print {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-print:hover {
+            background-color: #0366d6;
+        }
+
+        /* System Custom Alert Box */
         .system-alert {
             background-color: #fef2f2;
             color: #991b1b;
@@ -76,7 +131,7 @@
             border-color: #bbf7d0;
         }
 
-        /* Table Styling */
+        /* Table Styling (Centered) */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -89,13 +144,14 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
+            text-align: center;
             font-size: 0.9rem;
         }
 
         th, td {
             padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
+            text-align: center;
         }
 
         th {
@@ -111,99 +167,77 @@
             background-color: #f1f5f9;
         }
 
-        /* Status Badge Styling */
-        .badge-status {
+        /* Status Badge Styling (Symbol Only with #7e22ce) */
+        .badge-ib-status {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            justify-content: center;
+            background-color: #f3e8ff;
+            color: #7e22ce;
+            font-size: 0.9rem;
         }
 
-        .badge-approved {
-            background-color: #dcfce7;
-            color: #166534;
-        }
-
-        .badge-rejected {
-            background-color: #fee2e2;
-            color: #991b1b;
-        }
-
-        /* View Button with Symbol and Word */
-        .btn-view {
+        /* View Button (Symbol Only) */
+        .btn-view-symbol {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             background-color: #3b82f6;
             color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.9rem;
             transition: background-color 0.2s;
         }
 
-        .btn-view:hover {
+        .btn-view-symbol:hover {
             background-color: #2563eb;
         }
 
-        .btn-approve {
-            background-color: #10b981;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .btn-approve:hover {
-            background-color: #059669;
-        }
-
-        .btn-reject {
-            background-color: #ef4444;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .btn-reject:hover {
-            background-color: #dc2626;
-        }
-
-        .btn-edit-approval {
-            background-color: #f59e0b;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .btn-edit-approval:hover {
-            background-color: #d97706;
-        }
-
+        /* Symbol-only Action Buttons */
         .action-group {
             display: flex;
             gap: 6px;
             align-items: center;
-            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        /* Modal Overlay for Rejection and Edit Confirmations */
+        .btn-action-symbol {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action-symbol:hover {
+            opacity: 0.85;
+        }
+
+        .btn-approve {
+            background-color: #10b981;
+        }
+
+        .btn-reject {
+            background-color: #ef4444;
+        }
+
+        .btn-edit-approval {
+            background-color: #f59e0b;
+        }
+
+        /* Modal Overlay */
         .modal {
             display: none;
             position: fixed;
@@ -264,7 +298,7 @@
         }
 
         .btn-confirm-action {
-            background-color: #f59e0b;
+            background-color: #0284c7;
             color: white;
             border: none;
             padding: 6px 14px;
@@ -273,14 +307,25 @@
             font-weight: 600;
         }
 
-        .btn-confirm-action:hover {
-            background-color: #d97706;
-        }
-
-        /* Block printing via CSS */
+        /* Print Media Settings */
         @media print {
             body {
+                background-color: #ffffff;
+            }
+            .back-link, .top-action-bar, .system-alert, .action-group, th:nth-child(11), td:nth-child(11) {
                 display: none !important;
+            }
+            .approval-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .table-responsive {
+                box-shadow: none !important;
+                border: none !important;
+            }
+            table {
+                font-size: 10pt;
             }
         }
     </style>
@@ -289,7 +334,7 @@
 
     <main class="approval-container">
         <!-- Connected back to Personal File Dashboard -->
-        <a href="PF.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Personal File Dashboard</a>
+        <a href="PF.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
         <div class="approval-header">
             <h2>Application Approval List</h2>
@@ -300,6 +345,15 @@
         <div id="systemAlert" class="system-alert">
             <i id="alertIcon" class="fa-solid fa-circle-check"></i> 
             <span id="alertMessageText">System message goes here...</span>
+        </div>
+
+        <!-- Search Bar and Print Option Bar -->
+        <div class="top-action-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="searchTable()">
+            </div>
+            <button type="button" class="btn-print" onclick="printApprovalList()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
         </div>
 
         <div class="table-responsive">
@@ -320,7 +374,6 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Sample Data Rows -->
                     <tr>
                         <td>1</td>
                         <td>APP-2026-001</td>
@@ -330,13 +383,13 @@
                         <td>Station Master</td>
                         <td>Chief Station Master</td>
                         <td>Colombo Fort Railway Station</td>
-                        <td><span class="badge-status badge-approved"><i class="fa-solid fa-check"></i> Approved</span></td>
-                        <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
+                        <td><span class="badge-ib-status" title="Approved"><i class="fa-solid fa-check"></i></span></td>
+                        <td><a href="view-application-details.html?id=1" class="btn-view-symbol" title="View Application"><i class="fa-solid fa-eye"></i></a></td>
                         <td>
                             <div class="action-group">
-                                <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
-                                <button type="button" class="btn-reject" onclick="openRejectModal(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                                <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit Approval</button>
+                                <button type="button" class="btn-action-symbol btn-approve" onclick="handleApprove(this)" title="Approve"><i class="fa-solid fa-check"></i></button>
+                                <button type="button" class="btn-action-symbol btn-reject" onclick="openRejectModal(this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                                <button type="button" class="btn-action-symbol btn-edit-approval" onclick="openEditApprovalModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -349,13 +402,13 @@
                         <td>Signal Inspector</td>
                         <td>District Signal Engineer</td>
                         <td>Maradana Signaling Dept</td>
-                        <td><span class="badge-status badge-approved"><i class="fa-solid fa-check"></i> Approved</span></td>
-                        <td><a href="view-application-details.html?id=2" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
+                        <td><span class="badge-ib-status" title="Approved"><i class="fa-solid fa-check"></i></span></td>
+                        <td><a href="view-application-details.html?id=2" class="btn-view-symbol" title="View Application"><i class="fa-solid fa-eye"></i></a></td>
                         <td>
                             <div class="action-group">
-                                <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
-                                <button type="button" class="btn-reject" onclick="openRejectModal(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                                <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit Approval</button>
+                                <button type="button" class="btn-action-symbol btn-approve" onclick="handleApprove(this)" title="Approve"><i class="fa-solid fa-check"></i></button>
+                                <button type="button" class="btn-action-symbol btn-reject" onclick="openRejectModal(this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                                <button type="button" class="btn-action-symbol btn-edit-approval" onclick="openEditApprovalModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -371,16 +424,16 @@
             <textarea id="rejectionReasonInput" placeholder="Enter reason for rejecting this application..."></textarea>
             <div class="modal-buttons">
                 <button type="button" class="btn-cancel" onclick="closeRejectModal()">Cancel</button>
-                <button type="button" class="btn-reject" onclick="confirmRejection()">Confirm Rejection</button>
+                <button type="button" class="btn-action-symbol btn-reject" style="width: auto; padding: 6px 14px; border-radius: 5px; font-weight: 600;" onclick="confirmRejection()">Confirm Rejection</button>
             </div>
         </div>
     </div>
 
-    <!-- Edit Approval Confirmation Modal (Are You Sure prompt) -->
+    <!-- Edit Approval Confirmation Modal -->
     <div id="editApprovalModal" class="modal">
         <div class="modal-content">
             <h3>Modify Application Status</h3>
-            <p id="editApprovalPromptText">Are you sure you want to change this decision? </p>
+            <p id="editApprovalPromptText">Are you sure you want to change this decision?</p>
             <div class="modal-buttons">
                 <button type="button" class="btn-cancel" onclick="closeEditApprovalModal()">Cancel</button>
                 <button type="button" class="btn-confirm-action" onclick="confirmEditApproval()">Yes, Change Status</button>
@@ -390,6 +443,28 @@
 
     <script>
         let currentRowTarget = null;
+
+        // Search Table Function
+        function searchTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase().trim();
+            const rows = document.querySelectorAll('#tableBody tr');
+
+            rows.forEach(row => {
+                const nic = row.cells[2].textContent.toLowerCase();
+                const name = row.cells[4].textContent.toLowerCase();
+
+                if (nic.includes(input) || name.includes(input)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Print function
+        function printApprovalList() {
+            window.print();
+        }
 
         // System message display function
         function showSystemMessage(message, type = 'success') {
@@ -409,7 +484,6 @@
 
             alertBox.style.display = 'flex';
             
-            // Auto hide after 5 seconds
             setTimeout(() => {
                 alertBox.style.display = 'none';
             }, 5000);
@@ -419,7 +493,6 @@
             showSystemMessage("Application has been successfully approved by the system.", "success");
         }
 
-        // Open Edit Approval confirmation modal ("Are you sure..." check for status correction)
         function openEditApprovalModal(button) {
             currentRowTarget = button.closest('tr');
             document.getElementById('editApprovalModal').style.display = 'flex';
@@ -455,14 +528,6 @@
             showSystemMessage("Application rejected successfully. Reason recorded in system log.", "error");
             closeRejectModal();
         }
-
-        // Security restriction block for printing shortcuts
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
-                e.preventDefault();
-                showSystemMessage("Access Restricted: Printing applications directly is disabled for security compliance.", "error");
-            }
-        });
     </script>
 </body>
 </html>

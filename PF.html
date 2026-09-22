@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Immediate Boss Dashboard - Sri Lanka Railways</title>
+    <title>Personal File Dashboard - Sri Lanka Railways</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #f8fafc;
+            background-color: #f1f5f9;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
         }
 
         .dashboard-container {
@@ -20,6 +21,7 @@
             padding: 0 20px;
         }
 
+        /* Railway Themed Header */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
@@ -27,14 +29,26 @@
             margin-bottom: 30px;
             flex-wrap: wrap;
             gap: 15px;
+            background: linear-gradient(135deg, #7A1C1C 0%, #4a1010 100%);
+            padding: 25px 30px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(122, 28, 28, 0.2);
+            border-bottom: 4px solid #d4af37;
         }
 
         .dashboard-header h2 {
-            font-size: 2rem;
-            color: #7A1C1C;
+            font-size: 1.85rem;
+            color: #ffffff;
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+
+        .dashboard-header p {
+            color: #f3e8ff;
+            margin: 5px 0 0 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
 
         /* Profile & Dropdown Menu */
@@ -46,17 +60,17 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
             padding: 8px 16px;
             border-radius: 50px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.25);
             cursor: pointer;
             transition: all 0.2s;
+            color: white;
         }
 
         .user-profile-badge:hover {
-            border-color: #7A1C1C;
+            background: rgba(255, 255, 255, 0.22);
         }
 
         .profile-dropdown {
@@ -67,7 +81,7 @@
             background: #ffffff;
             width: 250px;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             border: 1px solid #e2e8f0;
             z-index: 100;
             overflow: hidden;
@@ -86,7 +100,7 @@
         }
 
         .profile-dropdown a:hover {
-            background-color: #f1f5f9;
+            background-color: #fdf2f2;
             color: #7A1C1C;
         }
 
@@ -166,7 +180,7 @@
             cursor: pointer;
         }
 
-        /* Top Row: 4 Amount Cards */
+        /* Top Row: 4 Stat Cards */
         .row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -178,18 +192,22 @@
             background: #ffffff;
             padding: 24px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
             border: 1px solid #e2e8f0;
+            border-top: 4px solid #7A1C1C;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px -3px rgba(122, 28, 28, 0.12);
+            border-color: #7A1C1C;
         }
 
         .stat-card i {
@@ -199,7 +217,7 @@
         }
 
         .stat-card h3 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #64748b;
             margin: 0 0 8px 0;
             font-weight: 600;
@@ -234,19 +252,19 @@
             background: #ffffff;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
             border: 1px solid #e2e8f0;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .manage-tile:hover {
             border-color: #7A1C1C;
             box-shadow: 0 8px 20px rgba(122, 28, 28, 0.08);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .manage-tile-header {
@@ -291,53 +309,52 @@
         <div class="dashboard-header">
             <div>
                 <h2>Personal File Dashboard</h2>
-                <p style="color: #64748b; margin: 5px 0 0 0;">Sri Lanka Railways - AOT
-                </p>
+                <p>Sri Lanka Railways - AOT</p>
             </div>
             
             <!-- User Profile with Dropdown Menu -->
             <div class="user-profile-wrapper">
                 <div class="user-profile-badge" onclick="toggleDropdown()">
-                    <div style="width: 35px; height: 35px; background: #7A1C1C; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">IB</div>
+                    <div style="width: 35px; height: 35px; background: #ffffff; color: #7A1C1C; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem;">PF</div>
                     <div>
                         <div style="font-weight: 600; font-size: 0.9rem;">Personal File</div>
                     </div>
-                    <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; color: #64748b; margin-left: 5px;"></i>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; color: #f3e8ff; margin-left: 5px;"></i>
                 </div>
 
                 <div id="profileDropdown" class="profile-dropdown">
-                    <a href="edit-profile.html"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                    <a href="edit_profile.html"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
                     <a href="view_system.html"><i class="fa-solid fa-arrow-left"></i> Back to Approval Dashboard</a>
                     <a href="#" class="logout-btn" onclick="openLogoutModal(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                 </div>
             </div>
         </div>
 
-        <!-- Top Row: 4 Amount Cards -->
+        <!-- Top Row: 4 Stat Cards connected to respective pages -->
         <div class="row">
             <!-- Card 1: Total Approval List -->
-            <div class="stat-card">
+            <a href="appli-approve-PF.html" class="stat-card">
                 <i class="fa-solid fa-list-check"></i>
                 <h3>Total Approval List</h3>
                 <div class="stat-count">24</div>
-            </div>
+            </a>
 
             <!-- Card 2: Pending List -->
-            <div class="stat-card">
+            <a href="pending-list-PF.html" class="stat-card">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <h3>Pending List</h3>
                 <div class="stat-count">08</div>
-            </div>
+            </a>
 
-            <!-- Card 3: Approval List -->
-            <div class="stat-card">
+            <!-- Card 3: Approved List -->
+            <div class="stat-card" onclick="location.href='approve-reject-list-PF.html?tab=approved'">
                 <i class="fa-solid fa-clipboard-check"></i>
                 <h3>Approved List</h3>
                 <div class="stat-count">12</div>
             </div>
 
             <!-- Card 4: Rejected List -->
-            <div class="stat-card">
+            <div class="stat-card" onclick="location.href='approve-reject-list-PF.html?tab=rejected'">
                 <i class="fa-solid fa-ban"></i>
                 <h3>Rejected List</h3>
                 <div class="stat-count">04</div>
@@ -358,7 +375,7 @@
                 <span class="tile-link-text">Open Approval Queue <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 2: Approve / Reject List with green tick symbol -->
+            <!-- Tile 2: Approved / Rejected List -->
             <a href="approve-reject-list-PF.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Approved / Rejected List</h4>
@@ -385,7 +402,7 @@
         <div class="custom-modal-content">
             <i class="fa-solid fa-triangle-exclamation"></i>
             <h3>Confirm Logout</h3>
-            <p>Are you sure you want to log out from the Immediate Boss portal?</p>
+            <p>Are you sure you want to log out from the Personal File portal?</p>
             <div class="modal-action-btns">
                 <button type="button" class="btn-modal-cancel" onclick="closeLogoutModal()">Cancel</button>
                 <button type="button" class="btn-modal-confirm" onclick="executeLogout()">Logout</button>
