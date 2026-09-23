@@ -10,6 +10,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
@@ -208,29 +210,54 @@
         }
 
         @media print {
+            @page {
+                size: landscape;
+                margin: 8mm;
+            }
+
             body {
                 background-color: #ffffff !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                height: 100% !important;
+                overflow: hidden !important;
             }
+
             .back-link, .top-action-bar, .tab-buttons-bar {
                 display: none !important;
             }
+
             .table-section {
                 display: none !important;
             }
+
             .table-section.print-active {
                 display: block !important;
             }
+
+            .approval-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
             .table-responsive {
                 overflow: visible !important;
                 box-shadow: none !important;
                 border: none !important;
+                margin-bottom: 0 !important;
             }
+
             table {
                 width: 100% !important;
                 font-size: 9pt;
             }
+
+            th, td {
+                padding: 8px 10px !important;
+            }
+
             th {
                 background-color: #7A1C1C !important;
                 color: white !important;

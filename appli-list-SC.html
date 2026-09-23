@@ -44,16 +44,6 @@
             text-decoration: underline; 
             text-underline-offset: 8px; 
         }
-        
-        .management-section { 
-            background: #ffffff; 
-            padding: 30px; 
-            border-radius: 1rem; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); 
-            border: 1px solid #e5e7eb; 
-            border-top: 5px solid #7A1C1C; 
-            margin-bottom: 40px; 
-        }
 
         /* Search Box and Print Button container alignment */
         .section-header-bar { 
@@ -119,6 +109,10 @@
         .table-responsive {
             width: 100%;
             overflow-x: auto;
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
         }
 
         .data-table { 
@@ -143,8 +137,6 @@
             text-transform: uppercase; 
             font-size: 0.75rem; 
             letter-spacing: 0.05em; 
-            border-top: 1px solid #7A1C1C; 
-            border-bottom: 1px solid #7A1C1C; 
         }
 
         .data-table td { 
@@ -172,12 +164,10 @@
             }
             body { background-color: #ffffff; color: #000000; font-size: 9pt; }
             .container { max-width: 100%; margin: 0; padding: 0; }
-            .back-link, .btn-print, .search-box-wrapper, .management-section { box-shadow: none; border: none; padding: 0; margin: 0; }
-            .management-section { border-top: none; }
+            .back-link, .btn-print, .search-box-wrapper { display: none; }
             .page-title { font-size: 1.3rem; margin-bottom: 10px; color: #000000; text-decoration: underline; }
             .section-header-bar { margin-bottom: 10px; }
-            .section-subtitle, .section-subtitle i, .btn-print, .back-link, .search-box-wrapper { display: none; }
-            .table-responsive { overflow: visible !important; width: 100%; }
+            .table-responsive { overflow: visible !important; width: 100%; box-shadow: none !important; border: none !important; background: transparent !important; }
             .data-table { width: 100% !important; min-width: 100% !important; font-size: 8.5pt; border: 1px solid #000000; table-layout: fixed; }
             .data-table th, .data-table td { border: 1px solid #000000; padding: 6px 4px; color: #000000; font-weight: normal; text-align: center; word-wrap: break-word; }
             .data-table th { background-color: #f0f0f0 !important; color: #000000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -191,73 +181,69 @@
         <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         <h2 class="page-title">Total Request Applications</h2>
 
-        <div class="management-section">
-            <!-- Search bar left alli, Print button right alli baroke space-between use madide -->
-            <div class="section-header-bar">
-                <!-- Search Bar by NIC or Name -->
-                <div class="search-box-wrapper">
-                    <i class="fa-solid fa-search"></i>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." onkeyup="searchTable()">
-                </div>
-
-                <!-- Print Button (Right Side) -->
-                <button onclick="window.print()" class="btn-print">
-                    <i class="fa-solid fa-print"></i> Print / Save as PDF
-                </button>
+        <!-- Search bar and Print button bar -->
+        <div class="section-header-bar">
+            <div class="search-box-wrapper">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." onkeyup="searchTable()">
             </div>
 
-            <div class="table-responsive">
-                <table class="data-table" id="requestTable">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Application Number</th>
-                            <th>NIC</th>
-                            <th>Computer Number</th>
-                            <th>Name</th>
-                            <th>Designation</th>
-                            <th>Application Submitted Date</th>
-                            <th>Request Quarter Type</th>
-                            <th>Request Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><span class="app-no">SLR/AOT/2026/0001</span></td>
-                            <td><span class="applicant-nic">854712093V</span></td>
-                            <td><span class="computer-no">4021</span></td>
-                            <td>H. M. Gunawardena</td>
-                            <td>Station Master</td>
-                            <td>2026-09-07</td>
-                            <td><span class="badge-type">Grade B Quarters</span></td>
-                            <td>2026-09-06</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><span class="app-no">SLR/AOT/2026/0002</span></td>
-                            <td><span class="applicant-nic">901245678V</span></td>
-                            <td><span class="computer-no">4189</span></td>
-                            <td>P. R. Jayasinghe</td>
-                            <td>Permanent Way Inspector</td>
-                            <td>2026-09-05</td>
-                            <td><span class="badge-type">Grade A Quarters</span></td>
-                            <td>2026-09-04</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><span class="app-no">SLR/AOT/2026/0003</span></td>
-                            <td><span class="applicant-nic">934512786V</span></td>
-                            <td><span class="computer-no">5024</span></td>
-                            <td>K. L. Wickramasinghe</td>
-                            <td>Locomotive Driver</td>
-                            <td>2026-08-30</td>
-                            <td><span class="badge-type">Grade C Quarters</span></td>
-                            <td>2026-08-28</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <button onclick="window.print()" class="btn-print">
+                <i class="fa-solid fa-print"></i> Print / Save as PDF
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="data-table" id="requestTable">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Application Number</th>
+                        <th>NIC</th>
+                        <th>Computer Number</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Application Submitted Date</th>
+                        <th>Request Quarter Type</th>
+                        <th>Request Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><span class="app-no">SLR/AOT/2026/0001</span></td>
+                        <td><span class="applicant-nic">854712093V</span></td>
+                        <td><span class="computer-no">4021</span></td>
+                        <td>H. M. Gunawardena</td>
+                        <td>Station Master</td>
+                        <td>2026-09-07</td>
+                        <td><span class="badge-type">Grade B Quarters</span></td>
+                        <td>2026-09-06</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><span class="app-no">SLR/AOT/2026/0002</span></td>
+                        <td><span class="applicant-nic">901245678V</span></td>
+                        <td><span class="computer-no">4189</span></td>
+                        <td>P. R. Jayasinghe</td>
+                        <td>Permanent Way Inspector</td>
+                        <td>2026-09-05</td>
+                        <td><span class="badge-type">Grade A Quarters</span></td>
+                        <td>2026-09-04</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><span class="app-no">SLR/AOT/2026/0003</span></td>
+                        <td><span class="applicant-nic">934512786V</span></td>
+                        <td><span class="computer-no">5024</span></td>
+                        <td>K. L. Wickramasinghe</td>
+                        <td>Locomotive Driver</td>
+                        <td>2026-08-30</td>
+                        <td><span class="badge-type">Grade C Quarters</span></td>
+                        <td>2026-08-28</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

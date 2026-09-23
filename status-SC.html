@@ -45,13 +45,13 @@
             text-underline-offset: 8px; 
         }
         
+        /* Box around the table & search bar removed */
         .management-section { 
-            background: #ffffff; 
-            padding: 30px; 
-            border-radius: 1rem; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); 
-            border: 1px solid #e5e7eb; 
-            border-top: 5px solid #7A1C1C; 
+            background: transparent; 
+            padding: 0; 
+            border-radius: 0; 
+            box-shadow: none; 
+            border: none; 
             margin-bottom: 40px; 
         }
 
@@ -119,6 +119,10 @@
         .table-responsive {
             width: 100%;
             overflow-x: auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
 
         .data-table { 
@@ -133,7 +137,7 @@
             border-bottom: 1px solid #e2e8f0; 
             vertical-align: middle; 
             font-size: 0.85rem; 
-            text-align: center; /* Center aligned */
+            text-align: center; 
         }
 
         .data-table th { 
@@ -147,7 +151,6 @@
             border-bottom: 1px solid #7A1C1C; 
         }
 
-        /* Not bold table data */
         .data-table td { 
             color: #4b5563; 
             font-weight: normal; 
@@ -164,6 +167,24 @@
         .applicant-nic { font-family: monospace; color: #333333; }
         .computer-no { font-family: monospace; color: #333333; }
 
+        /* Status Badge with Symbol and Text */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status-ib { background-color: #7e22ce; } /* Immediate Boss */
+        .status-pf { background-color: #047857; } /* Personal File */
+        .status-sc { background-color: #4338ca; } /* Subject Clerk */
+        .status-bo { background-color: #b45309; } /* Branch Officer */
+        .status-fa { background-color: #be123c; } /* Final Approval */
+
         /* Print Styles */
         @media print {
             @page {
@@ -172,16 +193,15 @@
             }
             body { background-color: #ffffff; color: #000000; font-size: 9pt; }
             .container { max-width: 100%; margin: 0; padding: 0; }
-            .back-link, .btn-print, .search-box-wrapper, .management-section { box-shadow: none; border: none; padding: 0; margin: 0; }
-            .management-section { border-top: none; }
+            .back-link, .btn-print, .search-box-wrapper { display: none; }
             .page-title { font-size: 1.3rem; margin-bottom: 10px; color: #000000; text-decoration: underline; }
             .section-header-bar { margin-bottom: 10px; }
-            .section-subtitle, .section-subtitle i, .btn-print, .back-link, .search-box-wrapper { display: none; }
-            .table-responsive { overflow: visible !important; width: 100%; }
+            .table-responsive { overflow: visible !important; width: 100%; box-shadow: none !important; border: none !important; }
             .data-table { width: 100% !important; min-width: 100% !important; font-size: 8.5pt; border: 1px solid #000000; table-layout: fixed; }
             .data-table th, .data-table td { border: 1px solid #000000; padding: 6px 4px; color: #000000; font-weight: normal; text-align: center; word-wrap: break-word; }
             .data-table th { background-color: #f0f0f0 !important; color: #000000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .data-table tbody tr:hover { background-color: transparent; }
+            .status-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; border: 1px solid #000; color: #ffffff !important; }
         }
     </style>
 </head>
@@ -218,6 +238,7 @@
                             <th>Application Submitted Date</th>
                             <th>Request Quarter Type</th>
                             <th>Request Date</th>
+                            <th>Current Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -231,6 +252,7 @@
                             <td>2026-09-07</td>
                             <td>Grade B Quarters</td>
                             <td>2026-09-06</td>
+                            <td><span class="status-pill status-ib"><i class="fa-solid fa-user-tie"></i> Immediate Boss</span></td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -242,6 +264,7 @@
                             <td>2026-09-05</td>
                             <td>Grade A Quarters</td>
                             <td>2026-09-04</td>
+                            <td><span class="status-pill status-pf"><i class="fa-solid fa-folder-open"></i> Personal File</span></td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -253,6 +276,7 @@
                             <td>2026-08-30</td>
                             <td>Grade C Quarters</td>
                             <td>2026-08-28</td>
+                            <td><span class="status-pill status-sc"><i class="fa-solid fa-user-pen"></i> Subject Clerk</span></td>
                         </tr>
                     </tbody>
                 </table>

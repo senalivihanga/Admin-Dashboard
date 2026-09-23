@@ -20,21 +20,33 @@
             padding: 0 20px;
         }
 
-        .dashboard-header {
+        /* Banner Header style as in the image */
+        .dashboard-banner {
+            background: linear-gradient(135deg, #7A1C1C 0%, #4a1010 100%);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
             flex-wrap: wrap;
             gap: 15px;
+            box-shadow: 0 6px 20px rgba(122, 28, 28, 0.2);
+            border-bottom: 4px solid #d4af37;
         }
 
-        .dashboard-header h2 {
-            font-size: 2rem;
-            color: #7A1C1C;
-            margin: 0;
+        .dashboard-banner h2 {
+            font-size: 1.8rem;
+            margin: 0 0 5px 0;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+
+        .dashboard-banner p {
+            margin: 0;
+            color: #e2e8f0;
+            font-size: 0.95rem;
         }
 
         /* Profile & Dropdown Menu */
@@ -46,17 +58,17 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
             padding: 8px 16px;
             border-radius: 50px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.25);
             cursor: pointer;
             transition: all 0.2s;
+            color: white;
         }
 
         .user-profile-badge:hover {
-            border-color: #7A1C1C;
+            background: rgba(255, 255, 255, 0.22);
         }
 
         .profile-dropdown {
@@ -67,7 +79,7 @@
             background: #ffffff;
             width: 250px;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             border: 1px solid #e2e8f0;
             z-index: 100;
             overflow: hidden;
@@ -86,7 +98,7 @@
         }
 
         .profile-dropdown a:hover {
-            background-color: #f1f5f9;
+            background-color: #fdf2f2;
             color: #7A1C1C;
         }
 
@@ -98,6 +110,7 @@
         .profile-dropdown a.logout-btn:hover {
             background-color: #fef2f2;
         }
+
 
         /* Custom Modal for Logout Confirmation */
         .custom-modal {
@@ -287,20 +300,18 @@
 <body>
 
     <div class="dashboard-container">
-        <!-- Dashboard Header -->
-        <div class="dashboard-header">
+        <!-- Dashboard Banner Header (As seen in Screenshot) -->
+        <div class="dashboard-banner">
             <div>
                 <h2>Final Approval Dashboard</h2>
-                <p style="color: #64748b; margin: 5px 0 0 0;">Sri Lanka Railways - AOT</p>
+                <p>Sri Lanka Railways - Quarter Administration & Operation Team (AOT)</p>
             </div>
             
             <!-- User Profile with Dropdown Menu -->
             <div class="user-profile-wrapper">
                 <div class="user-profile-badge" onclick="toggleDropdown()">
-                    <div style="width: 35px; height: 35px; background: #7A1C1C; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">FA</div>
-                    <div>
-                        <div style="font-weight: 600; font-size: 0.9rem;">Final Approver</div>
-                    </div>
+                    <div style="width: 35px; height: 35px; background: #ffffff; color: #7A1C1C; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem;">FA</div>
+                    <div style="font-weight: 600; font-size: 0.9rem;">Final Approver</div>
                     <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; color: #64748b; margin-left: 5px;"></i>
                 </div>
 
@@ -314,28 +325,21 @@
 
         <!-- Top Row: 4 Amount Cards -->
         <div class="row">
-            <!-- Card 1: Total Approval List -->
             <div class="stat-card">
                 <i class="fa-solid fa-list-check"></i>
                 <h3>Total Approval List</h3>
                 <div class="stat-count">24</div>
             </div>
-
-            <!-- Card 2: Pending List -->
             <div class="stat-card">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <h3>Pending List</h3>
                 <div class="stat-count">08</div>
             </div>
-
-            <!-- Card 3: Approval List -->
             <div class="stat-card">
                 <i class="fa-solid fa-clipboard-check"></i>
-                <h3>Approved List</h3>
+                ### Approved List
                 <div class="stat-count">12</div>
             </div>
-
-            <!-- Card 4: Rejected List -->
             <div class="stat-card">
                 <i class="fa-solid fa-ban"></i>
                 <h3>Rejected List</h3>
@@ -347,7 +351,6 @@
         <div class="section-title">Application Management Modules</div>
         
         <div class="management-grid">
-            <!-- Tile 1: Application Approval -->
             <a href="appli-approve-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Application Approval</h4>
@@ -357,7 +360,6 @@
                 <span class="tile-link-text">Open Approval Queue <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 2: Approve / Reject List with green tick symbol -->
             <a href="approve-reject-list-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Approved / Rejected List</h4>
@@ -367,7 +369,6 @@
                 <span class="tile-link-text">View Records <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 3: Application Status -->
             <a href="status-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Application Status</h4>
@@ -377,7 +378,6 @@
                 <span class="tile-link-text">Check Status <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 4: Waiting Lists -->
             <a href="waiting-list-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Waiting Lists</h4>
@@ -387,7 +387,6 @@
                 <span class="tile-link-text">View Waiting List <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <!-- Tile 5: Quarters Allocation -->
             <a href="quarters-allocation-FA.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Quarters Allocation</h4>
@@ -413,32 +412,27 @@
     </div>
 
     <script>
-        // Toggle user profile dropdown menu
         function toggleDropdown() {
             const dropdown = document.getElementById('profileDropdown');
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Close dropdown when clicking outside
         window.addEventListener('click', function(e) {
             if (!e.target.closest('.user-profile-wrapper')) {
                 document.getElementById('profileDropdown').style.display = 'none';
             }
         });
 
-        // Open custom logout modal
         function openLogoutModal(event) {
             event.preventDefault();
             document.getElementById('profileDropdown').style.display = 'none';
             document.getElementById('logoutModal').style.display = 'flex';
         }
 
-        // Close custom logout modal
         function closeLogoutModal() {
             document.getElementById('logoutModal').style.display = 'none';
         }
 
-        // Execute logout redirection
         function executeLogout() {
             window.location.href = "login.html";
         }

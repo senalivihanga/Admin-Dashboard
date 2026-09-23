@@ -10,6 +10,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
@@ -307,25 +309,59 @@
             font-weight: 600;
         }
 
-        /* Print Media Settings */
+        /* Print Media Settings to completely eliminate empty/overflow pages */
         @media print {
-            body {
-                background-color: #ffffff;
+            @page {
+                size: landscape;
+                margin: 5mm;
             }
-            .back-link, .top-action-bar, .system-alert, .action-group, th:nth-child(11), td:nth-child(11) {
+
+            html, body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                height: 100% !important;
+                overflow: hidden !important;
+            }
+
+            .back-link, .top-action-bar, .system-alert {
                 display: none !important;
             }
+
             .approval-container {
                 max-width: 100% !important;
+                width: 100% !important;
                 margin: 0 !important;
                 padding: 0 !important;
             }
+
             .table-responsive {
+                overflow: visible !important;
                 box-shadow: none !important;
                 border: none !important;
+                margin-bottom: 0 !important;
             }
+
             table {
-                font-size: 10pt;
+                width: 100% !important;
+                font-size: 8.5pt;
+            }
+
+            th, td {
+                padding: 8px 10px !important;
+            }
+
+            /* Hide View Application (10th) and Action (11th) columns during print */
+            th:nth-child(10), td:nth-child(10),
+            th:nth-child(11), td:nth-child(11) {
+                display: none !important;
+            }
+
+            th {
+                background-color: #7A1C1C !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
     </style>
@@ -376,9 +412,9 @@
                 <tbody id="tableBody">
                     <tr>
                         <td>1</td>
-                        <td>APP-2026-001</td>
+                        <td>SLR/AOT/2026/0001</td>
                         <td>981234567V</td>
-                        <td>COM-101</td>
+                        <td>101</td>
                         <td>A. B. Perera</td>
                         <td>Station Master</td>
                         <td>Chief Station Master</td>
@@ -395,9 +431,9 @@
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>APP-2026-002</td>
+                        <td>SLR/AOT/2026/0002</td>
                         <td>957891234V</td>
-                        <td>COM-102</td>
+                        <td>102</td>
                         <td>K. D. Silva</td>
                         <td>Signal Inspector</td>
                         <td>District Signal Engineer</td>

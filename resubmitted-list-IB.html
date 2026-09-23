@@ -10,6 +10,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
@@ -280,31 +282,52 @@
 
         /* Print Media Styles */
         @media print {
-            body {
+            @page {
+                size: landscape;
+                margin: 5mm;
+            }
+
+            html, body {
                 background-color: #ffffff !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                height: 100% !important;
+                overflow: hidden !important;
             }
-            .back-link, .top-action-bar {
+
+            .back-link, .top-action-bar, .title-underline {
                 display: none !important;
             }
+
+            .approval-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
             .table-responsive {
                 overflow: visible !important;
                 box-shadow: none !important;
                 border: none !important;
+                margin-bottom: 0 !important;
             }
+
             table {
                 width: 100% !important;
-                font-size: 9pt;
+                font-size: 8.5pt;
                 min-width: auto !important;
             }
+
             th, td {
-                padding: 8px !important;
+                padding: 6px 8px !important;
             }
+
             th:nth-child(8), td:nth-child(8),
             th:nth-child(9), td:nth-child(9) {
                 display: none !important;
             }
+
             th {
                 background-color: #7A1C1C !important;
                 color: white !important;
@@ -386,9 +409,9 @@
 
     <script>
         const resubmittedData = [
-            { id: 1, appNo: "SLR/RES/2026/0001", nic: "981234567V", compNo: "101", name: "A. B. Perera", desig: "Station Master", reason: "Missing required income proof document signature." },
-            { id: 2, appNo: "SLR/RES/2026/0002", nic: "957891234V", compNo: "102", name: "K. D. Silva", desig: "Signal Inspector", reason: "Incorrect workplace address specified in section 3." },
-            { id: 3, appNo: "SLR/RES/2026/0003", nic: "923456789V", compNo: "105", name: "M. N. Fernando", desig: "Locomotive Driver", reason: "Service period details need further verification." }
+            { id: 1, appNo: "SLR/AOT/2026/0001", nic: "981234567V", compNo: "101", name: "A. B. Perera", desig: "Station Master", reason: "Missing required income proof document signature." },
+            { id: 2, appNo: "SLR/AOT/2026/0002", nic: "957891234V", compNo: "102", name: "K. D. Silva", desig: "Signal Inspector", reason: "Incorrect workplace address specified in section 3." },
+            { id: 3, appNo: "SLR/AOT/2026/0003", nic: "923456789V", compNo: "105", name: "M. N. Fernando", desig: "Locomotive Driver", reason: "Service period details need further verification." }
         ];
 
         let currentRowTarget = null;

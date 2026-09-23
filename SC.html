@@ -66,38 +66,36 @@
         /* Profile & Dropdown Menu */
         .user-profile-wrapper {
             position: relative;
-            z-index: 1000;
         }
 
         .user-profile-badge {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.12);
             padding: 8px 16px;
             border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             cursor: pointer;
             transition: all 0.2s;
-            color: #ffffff;
+            color: white;
         }
 
         .user-profile-badge:hover {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.22);
         }
 
         .profile-dropdown {
             display: none;
             position: absolute;
             right: 0;
-            top: 55px;
+            top: 60px;
             background: #ffffff;
             width: 250px;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             border: 1px solid #e2e8f0;
-            z-index: 1001;
+            z-index: 100;
             overflow: hidden;
         }
 
@@ -114,7 +112,7 @@
         }
 
         .profile-dropdown a:hover {
-            background-color: #f1f5f9;
+            background-color: #fdf2f2;
             color: #7A1C1C;
         }
 
@@ -330,7 +328,7 @@
             <!-- User Profile with Dropdown Menu -->
             <div class="user-profile-wrapper">
                 <div class="user-profile-badge" onclick="toggleDropdown()">
-                    <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.3); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem;">SC</div>
+                   <div style="width: 35px; height: 35px; background: #ffffff; color: #7A1C1C; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem;">SC</div>
                     <div>
                         <div style="font-weight: 600; font-size: 0.9rem;">Subject Clerk</div>
                     </div>
@@ -409,7 +407,7 @@
                 <span class="tile-link-text">Check Status <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <a href="quarters-details-SC.html" class="manage-tile">
+            <a href="quarters-list.html" class="manage-tile">
                 <div class="manage-tile-header">
                     <h4>Quarters Details</h4>
                     <i class="fa-solid fa-building-user" style="color: #0284c7;"></i>

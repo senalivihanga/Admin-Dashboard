@@ -10,6 +10,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
@@ -217,17 +219,59 @@
             flex-wrap: wrap;
         }
 
-        /* Printable styles override */
+        /* Printable styles override to remove empty pages and hide specific columns */
         @media print {
-            body {
-                background: white !important;
+            @page {
+                size: landscape;
+                margin: 5mm;
             }
-            .back-link, .top-controls, .action-column, th:last-child, td:last-child {
+
+            html, body {
+                background: white !important;
+                height: 100% !important;
+                overflow: hidden !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .back-link, .top-controls, .system-alert {
                 display: none !important;
             }
+
+            .approval-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
             .table-responsive {
                 box-shadow: none !important;
                 border: none !important;
+                overflow: visible !important;
+                margin-bottom: 0 !important;
+            }
+
+            table {
+                width: 100% !important;
+                font-size: 8.5pt;
+            }
+
+            th, td {
+                padding: 8px 10px !important;
+            }
+
+            /* Hide View (7th column) and Action (8th column) completely during print */
+            th:nth-child(7), td:nth-child(7),
+            th:nth-child(8), td:nth-child(8) {
+                display: none !important;
+            }
+
+            th {
+                background-color: #7A1C1C !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
     </style>
@@ -284,7 +328,7 @@
                         <td><a href="view-application-details.html?id=1" class="btn-view" title="View Application Details"><i class="fa-solid fa-eye"></i></a></td>
                         <td class="action-column">
                             <div class="action-group">
-                                <button type="button" class="btn-approve" title="Approve Application" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i></button>
+                                <button type="button" class="btn-approve" title="Approval Application" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -298,7 +342,7 @@
                         <td><a href="view-application-details.html?id=2" class="btn-view" title="View Application Details"><i class="fa-solid fa-eye"></i></a></td>
                         <td class="action-column">
                             <div class="action-group">
-                                <button type="button" class="btn-approve" title="Approve Application" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i></button>
+                                <button type="button" class="btn-approve" title="Approval Application" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -343,10 +387,12 @@
             let tr = table.getElementsByTagName("tr");
 
             for (let i = 1; i < tr.length; i++) {
+                let tdApp = tr[i].getElementsByTagName("td")[1];
                 let tdNic = tr[i].getElementsByTagName("td")[2];
                 let tdName = tr[i].getElementsByTagName("td")[4];
                 
                 if (tdApp || tdNic || tdName) {
+                    let textApp = tdApp ? tdApp.textContent.toLowerCase() : "";
                     let textNic = tdNic ? tdNic.textContent.toLowerCase() : "";
                     let textName = tdName ? tdName.textContent.toLowerCase() : "";
 

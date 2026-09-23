@@ -10,6 +10,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
@@ -143,7 +145,6 @@
             font-size: 0.9rem;
         }
 
-        /* Center aligning table headers and cells */
         th, td {
             padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
@@ -271,33 +272,48 @@
             background-color: #d97706;
         }
 
-        /* Print Media Styles: Hides navigation, search box, and action buttons during print, and ensures the whole table is neatly formatted for PDF/Print */
+        /* Print Media Styles: Prevents extra blank pages and hides View/Action columns */
         @media print {
+            @page {
+                size: landscape;
+                margin: 8mm;
+            }
+
             body {
                 background-color: #ffffff !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                height: auto;
             }
-            .back-link, .top-action-bar, .system-alert, .action-group th:nth-child(8), .action-group td:nth-child(8), th:nth-child(8), td:nth-child(8), th:nth-child(7), td:nth-child(7) {
-                /* If you want to hide action buttons and view buttons completely in print, uncomment below: */
-            }
+
             .back-link, .top-action-bar, .system-alert {
                 display: none !important;
             }
-            /* Hide the Action and View columns when printing if desired, or keep them. Let's keep table clean: hide Action column elements */
-            td .action-group, td .btn-view {
-                display: none !important;
+
+            .approval-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
-            /* Or simply remove borders/shadows for neat PDF look */
+
             .table-responsive {
                 overflow: visible !important;
+                box-init: none !important;
                 box-shadow: none !important;
                 border: none !important;
             }
+
             table {
                 width: 100% !important;
-                font-size: 10pt;
+                font-size: 9pt;
             }
+
+            /* Hide View Column (7th) and Action Column (8th) completely when printing */
+            th:nth-child(7), td:nth-child(7),
+            th:nth-child(8), td:nth-child(8) {
+                display: none !important;
+            }
+
             th {
                 background-color: #7A1C1C !important;
                 color: white !important;
@@ -340,7 +356,7 @@
                         <th>Computer Number</th>
                         <th>Name</th>
                         <th>Designation</th>
-                        <th>View</th>
+                        <th>View Application</th>
                         <th>Action</th>
                     </tr>
                 </thead>
