@@ -149,6 +149,7 @@
             padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
             text-align: center !important;
+            transition: all 0.3s ease;
         }
 
         th {
@@ -233,14 +234,14 @@
             line-height: 1.5;
         }
 
-        .modal-content textarea {
+        .modal-content textarea, .modal-content select {
             width: 100%;
-            height: 100px;
             padding: 10px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
             margin-bottom: 15px;
             font-family: inherit;
+            outline: none;
         }
 
         .modal-buttons {
@@ -258,21 +259,13 @@
             cursor: pointer;
         }
 
-        .btn-confirm-action {
-            background-color: #f59e0b;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 0.4s ease;
         }
 
-        .btn-confirm-action:hover {
-            background-color: #d97706;
-        }
-
-        /* Print Media Styles: Prevents extra blank pages and hides View/Action columns */
+        /* Print Media Styles */
         @media print {
             @page {
                 size: landscape;
@@ -298,7 +291,6 @@
 
             .table-responsive {
                 overflow: visible !important;
-                box-init: none !important;
                 box-shadow: none !important;
                 border: none !important;
             }
@@ -308,7 +300,6 @@
                 font-size: 9pt;
             }
 
-            /* Hide View Column (7th) and Action Column (8th) completely when printing */
             th:nth-child(7), td:nth-child(7),
             th:nth-child(8), td:nth-child(8) {
                 display: none !important;
@@ -366,24 +357,31 @@
         </div>
     </main>
 
+    <!-- Reject Modal -->
     <div id="rejectModal" class="modal">
         <div class="modal-content">
             <h3>Provide Rejection Reason</h3>
             <textarea id="rejectionReasonInput" placeholder="Enter reason for rejecting this application..."></textarea>
             <div class="modal-buttons">
-                <button type="button" class="btn-cancel" onclick="closeRejectModal()">Cancel</button>
+                <button type="button" class="btn-cancel" onclick="closeModal('rejectModal')">Cancel</button>
                 <button type="button" class="btn-reject" onclick="confirmRejection()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px;"><i class="fa-solid fa-xmark"></i> Confirm Rejection</button>
             </div>
         </div>
     </div>
 
-    <div id="editApprovalModal" class="modal">
+    <!-- Edit Approval Modal -->
+    <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3>Modify Application Status</h3>
-            <p id="editApprovalPromptText">Are you sure you want to change this decision? </p>
+            <h3>Change Application Status</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px;">Switch approval or rejection status for this record:</p>
+            <select id="statusSelect">
+                <option value="Approved">Approve Application</option>
+                <option value="Rejected">Reject Application</option>
+            </select>
+            <textarea id="editReasonInput" placeholder="Enter reason if changing/rejecting status..." style="display:none;"></textarea>
             <div class="modal-buttons">
-                <button type="button" class="btn-cancel" onclick="closeEditApprovalModal()">Cancel</button>
-                <button type="button" class="btn-confirm-action" onclick="confirmEditApproval()">Yes, Change Status</button>
+                <button type="button" class="btn-cancel" onclick="closeModal('editModal')">Cancel</button>
+                <button type="button" class="btn-approve" onclick="confirmStatusChange()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px; background-color: #3b82f6;">Save Changes</button>
             </div>
         </div>
     </div>
@@ -408,6 +406,7 @@
 
             dataToRender.forEach((item, index) => {
                 let row = document.createElement('tr');
+                row.id = `row-${item.id}`;
                 row.innerHTML = `
                     <td>${index + 1}</td>
                     <td><strong>${item.appNo}</strong></td>
@@ -420,7 +419,7 @@
                         <div class="action-group">
                             <button type="button" class="btn-approve" onclick="handleApprove(this)" title="Approve"><i class="fa-solid fa-check"></i></button>
                             <button type="button" class="btn-reject" onclick="openRejectModal(this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
-                            <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" class="btn-edit-approval" onclick="openEditModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
                         </div>
                     </td>
                 `;
@@ -453,29 +452,22 @@
             }
 
             alertBox.style.display = 'flex';
-            
             setTimeout(() => {
                 alertBox.style.display = 'none';
             }, 5000);
         }
 
         function handleApprove(button) {
+            const row = button.closest('tr');
             showSystemMessage("Application has been successfully approved by the system.", "success");
-        }
-
-        function openEditApprovalModal(button) {
-            currentRowTarget = button.closest('tr');
-            document.getElementById('editApprovalModal').style.display = 'flex';
-        }
-
-        function closeEditApprovalModal() {
-            document.getElementById('editApprovalModal').style.display = 'none';
-            currentRowTarget = null;
-        }
-
-        function confirmEditApproval() {
-            showSystemMessage("System Auto-Message: Application decision status has been successfully corrected/updated.", "success");
-            closeEditApprovalModal();
+            
+            row.classList.add('fade-out');
+            setTimeout(() => {
+                const appId = row.id.replace('row-', '');
+                const index = applicationData.findIndex(item => item.id == appId);
+                if(index > -1) applicationData.splice(index, 1);
+                filterTable();
+            }, 400);
         }
 
         function openRejectModal(button) {
@@ -484,8 +476,8 @@
             document.getElementById('rejectModal').style.display = 'flex';
         }
 
-        function closeRejectModal() {
-            document.getElementById('rejectModal').style.display = 'none';
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
             currentRowTarget = null;
         }
 
@@ -495,8 +487,63 @@
                 showSystemMessage("Error: Please provide a valid rejection reason.", "error");
                 return;
             }
+            
             showSystemMessage("Application rejected successfully. Reason recorded in system log.", "error");
-            closeRejectModal();
+            closeModal('rejectModal');
+
+            if (currentRowTarget) {
+                currentRowTarget.classList.add('fade-out');
+                setTimeout(() => {
+                    const appId = currentRowTarget.id.replace('row-', '');
+                    const index = applicationData.findIndex(item => item.id == appId);
+                    if(index > -1) applicationData.splice(index, 1);
+                    filterTable();
+                    currentRowTarget = null;
+                }, 400);
+            }
+        }
+
+        function openEditModal(button) {
+            currentRowTarget = button.closest('tr');
+            document.getElementById('editModal').style.display = 'flex';
+            document.getElementById('statusSelect').value = 'Approved';
+            document.getElementById('editReasonInput').style.display = 'none';
+            document.getElementById('editReasonInput').value = '';
+        }
+
+        document.getElementById('statusSelect').addEventListener('change', function() {
+            const reasonInput = document.getElementById('editReasonInput');
+            if (this.value === 'Rejected') {
+                reasonInput.style.display = 'block';
+            } else {
+                reasonInput.style.display = 'none';
+            }
+        });
+
+        function confirmStatusChange() {
+            const newStatus = document.getElementById('statusSelect').value;
+            const editReason = document.getElementById('editReasonInput').value.trim();
+
+            if (newStatus === 'Rejected' && !editReason) {
+                showSystemMessage("Error: Please provide a reason when changing status to Rejected.", "error");
+                return;
+            }
+
+            showSystemMessage(`Application status successfully updated to: ${newStatus}`, "success");
+            closeModal('editModal');
+
+            if (currentRowTarget) {
+                currentRowTarget.classList.add('fade-out');
+                setTimeout(() => {
+                    const appId = currentRowTarget.id.replace('row-', '');
+                    const index = applicationData.findIndex(item => item.id == appId);
+                    if(index > -1) {
+                        applicationData.splice(index, 1);
+                    }
+                    filterTable();
+                    currentRowTarget = null;
+                }, 400);
+            }
         }
 
         window.onload = function() {

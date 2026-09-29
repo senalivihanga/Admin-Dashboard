@@ -20,7 +20,7 @@
             padding: 0 20px;
         }
 
-        /* Banner Header style as in the image */
+        /* Banner Header style */
         .dashboard-banner {
             background: linear-gradient(135deg, #7A1C1C 0%, #4a1010 100%);
             color: white;
@@ -111,7 +111,6 @@
             background-color: #fef2f2;
         }
 
-
         /* Custom Modal for Logout Confirmation */
         .custom-modal {
             display: none;
@@ -179,7 +178,7 @@
             cursor: pointer;
         }
 
-        /* Top Row: 4 Amount Cards */
+        /* Top Row: 4 Stat Cards */
         .row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -191,18 +190,22 @@
             background: #ffffff;
             padding: 24px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
             border: 1px solid #e2e8f0;
+            border-top: 4px solid #7A1C1C;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none !important;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
 
         .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px -3px rgba(122, 28, 28, 0.12);
+            border-color: #7A1C1C;
         }
 
         .stat-card i {
@@ -212,7 +215,7 @@
         }
 
         .stat-card h3 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #64748b;
             margin: 0 0 8px 0;
             font-weight: 600;
@@ -247,19 +250,19 @@
             background: #ffffff;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
             border: 1px solid #e2e8f0;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .manage-tile:hover {
             border-color: #7A1C1C;
             box-shadow: 0 8px 20px rgba(122, 28, 28, 0.08);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .manage-tile-header {
@@ -300,7 +303,7 @@
 <body>
 
     <div class="dashboard-container">
-        <!-- Dashboard Banner Header (As seen in Screenshot) -->
+        <!-- Dashboard Banner Header -->
         <div class="dashboard-banner">
             <div>
                 <h2>Final Approval Dashboard</h2>
@@ -323,24 +326,29 @@
             </div>
         </div>
 
-        <!-- Top Row: 4 Amount Cards -->
+        <!-- Top Row: 4 Stat Cards -->
         <div class="row">
-            <div class="stat-card">
-                <i class="fa-solid fa-list-check"></i>
+            <a href="appli-approve-FA.html" class="stat-card">
+                <i class="fa-solid fa-clock-rotate-left"></i>
                 <h3>Total Approval List</h3>
-                <div class="stat-count">24</div>
-            </div>
-            <div class="stat-card">
+                <div class="stat-count">08</div>
+            </a>
+
+            <a href="pending-list-FA.html" class="stat-card">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <h3>Pending List</h3>
                 <div class="stat-count">08</div>
-            </div>
-            <div class="stat-card">
+            </a>
+
+            <!-- Approved List Card linking to Approved Tab -->
+            <div class="stat-card" onclick="location.href='approve-reject-list-FA.html?tab=approved'">
                 <i class="fa-solid fa-clipboard-check"></i>
-                ### Approved List
+                <h3>Approved List</h3>
                 <div class="stat-count">12</div>
             </div>
-            <div class="stat-card">
+
+            <!-- Rejected List Card linking directly to Rejected Tab -->
+            <div class="stat-card" onclick="location.href='approve-reject-list-FA.html?tab=rejected'">
                 <i class="fa-solid fa-ban"></i>
                 <h3>Rejected List</h3>
                 <div class="stat-count">04</div>
@@ -369,14 +377,14 @@
                 <span class="tile-link-text">View Records <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
-            <a href="status-FA.html" class="manage-tile">
-                <div class="manage-tile-header">
-                    <h4>Application Status</h4>
-                    <i class="fa-solid fa-spinner" style="color: #0284c7;"></i>
-                </div>
-                <p>Track real-time progress, stages, and current workflow states of submitted applications.</p>
-                <span class="tile-link-text">Check Status <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
+          <a href="status-FA.html" onclick="localStorage.setItem('returnDashboard', 'FA.html')" class="manage-tile">
+    <div class="manage-tile-header">
+        <h4>Application Status</h4>
+        <i class="fa-solid fa-spinner" style="color: #0284c7;"></i>
+    </div>
+    <p>Track real-time progress, stages, and current workflow states of submitted applications.</p>
+    <span class="tile-link-text">Check Status <i class="fa-solid fa-arrow-right"></i></span>
+</a>
 
             <a href="waiting-list-FA.html" class="manage-tile">
                 <div class="manage-tile-header">

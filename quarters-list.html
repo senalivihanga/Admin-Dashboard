@@ -13,17 +13,19 @@
             margin: 0;
             padding: 0;
         }
-        .container { max-width: 1750px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 1850px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
         
         .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
         .search-box-wrapper { position: relative; display: flex; align-items: center; }
         .search-box-wrapper i { position: absolute; left: 14px; color: #64748b; font-size: 0.9rem; }
-        .search-input { padding: 10px 14px 10px 40px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 300px; outline: none; transition: all 0.2s; background-color: #ffffff; }
+        .search-input { padding: 10px 14px 10px 40px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 320px; outline: none; transition: all 0.2s; background-color: #ffffff; }
         .search-input:focus { border-color: #7A1C1C; box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1); }
 
         .btn-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .add-quarter-btn { background-color: #10b981; color: white; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
+        .add-quarter-btn:hover { background-color: #059669; }
         .maint-page-btn { background-color: #2563eb; color: white; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
         .maint-page-btn:hover { background-color: #1d4ed8; }
         .btn-print { background-color: #0284c7; color: #ffffff; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
@@ -31,7 +33,7 @@
 
         .table-card { background: transparent; padding: 0; border-radius: 0; box-shadow: none; border: none; overflow-x: auto; position: relative; }
         .table-responsive { width: 100%; overflow-x: auto; background: #ffffff; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
-        .quarters-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1300px; }
+        .quarters-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1500px; }
         
         .quarters-table th, .quarters-table td { 
             padding: 14px 12px; 
@@ -91,18 +93,19 @@
 <body>
 
     <div class="container">
-        <a href="SC.html" class="back-link" id="backLink"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        <a href="index.html" class="back-link" id="backLink"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         <h2 class="page-title">Quarters Details</h2>
 
         <div class="section-header-bar">
-            <!-- Search bar -->
+            <!-- Search bar restricted to Quarter No and Name -->
             <div class="search-box-wrapper">
                 <i class="fa-solid fa-search"></i>
-                <input type="text" id="searchInput" class="search-input" placeholder="Search by Quarter No, Name, Location..." onkeyup="searchTable()">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by Quarter No or Name..." onkeyup="searchTable()">
             </div>
 
-            <!-- Action buttons: Maintenance Page & Print -->
+            <!-- Action buttons: Add Quarter, Maintenance Page & Print -->
             <div class="btn-group" id="actionBtnGroup">
+                <a href="add-quarter.html" class="add-quarter-btn" id="addQuarterBtn"><i class="fa-solid fa-plus-circle"></i> Add Quarter</a>
                 <a href="maintenance.html" class="maint-page-btn" id="maintBtn"><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance Page</a>
                 <button onclick="window.print()" class="btn-print" id="printBtn">
                     <i class="fa-solid fa-print"></i> Print / Save as PDF
@@ -117,8 +120,11 @@
                         <tr>
                             <th>No.</th>
                             <th>Quarter No.</th>
-                            <th>Quarter Location</th>
                             <th>Quarter Name</th>
+                            <th>Quarter Division</th>
+                            <th>Ownership</th>
+                            <th>Quarter Area</th>
+                            <th>Quarter Location</th>
                             <th>Address</th>
                             <th>Quarter Type</th>
                             <th>Assessment Rent (LKR)</th>
@@ -167,21 +173,22 @@
         function applyRolePermissions() {
             const printBtn = document.getElementById('printBtn');
             const maintBtn = document.getElementById('maintBtn');
+            const addQuarterBtn = document.getElementById('addQuarterBtn');
             const backLink = document.getElementById('backLink');
 
             if (userRole === 'bo' || userRole === 'BO') {
-                // Branch Officer: Hide Print button, Keep Maintenance Page, back link to BO.html
                 if(printBtn) printBtn.style.setProperty('display', 'none', 'important');
                 if(maintBtn) maintBtn.style.display = 'inline-flex';
+                if(addQuarterBtn) addQuarterBtn.style.display = 'inline-flex';
                 if(backLink) backLink.href = 'BO.html';
             } else if (userRole === 'sc' || userRole === 'SC') {
-                // Subject Clerk: Show Maintenance Page and Print, back link to SC.html
                 if(maintBtn) maintBtn.style.display = 'inline-flex';
+                if(addQuarterBtn) addQuarterBtn.style.display = 'inline-flex';
                 if(printBtn) printBtn.style.display = 'inline-flex';
                 if(backLink) backLink.href = 'SC.html';
             } else {
-                // Default / Admin View
                 if(maintBtn) maintBtn.style.display = 'inline-flex';
+                if(addQuarterBtn) addQuarterBtn.style.display = 'inline-flex';
                 if(printBtn) printBtn.style.display = 'inline-flex';
             }
         }
@@ -189,8 +196,11 @@
         const defaultData = [
             {
                 quarterNum: "Q-01",
-                location: "Colombo",
                 quarterName: "Bungalow A",
+                division: "Way & Works",
+                ownership: "Railway Department",
+                quarterArea: "Colombo Central",
+                location: "Colombo",
                 address: "No. 12, Railway Avenue, Colombo 10",
                 quarterType: "Bungalows",
                 assessmentRent: "5,500.00",
@@ -222,7 +232,6 @@
                 const tr = document.createElement('tr');
                 
                 let actionsHtml = '';
-                // Subject Clerk (SC) සහ Branch Officer (BO) සඳහා Edit සහ Delete සම්පූර්ණයෙන්ම අයින් කර View පමණක් පෙන්වයි.
                 if (userRole === 'sc' || userRole === 'SC' || userRole === 'bo' || userRole === 'BO') {
                     actionsHtml = `
                         <div class="action-cell">
@@ -230,7 +239,6 @@
                         </div>
                     `;
                 } else {
-                    // Admin හෝ සාමාන්‍ය වැටෙන පිටුවලදී View, Edit, සහ Delete සියල්ලම පෙන්වයි.
                     actionsHtml = `
                         <div class="action-cell">
                             <button class="action-btn btn-view" onclick="openViewModal(${index})" title="View Details"><i class="fa-solid fa-eye"></i></button>
@@ -243,8 +251,11 @@
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td><b>${item.quarterNum}</b></td>
-                    <td>${item.location}</td>
                     <td>${item.quarterName || 'N/A'}</td>
+                    <td>${item.division || 'N/A'}</td>
+                    <td>${item.ownership || 'N/A'}</td>
+                    <td>${item.quarterArea || 'N/A'}</td>
+                    <td>${item.location}</td>
                     <td>${item.address || 'N/A'}</td>
                     <td>${item.quarterType}</td>
                     <td><b>Rs. ${item.assessmentRent || '0.00'}</b></td>
@@ -262,6 +273,7 @@
             });
         }
 
+        // Search specifically restricted to Quarter No (Index 1) and Quarter Name (Index 2)
         function searchTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toLowerCase();
@@ -269,14 +281,17 @@
             const tr = table.getElementsByTagName("tr");
 
             for (let i = 1; i < tr.length; i++) {
-                let rowMatched = false;
-                const tdElements = tr[i].getElementsByTagName("td");
+                const tdQuarterNo = tr[i].getElementsByTagName("td")[1];
+                const tdQuarterName = tr[i].getElementsByTagName("td")[2];
                 
-                for (let j = 0; j < tdElements.length - 1; j++) {
-                    const cellText = tdElements[j].textContent || tdElements[j].innerText;
-                    if (cellText.toLowerCase().indexOf(filter) > -1) {
+                let rowMatched = false;
+                
+                if (tdQuarterNo || tdQuarterName) {
+                    const noText = tdQuarterNo ? (tdQuarterNo.textContent || tdQuarterNo.innerText).toLowerCase() : "";
+                    const nameText = tdQuarterName ? (tdQuarterName.textContent || tdQuarterName.innerText).toLowerCase() : "";
+                    
+                    if (noText.indexOf(filter) > -1 || nameText.indexOf(filter) > -1) {
                         rowMatched = true;
-                        break;
                     }
                 }
 
@@ -293,8 +308,11 @@
             modalBody.innerHTML = `
                 <div class="view-row"><div class="view-label">Auto ID:</div><div class="view-value">${index + 1}</div></div>
                 <div class="view-row"><div class="view-label">Quarter No:</div><div class="view-value">${item.quarterNum}</div></div>
-                <div class="view-row"><div class="view-label">Location:</div><div class="view-value">${item.location}</div></div>
                 <div class="view-row"><div class="view-label">Quarter Name:</div><div class="view-value">${item.quarterName || 'N/A'}</div></div>
+                <div class="view-row"><div class="view-label">Division:</div><div class="view-value">${item.division || 'N/A'}</div></div>
+                <div class="view-row"><div class="view-label">Ownership:</div><div class="view-value">${item.ownership || 'N/A'}</div></div>
+                <div class="view-row"><div class="view-label">Quarter Area:</div><div class="view-value">${item.quarterArea || 'N/A'}</div></div>
+                <div class="view-row"><div class="view-label">Location:</div><div class="view-value">${item.location}</div></div>
                 <div class="view-row"><div class="view-label">Address:</div><div class="view-value">${item.address || 'N/A'}</div></div>
                 <div class="view-row"><div class="view-label">Quarter Type:</div><div class="view-value">${item.quarterType}</div></div>
                 <div class="view-row"><div class="view-label">Assessment Rent:</div><div class="view-value">Rs. ${item.assessmentRent || '0.00'}</div></div>

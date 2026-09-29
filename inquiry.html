@@ -12,35 +12,38 @@
         .back-link:hover { color: #4a050a; }
         .page-title { text-align: center; color: #5c060d; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
         
-        .management-section { background: #ffffff; padding: 30px; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid #e5e7eb; border-top: 5px solid #5c060d; margin-bottom: 40px; }
-        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-        .section-subtitle { color: #111827; font-size: 1.25rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 12px; }
-        .section-subtitle i { width: 40px; height: 40px; border-radius: 0.75rem; background: #5c060d; color: #fcd34d; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+        .management-section { background: #ffffff; padding: 20px 0; border: none; box-shadow: none; margin-bottom: 40px; }
+        .section-header-bar { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
 
-        .data-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1200px; }
+        .search-box-wrapper { position: relative; display: flex; align-items: center; }
+        .search-box-wrapper i { position: absolute; left: 14px; color: #64748b; font-size: 0.9rem; }
+        .search-input { padding: 10px 14px 10px 40px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 320px; outline: none; transition: all 0.2s; background-color: #ffffff; }
+        .search-input:focus { border-color: #5c060d; box-shadow: 0 0 0 3px rgba(92, 6, 13, 0.1); }
+
+        .data-table { width: 100%; border-collapse: collapse; text-align: center; min-width: 1200px; }
         .data-table th, .data-table td { padding: 14px 14px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; font-size: 0.85rem; }
-        .data-table th { background-color: #f9fafb; color: #374151; font-weight: 700; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; text-align: center; }
+        .data-table th { background-color:#7A1C1C; color: #ffffff; font-weight: 700; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; text-align: center; }
         .data-table td { color: #4b5563; text-align: center; }
-        .data-table td:nth-child(3), .data-table td:nth-child(4), .data-table td:nth-child(5) { text-align: left; }
+        .data-table td:nth-child(3), .data-table td:nth-child(4), .data-table td:nth-child(5) { text-align: center; }
         .data-table tbody tr { transition: background-color 0.15s ease; }
         .data-table tbody tr:hover { background-color: #fdf8f8; }
 
         .applicant-info { display: flex; flex-direction: column; gap: 2px; text-align: left; }
-        .applicant-name { font-weight: 600; color: #111827; font-size: 0.85rem; }
+        .applicant-name { font-weight: normal; color: #111827; font-size: 0.85rem; }
         .applicant-nic { font-size: 0.75rem; color: #6b7280; font-family: monospace; letter-spacing: 0.5px; }
 
-        .badge-issue { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 9999px; font-weight: 600; font-size: 0.75rem; }
+        .badge-issue { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 9999px; font-weight: normal; font-size: 0.75rem; }
         .issue-water { background-color: #e0f2fe; color: #0369a1; }
         .issue-electricity { background-color: #fef9c3; color: #a16207; }
         .issue-maintenance { background-color: #fee2e2; color: #991b1b; }
         .issue-other { background-color: #f3f4f6; color: #374151; }
 
-        .badge-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 9999px; font-weight: 600; font-size: 0.75rem; }
+        .badge-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 9999px; font-weight: normal; font-size: 0.75rem; }
         .status-pending { background-color: #fff7ed; color: #c2410c; }
         .status-progress { background-color: #fef9c3; color: #854d0e; }
         .status-resolved { background-color: #f0fdf4; color: #15803d; }
 
-        .complaint-text { max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #1f2937; font-weight: 500; text-align: left; }
+        .complaint-text { width: 100%; max-width: 350px; white-space: normal; word-break: break-word; color: #1f2937; font-weight: normal; text-align: left; }
     </style>
 </head>
 <body>
@@ -51,13 +54,14 @@
 
         <div class="management-section">
             <div class="section-header-bar">
-                <h3 class="section-subtitle">
-                    <i class="fa-solid fa-file-lines"></i> Submitted Inquiries Overview
-                </h3>
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." onkeyup="searchTable()">
+                </div>
             </div>
 
             <div class="table-responsive" style="overflow-x: auto;">
-                <table class="data-table">
+                <table class="data-table" id="inquiryTable">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -75,7 +79,7 @@
                             <td><span class="applicant-nic">883421092V</span></td>
                             <td><span class="applicant-name">A. B. Perera</span></td>
                             <td>
-                                <div class="complaint-text" title="Low water pressure during morning hours in the kitchen area.">
+                                <div class="complaint-text">
                                     Low water pressure during morning hours in the kitchen area.
                                 </div>
                             </td>
@@ -96,7 +100,7 @@
                             <td><span class="applicant-nic">925631485V</span></td>
                             <td><span class="applicant-name">S. K. Silva</span></td>
                             <td>
-                                <div class="complaint-text" title="Main street light pole outside quarter gate is flickering continuously.">
+                                <div class="complaint-text">
                                     Main street light pole outside quarter gate is flickering continuously.
                                 </div>
                             </td>
@@ -117,7 +121,7 @@
                             <td><span class="applicant-nic">951234789V</span></td>
                             <td><span class="applicant-name">M. N. Fernando</span></td>
                             <td>
-                                <div class="complaint-text" title="Bathroom window latch is broken and needs replacement.">
+                                <div class="complaint-text">
                                     Bathroom window latch is broken and needs replacement.
                                 </div>
                             </td>
@@ -139,5 +143,31 @@
         </div>
     </div>
 
+    <script>
+        function searchTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("inquiryTable");
+            const tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                const tdNic = tr[i].getElementsByTagName("td")[1];
+                const tdName = tr[i].getElementsByTagName("td")[2];
+                
+                let rowMatched = false;
+                
+                if (tdNic || tdName) {
+                    const nicText = tdNic ? (tdNic.textContent || tdNic.innerText).toLowerCase() : "";
+                    const nameText = tdName ? (tdName.textContent || tdName.innerText).toLowerCase() : "";
+                    
+                    if (nicText.indexOf(filter) > -1 || nameText.indexOf(filter) > -1) {
+                        rowMatched = true;
+                    }
+                }
+
+                tr[i].style.display = rowMatched ? "" : "none";
+            }
+        }
+    </script>
 </body>
 </html>

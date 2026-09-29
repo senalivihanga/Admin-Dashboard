@@ -93,7 +93,8 @@
 <body>
 
     <div class="container">
-        <a href="FA.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        <!-- Dynamic Back Link -->
+        <a href="FA.html" id="backLink" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         <h2 class="page-title">Total Request Applications Status</h2>
 
         <div class="management-section">
@@ -183,38 +184,47 @@
         </div>
     </div>
 
-    <script>
-        function filterTable() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toUpperCase().trim();
-            const table = document.getElementById('requestsTable');
-            const tr = table.getElementsByTagName('tr');
-            const noResults = document.getElementById('noResultsRow');
-            let visibleCount = 0;
+   <script>
+    // LocalStorage eken balala hari dashboad ekata back wenna hadanawa
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const backLink = document.getElementById('backLink');
+        const savedDashboard = localStorage.getItem('returnDashboard');
+        
+        if (savedDashboard) {
+            backLink.href = savedDashboard;
+        } else {
+            // Default fallback ekata FA_4.html danna
+            backLink.href = 'FA.html';
+        }
+    });
 
-            // Loop through all table rows (excluding the header)
-            for (let i = 1; i < tr.length; i++) {
-                const tdAppNo = tr[i].getElementsByTagName('td')[1]; // Application No column
-                if (tdAppNo) {
-                    const txtValue = tdAppNo.textContent || tdAppNo.innerText;
-                    // Check if application number matches search text
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                        visibleCount++;
-                    } else {
-                        tr[i].style.display = "none";
-                    }
+    function filterTable() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toUpperCase().trim();
+        const table = document.getElementById('requestsTable');
+        const tr = table.getElementsByTagName('tr');
+        const noResults = document.getElementById('noResultsRow');
+        let visibleCount = 0;
+
+        for (let i = 1; i < tr.length; i++) {
+            const tdAppNo = tr[i].getElementsByTagName('td')[1];
+            if (tdAppNo) {
+                const txtValue = tdAppNo.textContent || tdAppNo.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    visibleCount++;
+                } else {
+                    tr[i].style.display = "none";
                 }
             }
-
-            // Show or hide "No matching application found" message
-            if (visibleCount === 0) {
-                noResults.style.display = "block";
-            } else {
-                noResults.style.display = "none";
-            }
         }
-    </script>
 
+        if (visibleCount === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>

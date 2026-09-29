@@ -10,6 +10,8 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
@@ -20,7 +22,7 @@
 
         .approval-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .approval-container h2 {
@@ -31,7 +33,6 @@
             letter-spacing: 1px;
         }
 
-        /* Full width underline for header */
         .title-underline {
             width: 100%;
             max-width: 500px;
@@ -55,7 +56,60 @@
             text-decoration: underline;
         }
 
-        /* System Custom Alert Box instead of Browser alerts */
+        .top-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 10px 15px 10px 38px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 320px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #7A1C1C;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            color: #64748b;
+        }
+
+        .btn-print {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-print:hover {
+            background-color: #0369a1;
+        }
+
         .system-alert {
             background-color: #fef2f2;
             color: #991b1b;
@@ -76,7 +130,6 @@
             border-color: #bbf7d0;
         }
 
-        /* Table Styling */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -89,13 +142,14 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
             font-size: 0.9rem;
         }
 
         th, td {
             padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
+            text-align: center !important;
+            transition: all 0.3s ease;
         }
 
         th {
@@ -111,78 +165,41 @@
             background-color: #f1f5f9;
         }
 
-        /* View Button with Symbol and Word */
-        .btn-view {
-            background-color: #3b82f6;
-            color: white;
-            padding: 6px 12px;
+        .btn-view, .btn-approve, .btn-reject, .btn-edit-approval {
+            width: 34px;
+            height: 34px;
             border-radius: 6px;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            color: white;
             transition: background-color 0.2s;
+            text-decoration: none;
         }
 
-        .btn-view:hover {
-            background-color: #2563eb;
-        }
+        .btn-view { background-color: #3b82f6; }
+        .btn-view:hover { background-color: #2563eb; }
 
-        .btn-approve {
-            background-color: #10b981;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
+        .btn-approve { background-color: #10b981; }
+        .btn-approve:hover { background-color: #059669; }
 
-        .btn-approve:hover {
-            background-color: #059669;
-        }
+        .btn-reject { background-color: #ef4444; }
+        .btn-reject:hover { background-color: #dc2626; }
 
-        .btn-reject {
-            background-color: #ef4444;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .btn-reject:hover {
-            background-color: #dc2626;
-        }
-
-        .btn-edit-approval {
-            background-color: #f59e0b;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .btn-edit-approval:hover {
-            background-color: #d97706;
-        }
+        .btn-edit-approval { background-color: #f59e0b; }
+        .btn-edit-approval:hover { background-color: #d97706; }
 
         .action-group {
             display: flex;
             gap: 6px;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
-        /* Modal Overlay for Rejection and Edit Confirmations */
         .modal {
             display: none;
             position: fixed;
@@ -217,14 +234,14 @@
             line-height: 1.5;
         }
 
-        .modal-content textarea {
+        .modal-content textarea, .modal-content select {
             width: 100%;
-            height: 100px;
             padding: 10px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
             margin-bottom: 15px;
             font-family: inherit;
+            outline: none;
         }
 
         .modal-buttons {
@@ -242,24 +259,57 @@
             cursor: pointer;
         }
 
-        .btn-confirm-action {
-            background-color: #f59e0b;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 0.4s ease;
         }
 
-        .btn-confirm-action:hover {
-            background-color: #d97706;
-        }
-
-        /* Block printing via CSS */
+        /* Print Media Styles */
         @media print {
+            @page {
+                size: landscape;
+                margin: 8mm;
+            }
+
             body {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                height: auto;
+            }
+
+            .back-link, .top-action-bar, .system-alert {
                 display: none !important;
+            }
+
+            .approval-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .table-responsive {
+                overflow: visible !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+
+            table {
+                width: 100% !important;
+                font-size: 9pt;
+            }
+
+            th:nth-child(7), td:nth-child(7),
+            th:nth-child(8), td:nth-child(8) {
+                display: none !important;
+            }
+
+            th {
+                background-color: #7A1C1C !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
     </style>
@@ -267,7 +317,6 @@
 <body>
 
     <main class="approval-container">
-        <!-- Connected back to Final Approval Dashboard -->
         <a href="FA.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
         <div class="approval-header">
@@ -275,7 +324,14 @@
             <div class="title-underline"></div>
         </div>
 
-        <!-- System Message Notification Area -->
+        <div class="top-action-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="filterTable()">
+            </div>
+            <button type="button" class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+        </div>
+
         <div id="systemAlert" class="system-alert">
             <i id="alertIcon" class="fa-solid fa-circle-check"></i> 
             <span id="alertMessageText">System message goes here...</span>
@@ -296,72 +352,91 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Sample Data Rows -->
-                    <tr>
-                        <td>1</td>
-                        <td>APP-2026-001</td>
-                        <td>981234567V</td>
-                        <td>COM-101</td>
-                        <td>A. B. Perera</td>
-                        <td>Station Master</td>
-                        <td><a href="view-application-details.html?id=1" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
-                        <td>
-                            <div class="action-group">
-                                <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
-                                <button type="button" class="btn-reject" onclick="openRejectModal(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                                <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit Approval</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>APP-2026-002</td>
-                        <td>957891234V</td>
-                        <td>COM-102</td>
-                        <td>K. D. Silva</td>
-                        <td>Signal Inspector</td>
-                        <td><a href="view-application-details.html?id=2" class="btn-view"><i class="fa-solid fa-eye"></i> View</a></td>
-                        <td>
-                            <div class="action-group">
-                                <button type="button" class="btn-approve" onclick="handleApprove(this)"><i class="fa-solid fa-check"></i> Approve</button>
-                                <button type="button" class="btn-reject" onclick="openRejectModal(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                                <button type="button" class="btn-edit-approval" onclick="openEditApprovalModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit Approval</button>
-                            </div>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
     </main>
 
-    <!-- Rejection Reason Modal -->
+    <!-- Reject Modal -->
     <div id="rejectModal" class="modal">
         <div class="modal-content">
             <h3>Provide Rejection Reason</h3>
             <textarea id="rejectionReasonInput" placeholder="Enter reason for rejecting this application..."></textarea>
             <div class="modal-buttons">
-                <button type="button" class="btn-cancel" onclick="closeRejectModal()">Cancel</button>
-                <button type="button" class="btn-reject" onclick="confirmRejection()">Confirm Rejection</button>
+                <button type="button" class="btn-cancel" onclick="closeModal('rejectModal')">Cancel</button>
+                <button type="button" class="btn-reject" onclick="confirmRejection()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px;"><i class="fa-solid fa-xmark"></i> Confirm Rejection</button>
             </div>
         </div>
     </div>
 
-    <!-- Edit Approval Confirmation Modal (Are You Sure prompt) -->
-    <div id="editApprovalModal" class="modal">
+    <!-- Edit Approval Modal -->
+    <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3>Modify Application Status</h3>
-            <p id="editApprovalPromptText">Are you sure you want to change this decision? </p>
+            <h3>Change Application Status</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px;">Switch approval or rejection status for this record:</p>
+            <select id="statusSelect">
+                <option value="Approved">Approve Application</option>
+                <option value="Rejected">Reject Application</option>
+            </select>
+            <textarea id="editReasonInput" placeholder="Enter reason if changing/rejecting status..." style="display:none;"></textarea>
             <div class="modal-buttons">
-                <button type="button" class="btn-cancel" onclick="closeEditApprovalModal()">Cancel</button>
-                <button type="button" class="btn-confirm-action" onclick="confirmEditApproval()">Yes, Change Status</button>
+                <button type="button" class="btn-cancel" onclick="closeModal('editModal')">Cancel</button>
+                <button type="button" class="btn-approve" onclick="confirmStatusChange()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px; background-color: #3b82f6;">Save Changes</button>
             </div>
         </div>
     </div>
 
     <script>
+        const applicationData = [
+            { id: 1, appNo: "SLR/AOT/2026/0001", nic: "981234567V", compNo: "1054", name: "A. B. Perera", desig: "Station Master" },
+            { id: 2, appNo: "SLR/AOT/2026/0002", nic: "957891234V", compNo: "1055", name: "K. D. Silva", desig: "Signal Inspector" },
+            { id: 3, appNo: "SLR/AOT/2026/0003", nic: "923456789V", compNo: "1056", name: "M. N. Fernando", desig: "Locomotive Driver" }
+        ];
+
         let currentRowTarget = null;
 
-        // System message display function
+        function renderTable(dataToRender) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = "";
+
+            if (dataToRender.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #64748b; padding: 30px;">No applications found matching your search.</td></tr>`;
+                return;
+            }
+
+            dataToRender.forEach((item, index) => {
+                let row = document.createElement('tr');
+                row.id = `row-${item.id}`;
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><strong>${item.appNo}</strong></td>
+                    <td>${item.nic}</td>
+                    <td>${item.compNo}</td>
+                    <td>${item.name}</td>
+                    <td>${item.desig}</td>
+                    <td><a href="view-application-details.html?id=${item.id}" class="btn-view" title="View Application"><i class="fa-solid fa-eye"></i></a></td>
+                    <td>
+                        <div class="action-group">
+                            <button type="button" class="btn-approve" onclick="handleApprove(this)" title="Approve"><i class="fa-solid fa-check"></i></button>
+                            <button type="button" class="btn-reject" onclick="openRejectModal(this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                            <button type="button" class="btn-edit-approval" onclick="openEditModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterTable() {
+            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = applicationData.filter(item => {
+                return item.nic.toLowerCase().includes(searchVal) || 
+                       item.name.toLowerCase().includes(searchVal) ||
+                       item.appNo.toLowerCase().includes(searchVal);
+            });
+            renderTable(filtered);
+        }
+
         function showSystemMessage(message, type = 'success') {
             const alertBox = document.getElementById('systemAlert');
             const alertText = document.getElementById('alertMessageText');
@@ -378,31 +453,22 @@
             }
 
             alertBox.style.display = 'flex';
-            
-            // Auto hide after 5 seconds
             setTimeout(() => {
                 alertBox.style.display = 'none';
             }, 5000);
         }
 
         function handleApprove(button) {
-            showSystemMessage("Application has been successfully approved by the system.", "success");
-        }
-
-        // Open Edit Approval confirmation modal ("Are you sure..." check for status correction)
-        function openEditApprovalModal(button) {
-            currentRowTarget = button.closest('tr');
-            document.getElementById('editApprovalModal').style.display = 'flex';
-        }
-
-        function closeEditApprovalModal() {
-            document.getElementById('editApprovalModal').style.display = 'none';
-            currentRowTarget = null;
-        }
-
-        function confirmEditApproval() {
-            showSystemMessage("System Auto-Message: Application decision status has been successfully corrected/updated.", "success");
-            closeEditApprovalModal();
+            const row = button.closest('tr');
+            showSystemMessage("Application has been successfully approved by the Final Authority.", "success");
+            
+            row.classList.add('fade-out');
+            setTimeout(() => {
+                const appId = row.id.replace('row-', '');
+                const index = applicationData.findIndex(item => item.id == appId);
+                if(index > -1) applicationData.splice(index, 1);
+                filterTable();
+            }, 400);
         }
 
         function openRejectModal(button) {
@@ -411,8 +477,8 @@
             document.getElementById('rejectModal').style.display = 'flex';
         }
 
-        function closeRejectModal() {
-            document.getElementById('rejectModal').style.display = 'none';
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
             currentRowTarget = null;
         }
 
@@ -422,17 +488,68 @@
                 showSystemMessage("Error: Please provide a valid rejection reason.", "error");
                 return;
             }
+            
             showSystemMessage("Application rejected successfully. Reason recorded in system log.", "error");
-            closeRejectModal();
+            closeModal('rejectModal');
+
+            if (currentRowTarget) {
+                currentRowTarget.classList.add('fade-out');
+                setTimeout(() => {
+                    const appId = currentRowTarget.id.replace('row-', '');
+                    const index = applicationData.findIndex(item => item.id == appId);
+                    if(index > -1) applicationData.splice(index, 1);
+                    filterTable();
+                    currentRowTarget = null;
+                }, 400);
+            }
         }
 
-        // Security restriction block for printing shortcuts
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
-                e.preventDefault();
-                showSystemMessage("Access Restricted: Printing applications directly is disabled for security compliance.", "error");
+        function openEditModal(button) {
+            currentRowTarget = button.closest('tr');
+            document.getElementById('editModal').style.display = 'flex';
+            document.getElementById('statusSelect').value = 'Approved';
+            document.getElementById('editReasonInput').style.display = 'none';
+            document.getElementById('editReasonInput').value = '';
+        }
+
+        document.getElementById('statusSelect').addEventListener('change', function() {
+            const reasonInput = document.getElementById('editReasonInput');
+            if (this.value === 'Rejected') {
+                reasonInput.style.display = 'block';
+            } else {
+                reasonInput.style.display = 'none';
             }
         });
+
+        function confirmStatusChange() {
+            const newStatus = document.getElementById('statusSelect').value;
+            const editReason = document.getElementById('editReasonInput').value.trim();
+
+            if (newStatus === 'Rejected' && !editReason) {
+                showSystemMessage("Error: Please provide a reason when changing status to Rejected.", "error");
+                return;
+            }
+
+            showSystemMessage(`Application status successfully updated to: ${newStatus}`, "success");
+            closeModal('editModal');
+
+            if (currentRowTarget) {
+                currentRowTarget.classList.add('fade-out');
+                setTimeout(() => {
+                    const appId = currentRowTarget.id.replace('row-', '');
+                    const index = applicationData.findIndex(item => item.id == appId);
+                    if(index > -1) {
+                        applicationData.splice(index, 1);
+                    }
+                    filterTable();
+                    currentRowTarget = null;
+                }, 400);
+            }
+        }
+
+        window.onload = function() {
+            renderTable(applicationData);
+        }
     </script>
 </body>
 </html>

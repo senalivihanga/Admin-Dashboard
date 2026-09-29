@@ -10,27 +10,14 @@
         body {
             background-color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .approval-container {
             max-width: 1300px;
             margin: 30px auto;
             padding: 0 20px;
-        }
-
-        .approval-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .approval-container h2 {
-            font-size: 2rem;
-            color: #7A1C1C;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: underline;
-            text-underline-offset: 6px;
         }
 
         .back-link {
@@ -47,35 +34,117 @@
             text-decoration: underline;
         }
 
-        /* Description text bar replacement */
-        .description-bar {
-            margin-bottom: 20px;
+        .approval-header {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
-        .description-bar p {
-            color: #64748b;
-            font-weight: 500;
-            margin: 0;
-        }
-
-        /* Status Badge Styling */
-        .badge {
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
+        .approval-container h2 {
+            font-size: 2rem;
+            color: #7A1C1C;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            display: inline-block;
+            letter-spacing: 1px;
+            text-decoration: underline;
+            text-underline-offset: 6px;
         }
 
-        .badge-approved {
-            background-color: #dcfce7;
-            color: #166534;
+        /* Tab switch buttons container */
+        .tab-buttons-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
-        .badge-rejected {
-            background-color: #fee2e2;
-            color: #991b1b;
+        .tab-btn {
+            background-color: #e2e8f0;
+            color: #475569;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background-color: #7A1C1C;
+            color: white;
+            box-shadow: 0 4px 12px rgba(122, 28, 28, 0.2);
+        }
+
+        /* Controls bar (Search & Print) */
+        .controls-bar {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #7A1C1C;
+        }
+
+        .print-btn {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .print-btn:hover {
+            background-color: #0369a1;
+        }
+
+        .section-sub-heading {
+            font-size: 1.1rem;
+            color: #7A1C1C;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
         }
 
         /* Table Styling */
@@ -101,16 +170,46 @@
         }
 
         th {
-            background-color: #7A1C1C;
-            color: #ffffff;
+            background-color: #7A1C1C !important;
+            color: #ffffff !important;
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 0.5px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         tr:hover {
             background-color: #f1f5f9;
+        }
+
+        .status-icon-approved {
+            width: 28px;
+            height: 28px;
+            background-color: #dcfce7;
+            color: #166534;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .status-icon-rejected {
+            width: 28px;
+            height: 28px;
+            background-color: #fee2e2;
+            color: #991b1b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .reason-text {
@@ -118,9 +217,45 @@
             font-style: italic;
         }
 
-        .no-reason {
-            color: #94a3b8;
-            font-style: italic;
+        /* Print Media Styles: Ensures table, heading, status and reason are properly printed */
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            body * {
+                visibility: hidden;
+            }
+            .approval-container, .approval-container *, .section-sub-heading, .approval-header {
+                visibility: visible;
+            }
+            .approval-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .controls-bar, .tab-buttons-bar, .back-link {
+                display: none !important;
+            }
+            .table-responsive {
+                box-shadow: none;
+                border: none;
+                overflow: visible !important;
+            }
+            table {
+                width: 100% !important;
+                page-break-inside: auto;
+            }
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            th, td {
+                padding: 10px 12px;
+                border-bottom: 1px solid #cbd5e1;
+            }
         }
     </style>
 </head>
@@ -134,9 +269,28 @@
             <h2>Approved & Rejected Applications Log</h2>
         </div>
 
-        <div class="description-bar">
-            <p>Complete historical record of processed applications with review remarks.</p>
+        <!-- Tab Buttons Bar -->
+        <div class="tab-buttons-bar">
+            <button type="button" id="btnApprovedTab" class="tab-btn active" onclick="switchTab('approved')">
+                <i class="fa-solid fa-circle-check"></i> Approved List
+            </button>
+            <button type="button" id="btnRejectedTab" class="tab-btn" onclick="switchTab('rejected')">
+                <i class="fa-solid fa-ban"></i> Rejected List
+            </button>
         </div>
+
+        <!-- Controls Bar with Search & Print -->
+        <div class="controls-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="filterTable()">
+            </div>
+            <button type="button" class="print-btn" onclick="window.print()">
+                <i class="fa-solid fa-print"></i> Print Report
+            </button>
+        </div>
+
+        <div id="sectionTitle" class="section-sub-heading">Approved List</div>
 
         <div class="table-responsive">
             <table>
@@ -148,48 +302,133 @@
                         <th>Computer Number</th>
                         <th>Name</th>
                         <th>Designation</th>
-                        <th>Status</th>
-                        <th>Remarks / Reason</th>
+                        <th id="thExtra">Status</th>
                     </tr>
                 </thead>
-                <tbody id="processedTableBody">
-                    <!-- Row 1: Approved (No reason shown) -->
-                    <tr>
-                        <td>1</td>
-                        <td>APP-2026-001</td>
-                        <td>981234567V</td>
-                        <td>COM-101</td>
-                        <td>A. B. Perera</td>
-                        <td>Station Master</td>
-                        <td><span class="badge badge-approved">Approved</span></td>
-                        <td><span class="no-reason">-</span></td>
-                    </tr>
-                    <!-- Row 2: Rejected (Reason shown) -->
-                    <tr>
-                        <td>2</td>
-                        <td>APP-2026-002</td>
-                        <td>957891234V</td>
-                        <td>COM-102</td>
-                        <td>K. D. Silva</td>
-                        <td>Signal Inspector</td>
-                        <td><span class="badge badge-rejected">Rejected</span></td>
-                        <td><span class="reason-text">Incomplete documentation regarding current technical qualifications.</span></td>
-                    </tr>
-                    <!-- Row 3: Approved (No reason shown) -->
-                    <tr>
-                        <td>3</td>
-                        <td>APP-2026-003</td>
-                        <td>923456789V</td>
-                        <td>COM-105</td>
-                        <td>M. N. Fernando</td>
-                        <td>Locomotive Driver</td>
-                        <td><span class="badge badge-approved">Approved</span></td>
-                        <td><span class="no-reason">-</span></td>
-                    </tr>
+                <tbody id="tableBody">
+                    <!-- Dynamic Rows -->
                 </tbody>
             </table>
         </div>
     </main>
 
+    <script>
+        const approvedData = [
+            { no: 1, appNo: "SLR/AOT/2026/0001", nic: "981234567V", compNo: "101", name: "A. B. Perera", designation: "Station Master" },
+            { no: 2, appNo: "SLR/AOT/2026/0003", nic: "923456789V", compNo: "105", name: "M. N. Fernando", designation: "Locomotive Driver" },
+            { no: 3, appNo: "SLR/AOT/2026/0005", nic: "945612378V", compNo: "112", name: "P. R. Gunawardena", designation: "Telecommunication Tech" }
+        ];
+
+        const rejectedData = [
+            { no: 1, appNo: "SLR/AOT/2026/0002", nic: "957891234V", compNo: "102", name: "K. D. Silva", designation: "Signal Inspector", reason: "Incomplete documentation regarding current technical qualifications." },
+            { no: 2, appNo: "SLR/AOT/2026/0004", nic: "904561238V", compNo: "110", name: "S. K. Jayasundara", designation: "Way Inspector", reason: "Does not meet the minimum service requirement period." }
+        ];
+
+        let currentTab = 'approved';
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById('searchInput').value = '';
+
+            const btnApproved = document.getElementById('btnApprovedTab');
+            const btnRejected = document.getElementById('btnRejectedTab');
+            const sectionTitle = document.getElementById('sectionTitle');
+            const theadRow = document.querySelector('table thead tr');
+
+            if (tab === 'approved') {
+                btnApproved.classList.add('active');
+                btnRejected.classList.remove('active');
+                sectionTitle.innerText = "Approved List";
+                theadRow.innerHTML = `
+                    <th>No.</th>
+                    <th>Application Number</th>
+                    <th>NIC</th>
+                    <th>Computer Number</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Status</th>
+                `;
+            } else {
+                btnRejected.classList.add('active');
+                btnApproved.classList.remove('active');
+                sectionTitle.innerText = "Rejected List";
+                theadRow.innerHTML = `
+                    <th>No.</th>
+                    <th>Application Number</th>
+                    <th>NIC</th>
+                    <th>Computer Number</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Status</th>
+                    <th>Remarks / Reason</th>
+                `;
+            }
+            renderTable();
+        }
+
+        function renderTable(filterText = '') {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            const dataToRender = currentTab === 'approved' ? approvedData : rejectedData;
+            const query = filterText.toLowerCase();
+
+            const filtered = dataToRender.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.nic.toLowerCase().includes(query) || 
+                item.appNo.toLowerCase().includes(query)
+            );
+
+            const colSpanCount = currentTab === 'approved' ? 7 : 8;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="${colSpanCount}" style="text-align: center; color: #94a3b8; padding: 20px;">No matching records found.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                if (currentTab === 'approved') {
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><strong>${item.appNo}</strong></td>
+                        <td>${item.nic}</td>
+                        <td>${item.compNo}</td>
+                        <td>${item.name}</td>
+                        <td>${item.designation}</td>
+                        <td><div class="status-icon-approved"><i class="fa-solid fa-check"></i></div></td>
+                    `;
+                } else {
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><strong>${item.appNo}</strong></td>
+                        <td>${item.nic}</td>
+                        <td>${item.compNo}</td>
+                        <td>${item.name}</td>
+                        <td>${item.designation}</td>
+                        <td><div class="status-icon-rejected"><i class="fa-solid fa-xmark"></i></div></td>
+                        <td><span class="reason-text">${item.reason}</span></td>
+                    `;
+                }
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterTable() {
+            const query = document.getElementById('searchInput').value;
+            renderTable(query);
+        }
+
+        // On page load, check URL parameter to decide which tab to open
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tabParam = urlParams.get('tab');
+            if (tabParam === 'rejected') {
+                switchTab('rejected');
+            } else {
+                switchTab('approved');
+            }
+        });
+    </script>
 </body>
 </html>

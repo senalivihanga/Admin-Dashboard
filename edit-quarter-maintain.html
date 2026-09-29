@@ -20,7 +20,7 @@
 </head>
 <body>
     <div style="max-width: 600px; margin: 40px auto 0 auto; padding: 0 20px;">
-        <a href="quarters-list.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Quarters List</a>
+        <a href="maintenance.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Quarters List</a>
     </div>
 
     <div class="form-container">
@@ -76,6 +76,10 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="editLastMaint">Last Maintenance Date</label>
+                <input type="date" id="editLastMaint">
+            </div>
+            <div class="form-group">
                 <label>Facilities</label>
                 <div class="checkbox-group">
                     <label><input type="checkbox" id="editElectric"> Electricity</label>
@@ -88,7 +92,7 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const indexParam = urlParams.get('index'); // quarters-list එකෙන් index එක යවන නිසා මෙහි index පාවිච්චි කරයි
+        const indexParam = urlParams.get('index');
 
         if (indexParam === null || !/^\d+$/.test(indexParam)) {
             alert("Invalid record Index!");
@@ -112,6 +116,7 @@
                 document.getElementById('editQuarterType').value = item.quarterType || 'Bungalows';
                 document.getElementById('editAssessmentRent').value = item.assessmentRent || '';
                 document.getElementById('editStatus').value = item.status || 'Available';
+                document.getElementById('editLastMaint').value = item.lastMaint || '';
                 document.getElementById('editElectric').checked = !!item.electric;
                 document.getElementById('editWater').checked = !!item.water;
             } else {
@@ -136,6 +141,7 @@
                     quarterType: document.getElementById('editQuarterType').value,
                     assessmentRent: document.getElementById('editAssessmentRent').value,
                     status: document.getElementById('editStatus').value,
+                    lastMaint: document.getElementById('editLastMaint').value,
                     electric: document.getElementById('editElectric').checked,
                     water: document.getElementById('editWater').checked
                 };

@@ -50,7 +50,6 @@
             padding-bottom: 10px;
         }
 
-        /* Form Controls for Input */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -106,25 +105,25 @@
         }
         .btn-generate:hover { background-color: #4a050a; }
 
-        /* Letter Sheet Styling (A4 Preview) */
         .letter-preview-box {
             background: #fff;
-            padding: 50px;
+            padding: 40px;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
             font-family: 'Times New Roman', Times, serif;
             color: #000;
-            line-height: 1.6;
-            font-size: 12pt;
+            line-height: 1.5;
+            font-size: 11pt;
             margin-top: 30px;
-            display: none; /* Hidden until generated */
+            display: none; 
         }
         
         .letter-actions-bar {
             display: none;
             justify-content: flex-end;
             margin-top: 15px;
+            margin-bottom: 40px;
         }
 
         .btn-print-action {
@@ -142,45 +141,49 @@
         }
         .btn-print-action:hover { background-color: #0369a1; }
 
-        /* Print Media Settings */
+        /* Print Media Settings - Clean & Fixed */
         @media print {
-            body * {
-                visibility: hidden;
+            @page {
+                size: A4;
+                margin: 10mm 15mm;
             }
-            #letterPreviewBox, #letterPreviewBox * {
-                visibility: visible;
+            body {
+                background: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .no-print {
+                display: none !important;
             }
             #letterPreviewBox {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                border: none;
-                box-shadow: none;
-                padding: 0;
-                margin: 0;
                 display: block !important;
-            }
-            .container, .card:not(:last-child), .back-link, .letter-actions-bar {
-                display: none !important;
+                position: relative !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                background: white !important;
+                page-break-after: avoid !important;
+                page-break-inside: avoid !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- Form Container (Hidden on Print) -->
+    <div class="container no-print">
         <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
         <div class="card">
             <h2 class="card-title"><i class="fa-solid fa-file-pen"></i> Generate Official Letter</h2>
             <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">
-                Enter the comprehensive applicant and letter body details below to generate an expanded official notification.
+                Enter Application Number to auto-fill applicant information, or enter details manually.
             </p>
 
             <form id="letterForm" onsubmit="generateLetter(event)">
                 
-                <!-- Receiver Details Section -->
                 <div class="section-subheading">1. Receiver Information (Applicant)</div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -197,7 +200,7 @@
                     </div>
                     <div class="form-group">
                         <label>Application Number</label>
-                        <input type="text" id="appNo" placeholder="e.g. APP-2026-001" required>
+                        <input type="text" id="appNo" placeholder="e.g. SLR/AOT/2026/0001" oninput="autoFillApplicant(this.value)" required>
                     </div>
                     <div class="form-group">
                         <label>Applicant NIC</label>
@@ -209,16 +212,15 @@
                     </div>
                 </div>
 
-                <!-- Expanded Content Details Section -->
                 <div class="section-subheading">2. Detailed Letter Content</div>
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label>Letter Subject</label>
-                        <input type="text" id="letterSubject" placeholder="e.g. Application Status & Allocation Guidelines for Government Quarters" required>
+                        <input type="text" id="letterSubject" value="Application Status & Allocation Guidelines for Government Quarters" required>
                     </div>
                     <div class="form-group full-width">
                         <label>Main Body Description / Specific Instructions</label>
-                        <textarea id="mainDescription" rows="4" placeholder="Enter detailed background, instructions, terms, or board decisions here..." required>This is to inform you that your application has been carefully evaluated by the Departmental Housing Board in accordance with the established service protocols of Sri Lanka Railways. Please ensure all required clearance documents and service records are prepared for verification.</textarea>
+                        <textarea id="mainDescription" rows="4" required>This is to inform you that your application has been carefully evaluated by the Departmental Housing Board in accordance with the established service protocols of Sri Lanka Railways. Please ensure all required clearance documents and service records are prepared for verification.</textarea>
                     </div>
                 </div>
                 
@@ -227,84 +229,127 @@
                 </button>
             </form>
         </div>
+    </div>
 
-        <!-- Dynamic Letter Preview Section -->
-        <div id="letterContainer">
-            <div id="letterPreviewBox" class="letter-preview-box">
-                <!-- Original Header -->
-                <div style="text-align: center; margin-bottom: 25px;">
-                    <h2 style="margin: 0; font-size: 16pt; text-transform: uppercase;">SRI LANKA RAILWAYS - AOT</h2>
-                    <p style="margin: 2px 0; font-size: 11pt;">Department of Railways, P.O. Box 355, Colombo 10, Sri Lanka</p>
-                    <hr style="border: 0; border-top: 1px solid #000; margin-top: 10px;">
-                </div>
-
-                <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 11pt;">
-                    <div><strong>My No:</strong> SLR/HQ/2026/<span id="pAppNo"></span></div>
-                    <div><strong>Date:</strong> <span id="pDate"></span></div>
-                </div>
-
-                <!-- Sender's Address (Subject Clerk) -->
-                <div style="margin-bottom: 20px; font-size: 11pt;">
-                    <br>
-                    Subject Clerk,<br>
-                    Quarters Management Branch,<br>
-                    Sri Lanka Railways - AOT.
-                </div>
-
-                <!-- Receiver's Address -->
-                <div style="margin-bottom: 20px; font-size: 11pt;">
-                    <br>
-                    <span id="pName"></span><br>
-                    <span id="pDesignation"></span><br>
-                    <span id="pReceiverAddress"></span>
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <p>Dear Sir/Madam,</p>
-                    <h3 id="pSubjectTitle" style="font-size: 12pt; text-decoration: underline; margin: 10px 0;"></h3>
-                </div>
-
-                <!-- Expanded Body Content Structure -->
-                <div style="margin-bottom: 25px; text-align: justify; line-height: 1.8;">
-                    <p id="pIntroPara"></p>
-                    <p id="pCustomDescPara"></p>
-                    <p>Please note that further communications regarding this matter must quote the application and NIC numbers specified above. Your prompt cooperation with the Quarters Management Branch is highly appreciated to expedite this process smoothly.</p>
-                </div>
-
-                <!-- Signature Block -->
-                <div style="margin-top: 40px;">
-                    <p>Yours faithfully,</p>
-                    <br><br>
-                    <p>___________________________<br>
-                    <strong>Subject Clerk</strong><br>
-                    Quarters Management Branch,<br>
-                    Sri Lanka Railways - AOT.</p>
-                </div>
+    <!-- Preview Container -->
+    <div class="container" style="margin-top: 0;">
+        <div id="letterPreviewBox" class="letter-preview-box">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="margin: 0; font-size: 15pt; text-transform: uppercase;">SRI LANKA RAILWAYS - AOT</h2>
+                <p style="margin: 2px 0; font-size: 10.5pt;">Department of Railways, P.O. Box 355, Colombo 10, Sri Lanka</p>
+                <hr style="border: 0; border-top: 1px solid #000; margin-top: 8px;">
             </div>
 
-            <div id="letterActionsBar" class="letter-actions-bar">
-                <button type="button" class="btn-print-action" onclick="window.print()">
-                    <i class="fa-solid fa-print"></i> Print Official Letter
-                </button>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 11pt;">
+                <div><strong>My No:</strong> SLR/AOT/2026/<span id="pAppNo"></span></div>
+                <div><strong>Date:</strong> <span id="pDate"></span></div>
             </div>
+
+            <div style="margin-bottom: 15px; font-size: 11pt;">
+                <br>
+                Subject Clerk,<br>
+                Quarters Management Branch,<br>
+                Sri Lanka Railways - AOT.
+            </div>
+
+            <div style="margin-bottom: 15px; font-size: 11pt;">
+                <br>
+                <span id="pName"></span><br>
+                <span id="pDesignation"></span><br>
+                <span id="pReceiverAddress"></span>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <p>Dear Sir/Madam,</p>
+                <h3 id="pSubjectTitle" style="font-size: 11.5pt; text-decoration: underline; margin: 8px 0;"></h3>
+            </div>
+
+            <div style="margin-bottom: 20px; text-align: justify; line-height: 1.5;">
+                <p id="pIntroPara" style="margin-bottom: 10px;"></p>
+                <p id="pCustomDescPara" style="margin-bottom: 10px;"></p>
+                <p>Please note that further communications regarding this matter must quote the application and NIC numbers specified above. Your prompt cooperation with the Quarters Management Branch is highly appreciated to expedite this process smoothly.</p>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <p>Yours faithfully,</p>
+                <br><br>
+                <p>___________________________<br>
+                <strong>Subject Clerk</strong><br>
+                Quarters Management Branch,<br>
+                Sri Lanka Railways - AOT.</p>
+            </div>
+        </div>
+
+        <div id="letterActionsBar" class="letter-actions-bar no-print">
+            <button type="button" class="btn-print-action" onclick="triggerPrint()">
+                <i class="fa-solid fa-print"></i> Print Official Letter
+            </button>
         </div>
     </div>
 
     <script>
+        const applicantsDatabase = {
+            "SLR/AOT/2026/0001": {
+                nic: "883421092V",
+                fullName: "A. B. Perera",
+                designation: "Station Master",
+                receiverAddress: "Railway Station, Polgahawela",
+                quarterType: "Grade B Quarters"
+            },
+            "SLR/AOT/2026/0002": {
+                nic: "925631485V",
+                fullName: "S. K. Silva",
+                designation: "Signal Inspector",
+                receiverAddress: "Railway Signal Office, Colombo Fort",
+                quarterType: "Grade A Quarters"
+            },
+            "SLR/AOT/2026/0003": {
+                nic: "951234789V",
+                fullName: "M. N. Fernando",
+                designation: "Loco Driver",
+                receiverAddress: "Railway Shed, Anuradhapura",
+                quarterType: "Grade C Quarters"
+            }
+        };
+
+        function autoFillApplicant(appNoValue) {
+            const trimmedKey = appNoValue.trim().toUpperCase();
+            const matchedData = applicantsDatabase[trimmedKey];
+
+            if (matchedData) {
+                document.getElementById('nic').value = matchedData.nic;
+                document.getElementById('fullName').value = matchedData.fullName;
+                document.getElementById('designation').value = matchedData.designation;
+                document.getElementById('receiverAddress').value = matchedData.receiverAddress;
+                document.getElementById('quarterType').value = matchedData.quarterType;
+            } else {
+                document.getElementById('nic').value = '';
+                document.getElementById('fullName').value = '';
+                document.getElementById('designation').value = '';
+                document.getElementById('receiverAddress').value = '';
+                document.getElementById('quarterType').value = '';
+            }
+        }
+
         function generateLetter(event) {
             event.preventDefault();
+            updatePreviewContent();
 
-            // Get values from input form
-            const appNo = document.getElementById('appNo').value;
-            const nic = document.getElementById('nic').value;
-            const fullName = document.getElementById('fullName').value;
-            const designation = document.getElementById('designation').value;
-            const receiverAddress = document.getElementById('receiverAddress').value;
-            const quarterType = document.getElementById('quarterType').value;
-            const letterSubject = document.getElementById('letterSubject').value;
-            const mainDescription = document.getElementById('mainDescription').value;
+            document.getElementById('letterPreviewBox').style.display = 'block';
+            document.getElementById('letterActionsBar').style.display = 'flex';
+            document.getElementById('letterPreviewBox').scrollIntoView({ behavior: 'smooth' });
+        }
 
-            // Set receiver preview fields
+        function updatePreviewContent() {
+            const appNo = document.getElementById('appNo').value || '---';
+            const nic = document.getElementById('nic').value || '---';
+            const fullName = document.getElementById('fullName').value || '---';
+            const designation = document.getElementById('designation').value || '---';
+            const receiverAddress = document.getElementById('receiverAddress').value || '---';
+            const quarterType = document.getElementById('quarterType').value || '---';
+            const letterSubject = document.getElementById('letterSubject').value || '---';
+            const mainDescription = document.getElementById('mainDescription').value || '';
+
             document.getElementById('pAppNo').innerText = appNo;
             document.getElementById('pName').innerText = fullName;
             document.getElementById('pDesignation').innerText = designation;
@@ -313,20 +358,17 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('pDate').innerText = today;
 
-            // Set Subject
             document.getElementById('pSubjectTitle').innerText = letterSubject;
 
-            // Expanded paragraphs content
             document.getElementById('pIntroPara').innerHTML = `With reference to your formal application submitted for the allocation of <strong>${quarterType}</strong> under Application Reference No: <strong>${appNo}</strong> (National Identity Card No: <strong>${nic}</strong>), this document serves as the official administrative response from the Headquarters.`;
             
             document.getElementById('pCustomDescPara').innerHTML = mainDescription;
+        }
 
-            // Show the letter preview box and print button
+        function triggerPrint() {
+            updatePreviewContent();
             document.getElementById('letterPreviewBox').style.display = 'block';
-            document.getElementById('letterActionsBar').style.display = 'flex';
-
-            // Smooth scroll to preview
-            document.getElementById('letterPreviewBox').scrollIntoView({ behavior: 'smooth' });
+            window.print();
         }
     </script>
 </body>
