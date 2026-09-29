@@ -17,9 +17,9 @@
         .btn-add { background-color: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
         .btn-add:hover { background-color: #059669; }
         .table-card { background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 5px solid #7A1C1C; overflow-x: auto; }
-        .user-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .user-table th, .user-table td { padding: 12px 15px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.95rem; }
-        .user-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; text-align: center; }
+        .user-table { width: 100%; border-collapse: collapse; text-align: center; }
+        .user-table th, .user-table td { padding: 12px 15px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.95rem; text-align: center; }
+        .user-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
         .action-btns { display: flex; gap: 6px; justify-content: center; align-items: center; }
         .btn-action { padding: 6px 10px; border-radius: 5px; border: none; color: white; cursor: pointer; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
         .btn-view { background-color: #8b5cf6; }
@@ -29,7 +29,6 @@
         .btn-delete { background-color: #ef4444; }
         .btn-delete:hover { background-color: #dc2626; }
 
-        /* Custom Delete Modal */
         .custom-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index: 1000; }
         .custom-modal { background: #fff; padding: 25px 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .custom-modal i { font-size: 3rem; color: #ef4444; margin-bottom: 15px; }
@@ -59,20 +58,22 @@
             <table class="user-table" id="userTable">
                 <thead>
                     <tr>
-                        <th>Full Name</th>
-                        <th>NIC</th>
-                        <th>Email</th>
+                        <th>No.</th>
+                        <th>NIC Number</th>
                         <th>Computer Number</th>
+                        <th>Name</th>
+                        <th>Email Address</th>
                         <th>Mobile Number</th>
                         <th style="width: 150px; text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>A. B. Perera</td>
+                        <td>1</td>
                         <td>199812345678</td>
+                        <td>405</td>
+                        <td>A. B. Perera</td>
                         <td>abperera@railway.gov.lk</td>
-                        <td>COMP-405</td>
                         <td>0771234567</td>
                         <td>
                             <div class="action-btns">
@@ -83,10 +84,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>S. K. Silva</td>
+                        <td>2</td>
                         <td>199287654321</td>
+                        <td>406</td>
+                        <td>S. K. Silva</td>
                         <td>sksilva@railway.gov.lk</td>
-                        <td>COMP-406</td>
                         <td>0719876543</td>
                         <td>
                             <div class="action-btns">
@@ -132,11 +134,22 @@
             if (rowToDelete) {
                 rowToDelete.remove();
                 closeDeleteModal();
+                updateRowNumbers();
                 let alertBox = document.getElementById('alertBox');
                 alertBox.style.display = 'block';
                 setTimeout(() => alertBox.style.display = 'none', 4000);
             }
         });
+
+        function updateRowNumbers() {
+            let tr = document.getElementById('userTable').getElementsByTagName('tr');
+            for (let i = 1; i < tr.length; i++) {
+                let tdNo = tr[i].getElementsByTagName('td')[0];
+                if (tdNo) {
+                    tdNo.textContent = i;
+                }
+            }
+        }
     </script>
 </body>
 </html>

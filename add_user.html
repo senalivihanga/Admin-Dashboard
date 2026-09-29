@@ -30,23 +30,23 @@
             
             <form onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="name" placeholder="Enter Full Name" required>
-                </div>
-
-                <div class="form-group">
-                    <label>NIC</label>
+                    <label>NIC Number</label>
                     <input type="text" name="nic" placeholder="Enter NIC Number" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="Enter Email Address" required>
+                    <label>Computer Number</label>
+                    <input type="number" name="computer_no" placeholder="Enter Computer Number (e.g. 405)" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Computer Number</label>
-                    <input type="text" name="computer_no" placeholder="Enter Computer Number" required>
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Enter Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="Enter Email Address" required>
                 </div>
 
                 <div class="form-group">
@@ -71,19 +71,16 @@
 
     <script>
         function handleFormSubmit(event) {
-            event.preventDefault(); // ෆෝම් එක සාමාන්‍ය ආකාරයට සබ්මිට් වීම වළක්වයි
-
+            event.preventDefault();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // මුරපද දෙක සමානදැයි පරීක්ෂා කිරීම
             if (password !== confirmPassword) {
                 alert("Passwords do not match! Please check again.");
                 document.getElementById('confirmPassword').focus();
                 return;
             }
 
-            // සියල්ල නිවැරදි නම් view_users.html වෙත යොමු කිරීම (අවශ්‍ය නම් මෙහිදී LocalStorage හෝ Backend වෙත දත්ත යැවීම කළ හැක)
             alert("User registered successfully!");
             window.location.href = "view_users.html";
         }

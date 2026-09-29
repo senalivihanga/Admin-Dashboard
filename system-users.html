@@ -7,32 +7,38 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .container { max-width: 1400px; margin: 40px auto; padding: 0 20px; }
+        body { background-color: #f4f4f4; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 1450px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
-        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
-        .top-action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; font-weight: 700; }
+        
+        /* Top Action Bar */
+        .top-action-bar { background: #ffffff; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
         
         /* Search Section Styling */
-        .search-section { display: flex; gap: 10px; flex-grow: 1; max-width: 450px; }
-        .search-input { flex-grow: 1; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 0.95rem; }
-        .btn-search { background-color: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
-        .btn-search:hover { background-color: #1d4ed8; }
+        .search-section { display: flex; gap: 10px; flex-grow: 1; max-width: 480px; align-items: center; }
+        .search-input { flex-grow: 1; padding: 11px 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 0.95rem; background-color: #fff; }
+        .search-input:focus { border-color: #7A1C1C; box-shadow: 0 0 0 2px rgba(122, 28, 28, 0.1); }
+        .btn-search { background-color: #7A1C1C; color: white; border: none; padding: 11px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; font-size: 0.95rem; }
+        .btn-search:hover { background-color: #5c1414; }
 
-        .add-btn { background-color: #16a34a; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
-        .add-btn:hover { background-color: #15803d; }
+        .add-btn { background-color: #10b981; color: white; border: none; padding: 11px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; font-size: 0.95rem; }
+        .add-btn:hover { background-color: #059669; }
         
+        /* Table Card Styling */
         .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow-x: auto; }
-        .user-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1200px; }
-        .user-table th, .user-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
+        .user-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1300px; }
+        .user-table th, .user-table td { padding: 14px 12px; border: 1px solid #e2e8f0; vertical-align: middle; font-size: 0.88rem; text-align: center; }
         .user-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
         .user-table td { color: #334155; }
+        
         .action-btns-group { display: flex; justify-content: center; gap: 6px; }
-        .btn-row-action { padding: 6px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
-        .btn-view { background-color: #2563eb; color: white; }
-        .btn-view:hover { background-color: #1d4ed8; }
-        .btn-edit { background-color: #f59e0b; color: white; }
-        .btn-edit:hover { background-color: #d97706; }
-        .btn-delete { background-color: #dc2626; color: white; }
+        .btn-row-action { padding: 6px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; color: white; }
+        .btn-view { background-color: #8b5cf6; }
+        .btn-view:hover { background-color: #7c3aed; }
+        .btn-edit { background-color: #2563eb; }
+        .btn-edit:hover { background-color: #1d4ed8; }
+        .btn-delete { background-color: #dc2626; }
         .btn-delete:hover { background-color: #b91c1c; }
 
         /* Custom Delete Modal */
@@ -51,32 +57,87 @@
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         <h2 class="page-title">System Users Management</h2>
 
+        <!-- Top Action Bar -->
         <div class="top-action-bar">
             <div class="search-section">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search by NIC..." onkeyup="filterTable()">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search by NIC Number..." onkeyup="filterTable()">
                 <button class="btn-search" onclick="filterTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
-            <a href="add-system-user.html" class="add-btn"><i class="fa-solid fa-user-plus"></i> Add System User</a>
+            <a href="add-system-user.html" class="add-btn"><i class="fa-solid fa-user-plus"></i> Add New User</a>
         </div>
 
+        <!-- Table Card with Number-only Computer Numbers -->
         <div class="table-card">
             <table class="user-table" id="assignTable">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>Full Name</th>
-                        <th>NIC</th>
+                        <th>No.</th>
+                        <th>NIC Number</th>
+                        <th>Computer Number</th>
+                        <th>Name</th>
                         <th>Designation</th>
-                        <th>Current Workplace</th>
-                        <th>Computer No.</th>
                         <th>System Role</th>
+                        <th>Current Workplace</th>
+                        <th>Email Address</th>
                         <th>Phone Number</th>
-                        <th>Email</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="userTableBody">
-                    <!-- Dynamic Rows -->
+                    <tr>
+                        <td>1</td>
+                        <td>199812345678</td>
+                        <td>1001</td>
+                        <td>A. B. Perera</td>
+                        <td>Transport Manager</td>
+                        <td>Admin</td>
+                        <td>Colombo Fort</td>
+                        <td>perera@railway.gov.lk</td>
+                        <td>0712345678</td>
+                        <td>
+                            <div class="action-btns-group">
+                                <a href="view-system-user.html?index=0" class="btn-row-action btn-view"><i class="fa-solid fa-eye"></i></a>
+                                <a href="edit-system-user.html?index=0" class="btn-row-action btn-edit"><i class="fa-solid fa-pen"></i></a>
+                                <button class="btn-row-action btn-delete" onclick="promptDelete(0)"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>199287654321</td>
+                        <td>1002</td>
+                        <td>S. K. Silva</td>
+                        <td>Subject Clerk</td>
+                        <td>Subject Clerk</td>
+                        <td>Maradana</td>
+                        <td>silva@railway.gov.lk</td>
+                        <td>0778765432</td>
+                        <td>
+                            <div class="action-btns-group">
+                                <a href="view-system-user.html?index=1" class="btn-row-action btn-view"><i class="fa-solid fa-eye"></i></a>
+                                <a href="edit-system-user.html?index=1" class="btn-row-action btn-edit"><i class="fa-solid fa-pen"></i></a>
+                                <button class="btn-row-action btn-delete" onclick="promptDelete(1)"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>198534219876</td>
+                        <td>1003</td>
+                        <td>M. H. Jayasinghe</td>
+                        <td>Branch Officer</td>
+                        <td>Branch Officer</td>
+                        <td>Anuradhapura</td>
+                        <td>jayasinghe@railway.gov.lk</td>
+                        <td>0701122334</td>
+                        <td>
+                            <div class="action-btns-group">
+                                <a href="view-system-user.html?index=2" class="btn-row-action btn-view"><i class="fa-solid fa-eye"></i></a>
+                                <a href="edit-system-user.html?index=2" class="btn-row-action btn-edit"><i class="fa-solid fa-pen"></i></a>
+                                <button class="btn-row-action btn-delete" onclick="promptDelete(2)"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -94,71 +155,6 @@
     </div>
 
     <script>
-        const defaultUsers = [
-            {
-                fullName: "A. B. Perera",
-                nic: "199812345678",
-                designation: "Transport Manager",
-                workplace: "Colombo Fort",
-                computerNo: "CMP-001",
-                role: "Admin",
-                phone: "0712345678",
-                email: "perera@railway.gov.lk"
-            },
-            {
-                fullName: "S. K. Silva",
-                nic: "199287654321",
-                designation: "Subject Clerk",
-                workplace: "Maradana",
-                computerNo: "CMP-002",
-                role: "Subject Clerk",
-                phone: "0778765432",
-                email: "silva@railway.gov.lk"
-            }
-        ];
-
-        window.addEventListener('DOMContentLoaded', () => {
-            loadUsers();
-        });
-
-        function getUsers() {
-            const data = localStorage.getItem('systemUsersList');
-            return data ? JSON.parse(data) : defaultUsers;
-        }
-
-        function saveUsers(data) {
-            localStorage.setItem('systemUsersList', JSON.stringify(data));
-        }
-
-        function loadUsers() {
-            const tbody = document.getElementById('userTableBody');
-            tbody.innerHTML = '';
-            const users = getUsers();
-
-            users.forEach((user, index) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${user.fullName}</td>
-                    <td>${user.nic}</td>
-                    <td>${user.designation}</td>
-                    <td>${user.workplace}</td>
-                    <td>${user.computerNo}</td>
-                    <td>${user.role}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.email}</td>
-                    <td>
-                        <div class="action-btns-group">
-                            <a href="view-system-user.html?index=${index}" class="btn-row-action btn-view"><i class="fa-solid fa-eye"></i></a>
-                            <a href="edit-system-user.html?index=${index}" class="btn-row-action btn-edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="btn-row-action btn-delete" onclick="promptDelete(${index})"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
         let deleteTargetIndex = null;
         function promptDelete(index) {
             deleteTargetIndex = index;
@@ -172,10 +168,10 @@
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
             if (deleteTargetIndex !== null) {
-                let users = getUsers();
-                users.splice(deleteTargetIndex, 1);
-                saveUsers(users);
-                loadUsers();
+                const rows = document.querySelectorAll('#userTableBody tr');
+                if(rows[deleteTargetIndex]) {
+                    rows[deleteTargetIndex].remove();
+                }
                 closeDeleteModal();
             }
         });
@@ -185,7 +181,7 @@
             const rows = document.querySelectorAll('#userTableBody tr');
             
             rows.forEach(row => {
-                const nicCell = row.cells[2]; // NIC තීරුව (Index 2)
+                const nicCell = row.cells[1];
                 if (nicCell) {
                     const nicText = nicCell.innerText.toLowerCase();
                     if (nicText.includes(input)) {

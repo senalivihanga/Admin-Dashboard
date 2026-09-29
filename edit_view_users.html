@@ -30,23 +30,23 @@
             
             <form onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="name" value="A. B. Perera" required>
-                </div>
-
-                <div class="form-group">
-                    <label>NIC</label>
+                    <label>NIC Number</label>
                     <input type="text" name="nic" value="199812345678" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" value="abperera@railway.gov.lk" required>
+                    <label>Computer Number</label>
+                    <input type="number" name="computer_no" value="405" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Computer Number</label>
-                    <input type="text" name="computer_no" value="COMP-405" required>
+                    <label>Name</label>
+                    <input type="text" name="name" value="A. B. Perera" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" value="abperera@railway.gov.lk" required>
                 </div>
 
                 <div class="form-group">
@@ -72,11 +72,9 @@
     <script>
         function handleFormSubmit(event) {
             event.preventDefault();
-
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // මුරපදය වෙනස් කිරීමට යමක් ටයිප් කර ඇත්නම් පමණක් ඒවා සමානදැයි පරීක්ෂා කිරීම
             if (password !== "" && password !== confirmPassword) {
                 alert("Passwords do not match! Please check again.");
                 document.getElementById('confirmPassword').focus();

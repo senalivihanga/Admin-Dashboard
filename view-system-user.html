@@ -7,24 +7,47 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        body { background-color: #f4f4f4; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 850px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
-        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
-        .details-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
-        .detail-row { display: flex; border-bottom: 1px solid #f1f5f9; padding: 12px 0; }
-        .detail-label { font-weight: 600; width: 40%; color: #475569; }
-        .detail-value { width: 60%; color: #1e293b; }
         
+        .card { background: #ffffff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 6px solid #7A1C1C; padding: 35px 40px; position: relative; }
+        .title { text-align: center; color: #1e293b; font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .status-badge { display: flex; justify-content: center; margin-bottom: 25px; }
+        .badge-active { background-color: #d1fae5; color: #065f46; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+
+        .details-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .details-row:last-of-type { border-bottom: none; margin-bottom: 25px; }
+        .label { font-weight: 600; color: #475569; font-size: 0.95rem; }
+        .value { color: #1e293b; font-weight: 500; font-size: 0.95rem; text-align: right; }
+
+        .success-box { background-color: #f0fdf4; border: 1.5px dashed #86efac; border-radius: 10px; padding: 20px; text-align: center; margin-top: 10px; }
+        .success-title { color: #166534; font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
+        .success-desc { color: #15803d; font-size: 0.9rem; line-height: 1.4; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <a href="system-users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to System Users List</a>
-        <h2 class="page-title">System User Profile Details</h2>
+        <a href="system-users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to User List</a>
         
-        <div class="details-card" id="detailsCard">
+        <div class="card">
+            <h2 class="title">User Details</h2>
+            
+            <div class="status-badge">
+                <span class="badge-active"><i class="fa-solid fa-circle-check"></i> Account Status: Active</span>
             </div>
+
+            <div id="detailsContainer">
+                <!-- Dynamic Data Will Load Here -->
+            </div>
+
+            <div class="success-box">
+                <div class="success-title">Registration Successful</div>
+                <div class="success-desc">The user registration has been completed and verified successfully in the Sri Lanka Railways quarters management system.</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -32,43 +55,67 @@
             {
                 fullName: "A. B. Perera",
                 nic: "199812345678",
-                designation: "Clerk",
+                designation: "Transport Manager",
                 workplace: "Colombo Fort",
-                computerNo: "COMP-405",
+                computerNo: "1001",
                 role: "Admin",
-                phone: "0771234567",
-                email: "abperera@railway.gov.lk"
+                phone: "0712345678",
+                email: "perera@railway.gov.lk"
             }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            // 'index' හෝ 'id' යන ක්‍රම දෙකම සාර්ථකව ලබා ගැනීමට පහත පරිදි සකසා ඇත
             const index = urlParams.get('index') !== null ? urlParams.get('index') : urlParams.get('id');
             
             let users = JSON.parse(localStorage.getItem('systemUsersList'));
             
-            // LocalStorage එක හිස් නම් හෝ දත්ත නැත්නම් default දත්ත පාවිච්චි කරන්න
             if (!users || users.length === 0) {
                 users = defaultSystemUsers;
                 localStorage.setItem('systemUsersList', JSON.stringify(users));
             }
 
-            if (index !== null && users[index]) {
-                const user = users[index];
-                const card = document.getElementById('detailsCard');
-                card.innerHTML = `
-                    <div class="detail-row"><div class="detail-label">Full Name</div><div class="detail-value">${user.fullName || 'N/A'}</div></div>
-                    <div class="detail-row"><div class="detail-label">NIC</div><div class="detail-value">${user.nic || 'N/A'}</div></div>
-                    <div class="detail-row"><div class="detail-label">Designation</div><div class="detail-value">${user.designation || 'N/A'}</div></div>
-                    <div class="detail-row"><div class="detail-label">Current Workplace</div><div class="detail-value">${user.workplace || 'N/A'}</div></div>
-                    <div class="detail-row"><div class="detail-label">Computer No.</div><div class="detail-value">${user.computerNo || 'N/A'}</div></div>
-                    <div class="detail-row"><div class="detail-label">System Role</div><div class="detail-value">${user.role || 'N/A'}</div></div>
-                    <div class="detail-row"><div class="detail-label">Phone Number</div><div class="detail-value">${user.phone || 'N/A'}</div></div>
-                    <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${user.email || 'N/A'}</div></div>
+            const targetIndex = index !== null && users[index] ? index : 0;
+            const user = users[targetIndex];
+
+            const container = document.getElementById('detailsContainer');
+            if (user) {
+                container.innerHTML = `
+                    <div class="details-row">
+                        <span class="label">NIC Number:</span>
+                        <span class="value">${user.nic || 'N/A'}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="label">Computer Number:</span>
+                        <span class="value">${user.computerNo || 'N/A'}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="label">Name:</span>
+                        <span class="value">${user.fullName || 'N/A'}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="label">Designation:</span>
+                        <span class="value">${user.designation || 'N/A'}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="label">System Role:</span>
+                        <span class="value">${user.role || 'N/A'}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="label">Current Workplace:</span>
+                        <span class="value">${user.workplace || 'N/A'}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="label">Email Address:</span>
+                        <span class="value">${user.email || 'N/A'}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="label">Phone Number:</span>
+                        <span class="value">${user.phone || 'N/A'}</span>
+                    </div>
                 `;
             } else {
-                document.getElementById('detailsCard').innerHTML = `<p style="text-align:center; color:red; font-weight:600;">System User not found!</p>`;
+                container.innerHTML = `<p style="text-align:center; color:red; font-weight:600; padding: 20px 0;">System User not found!</p>`;
             }
         });
     </script>
