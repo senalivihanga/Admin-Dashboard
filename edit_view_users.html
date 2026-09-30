@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label>Computer Number</label>
-                    <input type="number" name="computer_no" value="405" required>
+                    <input type="text" id="computerNumberInput" name="computer_no" inputmode="numeric" pattern="[0-9]+" title="Enter digits only" value="405" required>
                 </div>
 
                 <div class="form-group">
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>New Password (Leave blank to keep old password)</label>
+                    <label>New Password </label>
                     <input type="password" id="password" name="password" placeholder="Enter new password if changing">
                 </div>
 
@@ -70,6 +70,26 @@
     </div>
 
     <script>
+        const originalNic = new URLSearchParams(window.location.search).get('nic') || '199812345678';
+        const defaultUsers = {
+            '199812345678': { nic: '199812345678', computerNo: '405', fullName: 'A. B. Perera', email: 'abperera@railway.gov.lk', phone: '0771234567' },
+            '199287654321': { nic: '199287654321', computerNo: '406', fullName: 'S. K. Silva', email: 'sksilva@railway.gov.lk', phone: '0719876543' }
+        };
+        const savedUsers = JSON.parse(localStorage.getItem('registeredUserEdits') || '{}');
+        const selectedUser = savedUsers[originalNic] || defaultUsers[originalNic];
+        if (selectedUser) {
+            const form = document.querySelector('form');
+            form.elements.namedItem('nic').value = selectedUser.nic;
+            form.elements.namedItem('computer_no').value = selectedUser.computerNo;
+            form.elements.namedItem('name').value = selectedUser.fullName;
+            form.elements.namedItem('email').value = selectedUser.email;
+            form.elements.namedItem('mobile').value = selectedUser.phone;
+        }
+
+        document.getElementById('computerNumberInput').addEventListener('input', event => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
+
         function handleFormSubmit(event) {
             event.preventDefault();
             const password = document.getElementById('password').value;
@@ -81,6 +101,16 @@
                 return;
             }
 
+            const form = event.currentTarget;
+            const users = JSON.parse(localStorage.getItem('registeredUserEdits') || '{}');
+            users[originalNic] = {
+                nic: form.elements.namedItem('nic').value.trim(),
+                computerNo: form.elements.namedItem('computer_no').value.trim(),
+                fullName: form.elements.namedItem('name').value.trim(),
+                email: form.elements.namedItem('email').value.trim(),
+                phone: form.elements.namedItem('mobile').value.trim()
+            };
+            localStorage.setItem('registeredUserEdits', JSON.stringify(users));
             alert("User details updated successfully!");
             window.location.href = "view_users.html";
         }

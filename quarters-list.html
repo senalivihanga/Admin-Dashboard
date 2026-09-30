@@ -178,12 +178,12 @@
 
             if (userRole === 'bo' || userRole === 'BO') {
                 if(printBtn) printBtn.style.setProperty('display', 'none', 'important');
-                if(maintBtn) maintBtn.style.display = 'inline-flex';
-                if(addQuarterBtn) addQuarterBtn.style.display = 'inline-flex';
+                if(maintBtn) maintBtn.style.display = 'none';
+                if(addQuarterBtn) addQuarterBtn.style.display = 'none';
                 if(backLink) backLink.href = 'BO.html';
             } else if (userRole === 'sc' || userRole === 'SC') {
-                if(maintBtn) maintBtn.style.display = 'inline-flex';
-                if(addQuarterBtn) addQuarterBtn.style.display = 'inline-flex';
+                if(maintBtn) maintBtn.style.display = 'none';
+                if(addQuarterBtn) addQuarterBtn.style.display = 'none';
                 if(printBtn) printBtn.style.display = 'inline-flex';
                 if(backLink) backLink.href = 'SC.html';
             } else {

@@ -20,7 +20,6 @@
         .search-input { flex-grow: 1; padding: 11px 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 0.95rem; background-color: #fff; }
         .search-input:focus { border-color: #7A1C1C; box-shadow: 0 0 0 2px rgba(122, 28, 28, 0.1); }
         .btn-search { background-color: #7A1C1C; color: white; border: none; padding: 11px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; font-size: 0.95rem; }
-        .btn-search:hover { background-color: #5c1414; }
 
         .add-btn { background-color: #10b981; color: white; border: none; padding: 11px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; font-size: 0.95rem; }
         .add-btn:hover { background-color: #059669; }
@@ -84,60 +83,6 @@
                     </tr>
                 </thead>
                 <tbody id="userTableBody">
-                    <tr>
-                        <td>1</td>
-                        <td>199812345678</td>
-                        <td>1001</td>
-                        <td>A. B. Perera</td>
-                        <td>Transport Manager</td>
-                        <td>Admin</td>
-                        <td>Colombo Fort</td>
-                        <td>perera@railway.gov.lk</td>
-                        <td>0712345678</td>
-                        <td>
-                            <div class="action-btns-group">
-                                <a href="view-system-user.html?index=0" class="btn-row-action btn-view"><i class="fa-solid fa-eye"></i></a>
-                                <a href="edit-system-user.html?index=0" class="btn-row-action btn-edit"><i class="fa-solid fa-pen"></i></a>
-                                <button class="btn-row-action btn-delete" onclick="promptDelete(0)"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>199287654321</td>
-                        <td>1002</td>
-                        <td>S. K. Silva</td>
-                        <td>Subject Clerk</td>
-                        <td>Subject Clerk</td>
-                        <td>Maradana</td>
-                        <td>silva@railway.gov.lk</td>
-                        <td>0778765432</td>
-                        <td>
-                            <div class="action-btns-group">
-                                <a href="view-system-user.html?index=1" class="btn-row-action btn-view"><i class="fa-solid fa-eye"></i></a>
-                                <a href="edit-system-user.html?index=1" class="btn-row-action btn-edit"><i class="fa-solid fa-pen"></i></a>
-                                <button class="btn-row-action btn-delete" onclick="promptDelete(1)"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>198534219876</td>
-                        <td>1003</td>
-                        <td>M. H. Jayasinghe</td>
-                        <td>Branch Officer</td>
-                        <td>Branch Officer</td>
-                        <td>Anuradhapura</td>
-                        <td>jayasinghe@railway.gov.lk</td>
-                        <td>0701122334</td>
-                        <td>
-                            <div class="action-btns-group">
-                                <a href="view-system-user.html?index=2" class="btn-row-action btn-view"><i class="fa-solid fa-eye"></i></a>
-                                <a href="edit-system-user.html?index=2" class="btn-row-action btn-edit"><i class="fa-solid fa-pen"></i></a>
-                                <button class="btn-row-action btn-delete" onclick="promptDelete(2)"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -155,6 +100,54 @@
     </div>
 
     <script>
+        const defaultSystemUsers = [
+            { fullName: 'A. B. Perera', nic: '199812345678', computerNo: '1001', designation: 'Transport Manager', role: 'Admin', workplace: 'Colombo Fort', email: 'perera@railway.gov.lk', phone: '0712345678' },
+            { fullName: 'S. K. Silva', nic: '199287654321', computerNo: '1002', designation: 'Subject Clerk', role: 'Subject Clerk', workplace: 'Maradana', email: 'silva@railway.gov.lk', phone: '0778765432' },
+            { fullName: 'M. H. Jayasinghe', nic: '198534219876', computerNo: '1003', designation: 'Branch Officer', role: 'Branch Officer', workplace: 'Anuradhapura', email: 'jayasinghe@railway.gov.lk', phone: '0701122334' }
+        ];
+        const savedSystemUsers = JSON.parse(localStorage.getItem('systemUsersList') || '[]');
+        let systemUsers;
+        if (localStorage.getItem('systemUsersInitialized') === 'true') {
+            systemUsers = savedSystemUsers;
+        } else {
+            const defaultNics = new Set(defaultSystemUsers.map(user => user.nic));
+            systemUsers = defaultSystemUsers.map(defaultUser => {
+                const savedUser = savedSystemUsers.find(user => user.nic === defaultUser.nic);
+                return savedUser ? { ...defaultUser, ...savedUser } : defaultUser;
+            });
+            systemUsers = systemUsers.concat(savedSystemUsers.filter(user => !defaultNics.has(user.nic)));
+            localStorage.setItem('systemUsersList', JSON.stringify(systemUsers));
+            localStorage.setItem('systemUsersInitialized', 'true');
+        }
+
+        function renderSystemUsers() {
+            const tbody = document.getElementById('userTableBody');
+            tbody.replaceChildren();
+
+            systemUsers.forEach((user, index) => {
+                const row = document.createElement('tr');
+                const values = [index + 1, user.nic, user.computerNo, user.fullName, user.designation, user.role, user.workplace, user.email, user.phone];
+
+                values.forEach(value => {
+                    const cell = document.createElement('td');
+                    cell.textContent = value || '';
+                    row.appendChild(cell);
+                });
+
+                const actionsCell = document.createElement('td');
+                actionsCell.innerHTML = `
+                    <div class="action-btns-group">
+                        <a href="view-system-user.html?index=${index}" class="btn-row-action btn-view" title="View User"><i class="fa-solid fa-eye"></i></a>
+                        <a href="edit-system-user.html?index=${index}" class="btn-row-action btn-edit" title="Edit User"><i class="fa-solid fa-pen"></i></a>
+                        <button type="button" class="btn-row-action btn-delete" onclick="promptDelete(${index})" title="Delete User"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
+                row.appendChild(actionsCell);
+                tbody.appendChild(row);
+            });
+        }
+
+        renderSystemUsers();
+
         let deleteTargetIndex = null;
         function promptDelete(index) {
             deleteTargetIndex = index;
@@ -168,10 +161,9 @@
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
             if (deleteTargetIndex !== null) {
-                const rows = document.querySelectorAll('#userTableBody tr');
-                if(rows[deleteTargetIndex]) {
-                    rows[deleteTargetIndex].remove();
-                }
+                systemUsers.splice(deleteTargetIndex, 1);
+                localStorage.setItem('systemUsersList', JSON.stringify(systemUsers));
+                renderSystemUsers();
                 closeDeleteModal();
             }
         });

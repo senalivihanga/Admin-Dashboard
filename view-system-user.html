@@ -7,24 +7,27 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #f4f4f4; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        .container { max-width: 850px; margin: 40px auto; padding: 0 20px; }
-        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        body { background: #f1f5f4; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 36px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 18px; padding: 8px 0; }
+        .back-link:hover { color: #541313; }
         
-        .card { background: #ffffff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 6px solid #7A1C1C; padding: 35px 40px; position: relative; }
-        .title { text-align: center; color: #1e293b; font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card { background: #ffffff; border-radius: 8px; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08); border-top: 5px solid #7A1C1C; padding: 30px 34px; }
+        .title { display: flex; align-items: center; justify-content: center; gap: 11px; color: #111827; font-size: 1.65rem; font-weight: 700; margin: 0 0 25px; }
+        .title i { color: #111827; font-size: 1.35rem; }
         
-        .status-badge { display: flex; justify-content: center; margin-bottom: 25px; }
-        .badge-active { background-color: #d1fae5; color: #065f46; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+        .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+        .details-row { display: flex; flex-direction: column; gap: 6px; padding: 15px 0; border-bottom: 1px solid #e5e7eb; min-width: 0; }
+        .label { color: #64748b; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; }
+        .value { color: #17212b; font-weight: 600; font-size: 0.98rem; overflow-wrap: anywhere; }
+        .not-found { margin: 0; padding: 20px 0; color: #b42318; text-align: center; font-weight: 600; }
 
-        .details-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
-        .details-row:last-of-type { border-bottom: none; margin-bottom: 25px; }
-        .label { font-weight: 600; color: #475569; font-size: 0.95rem; }
-        .value { color: #1e293b; font-weight: 500; font-size: 0.95rem; text-align: right; }
-
-        .success-box { background-color: #f0fdf4; border: 1.5px dashed #86efac; border-radius: 10px; padding: 20px; text-align: center; margin-top: 10px; }
-        .success-title { color: #166534; font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
-        .success-desc { color: #15803d; font-size: 0.9rem; line-height: 1.4; }
+        @media (max-width: 600px) {
+            .container { margin: 22px auto; padding: 0 14px; }
+            .card { padding: 24px 20px; }
+            .title { font-size: 1.35rem; margin-bottom: 16px; }
+            .details-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -33,89 +36,50 @@
         <a href="system-users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to User List</a>
         
         <div class="card">
-            <h2 class="title">User Details</h2>
+            <h2 class="title"><i class="fa-solid fa-address-card" aria-hidden="true"></i> SYSTEM USER DETAILED VIEW</h2>
             
-            <div class="status-badge">
-                <span class="badge-active"><i class="fa-solid fa-circle-check"></i> Account Status: Active</span>
-            </div>
-
-            <div id="detailsContainer">
+            <div id="detailsContainer" class="details-grid">
                 <!-- Dynamic Data Will Load Here -->
-            </div>
-
-            <div class="success-box">
-                <div class="success-title">Registration Successful</div>
-                <div class="success-desc">The user registration has been completed and verified successfully in the Sri Lanka Railways quarters management system.</div>
             </div>
         </div>
     </div>
 
     <script>
-        const defaultSystemUsers = [
-            {
-                fullName: "A. B. Perera",
-                nic: "199812345678",
-                designation: "Transport Manager",
-                workplace: "Colombo Fort",
-                computerNo: "1001",
-                role: "Admin",
-                phone: "0712345678",
-                email: "perera@railway.gov.lk"
-            }
-        ];
-
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const index = urlParams.get('index') !== null ? urlParams.get('index') : urlParams.get('id');
-            
-            let users = JSON.parse(localStorage.getItem('systemUsersList'));
-            
-            if (!users || users.length === 0) {
-                users = defaultSystemUsers;
-                localStorage.setItem('systemUsersList', JSON.stringify(users));
-            }
-
-            const targetIndex = index !== null && users[index] ? index : 0;
-            const user = users[targetIndex];
+            const users = JSON.parse(localStorage.getItem('systemUsersList') || '[]');
+            const userIndex = index === null ? -1 : Number(index);
+            const user = Number.isInteger(userIndex) && userIndex >= 0 ? users[userIndex] : null;
 
             const container = document.getElementById('detailsContainer');
             if (user) {
-                container.innerHTML = `
-                    <div class="details-row">
-                        <span class="label">NIC Number:</span>
-                        <span class="value">${user.nic || 'N/A'}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="label">Computer Number:</span>
-                        <span class="value">${user.computerNo || 'N/A'}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="label">Name:</span>
-                        <span class="value">${user.fullName || 'N/A'}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="label">Designation:</span>
-                        <span class="value">${user.designation || 'N/A'}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="label">System Role:</span>
-                        <span class="value">${user.role || 'N/A'}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="label">Current Workplace:</span>
-                        <span class="value">${user.workplace || 'N/A'}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="label">Email Address:</span>
-                        <span class="value">${user.email || 'N/A'}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="label">Phone Number:</span>
-                        <span class="value">${user.phone || 'N/A'}</span>
-                    </div>
-                `;
+                const fields = [
+                    ['No.', String(userIndex + 1)],
+                    ['NIC Number', user.nic],
+                    ['Computer Number', user.computerNo],
+                    ['Name', user.fullName],
+                    ['Designation', user.designation],
+                    ['System Role', user.role],
+                    ['Current Workplace', user.workplace],
+                    ['Email Address', user.email],
+                    ['Phone Number', user.phone]
+                ];
+
+                fields.forEach(([label, value]) => {
+                    const row = document.createElement('div');
+                    row.className = 'details-row';
+                    const labelElement = document.createElement('span');
+                    labelElement.className = 'label';
+                    labelElement.textContent = `${label}:`;
+                    const valueElement = document.createElement('span');
+                    valueElement.className = 'value';
+                    valueElement.textContent = value || 'N/A';
+                    row.append(labelElement, valueElement);
+                    container.appendChild(row);
+                });
             } else {
-                container.innerHTML = `<p style="text-align:center; color:red; font-weight:600; padding: 20px 0;">System User not found!</p>`;
+                container.innerHTML = '<p class="not-found">System User not found!</p>';
             }
         });
     </script>

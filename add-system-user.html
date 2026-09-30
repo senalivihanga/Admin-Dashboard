@@ -9,42 +9,38 @@
     <style>
         .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
-        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .page-title { text-align: center; color: #000; font-size: 2rem; margin: 0 0 25px; text-transform: uppercase; letter-spacing: 1px; }
         .form-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #1e293b; font-size: 0.9rem; }
         .form-control, .form-select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; box-sizing: border-box; }
-        .submit-btn { background-color: #16a34a; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 15px; }
-        .submit-btn:hover { background-color: #15803d; }
+        .submit-btn { background-color: #10b981; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 15px; }
+        .submit-btn:hover { background-color: #059669; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <a href="system-users.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to System Users List</a>
-        <h2 class="page-title">Add New System User</h2>
 
         <div class="form-card">
+            <h2 class="page-title">Add New System User</h2>
             <form onsubmit="saveNewUser(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="fullName" class="form-control" required>
+                    <label>NIC Number</label>
+                    <input type="text" id="nic" class="form-control" placeholder="Enter NIC number" required>
                 </div>
                 <div class="form-group">
-                    <label>NIC Number</label>
-                    <input type="text" id="nic" class="form-control" required>
+                    <label>Computer Number</label>
+                    <input type="text" id="computerNo" class="form-control" inputmode="numeric" pattern="[0-9]+" title="Enter digits only" placeholder="Enter computer number" required>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="Enter your name" required>
                 </div>
                 <div class="form-group">
                     <label>Designation</label>
-                    <input type="text" id="designation" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label>Current Workplace</label>
-                    <input type="text" id="workplace" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label>Computer No.</label>
-                    <input type="text" id="computerNo" class="form-control" required>
+                    <input type="text" id="designation" class="form-control" placeholder="Enter designation" required>
                 </div>
                 <div class="form-group">
                     <label>System Role</label>
@@ -59,20 +55,24 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="text" id="phone" class="form-control" required>
+                    <label>Current Workplace</label>
+                    <input type="text" id="workplace" class="form-control" placeholder="Enter current workplace" required>
                 </div>
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" id="email" class="form-control" required>
+                    <input type="email" id="email" class="form-control" placeholder="Enter email address" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="phone" class="form-control" placeholder="Enter phone number" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="password" class="form-control" required>
+                    <input type="password" id="password" class="form-control" placeholder="Enter password" required>
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" id="confirmPassword" class="form-control" required>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Re-enter password" required>
                 </div>
                 <button type="submit" class="submit-btn"><i class="fa-solid fa-save"></i> Save System User</button>
             </form>
@@ -80,6 +80,10 @@
     </div>
 
     <script>
+        document.getElementById('computerNo').addEventListener('input', event => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
+
         function saveNewUser(event) {
             event.preventDefault();
             
