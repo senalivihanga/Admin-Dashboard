@@ -16,29 +16,108 @@
         .tab-btn.active { background-color: #7A1C1C; color: white; border-color: #7A1C1C; }
         .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; display: none; overflow-x: auto; }
         .table-card.active-table { display: block; }
-        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .section-header-bar { flex-wrap: wrap; gap: 12px; }
+        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
         .section-subtitle { color: #7A1C1C; font-size: 1.3rem; font-weight: 700; margin: 0; }
         .list-controls { display: flex; align-items: center; gap: 10px; }
         .list-search-input { width: 230px; max-width: 45vw; padding: 9px 11px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; }
         .list-search-input:focus { outline: 2px solid rgba(122, 28, 28, 0.18); border-color: #7A1C1C; }
         .search-btn { background: #7A1C1C; color: white; border: 0; padding: 9px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; }
         .search-btn:hover { background: #5c1414; }
-        .add-btn { background-color: #16a34a; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; text-decoration: none; }
-        .add-btn:hover { background-color: #15803d; }
+        .add-btn { background-color: #10b981; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; text-decoration: none; }
+        .add-btn:hover { background-color: #059669; }
         .waiting-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 950px; }
         .waiting-table th, .waiting-table td { padding: 10px 8px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
         .waiting-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
         .waiting-table td { color: #334155; }
-        .waiting-table td:nth-child(4), .waiting-table td:nth-child(7) { text-align: center; }
         .action-btn { border: none; width: 32px; height: 32px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; margin: 2px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s; }
-        .btn-edit { background-color: #f59e0b; color: white; }
-        .btn-edit:hover { background-color: #d97706; }
+        .btn-edit { background-color: #2563eb; color: white; }
+        .btn-edit:hover { background-color:#1d4ed8; }
         .btn-delete { background-color: #dc2626; color: white; }
         .btn-delete:hover { background-color: #b91c1c; }
+
+        .custom-msg-box {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .custom-msg-card {
+            background: #fff;
+            border-radius: 16px;
+            width: min(92vw, 420px);
+            padding: 25px 22px 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+            text-align: center;
+        }
+        .custom-msg-card p {
+            color: #1f2937;
+            font-size: 1.02rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .custom-msg-card i {
+            display: block;
+            color: #dc2626;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .msg-btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .msg-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+        .msg-btn-yes { background: #dc2626; color: white; }
+        .msg-btn-yes:hover { background: #b91c1c; }
+        .msg-btn-no { background: #e2e8f0; color: #1f2937; }
+        .msg-btn-no:hover { background: #cbd5e1; }
+        .system-toast {
+            position: fixed;
+            right: 24px;
+            top: 24px;
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #86efac;
+            border-left: 6px solid #22c55e;
+            padding: 14px 18px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.18);
+            display: none;
+            z-index: 1000;
+            font-weight: 700;
+            align-items: center;
+            gap: 10px;
+            max-width: 380px;
+            line-height: 1.4;
+        }
+        .system-toast i { color: #16a34a; font-size: 1.1rem; }
     </style>
 </head>
 <body>
+
+    <div class="custom-msg-box" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="custom-msg-card">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p id="deleteModalTitle">Are you sure you want to delete this applicant entry?</p>
+            <div class="msg-btn-group">
+                <button class="msg-btn msg-btn-yes" id="confirmDeleteBtn">Delete</button>
+                <button class="msg-btn msg-btn-no" onclick="closeDeleteModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="systemToast" class="system-toast" style="display: none;"><i class="fa-solid fa-circle-check"></i> Applicant entry deleted successfully!</div>
 
     <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
@@ -58,7 +137,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">1. General List</h3>
                 <div class="list-controls">
-                    <input type="search" id="generalSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search General list" oninput="filterWaitingList('general', 'generalSearchInput')">
+                    <input type="search" id="generalSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search General list" onkeydown="if (event.key === 'Enter') filterWaitingList('general', 'generalSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('general', 'generalSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=general" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -83,15 +162,30 @@
                         <td>1</td>
                         <td>199812345678</td>
                         <td>CMP-101</td>
-                        <td style="text-align: center;">A. B. Perera</td>
+                        <td>A. B. Perera</td>
                         <td>Clerk</td>
-                        <td style="text-align: center;">Colombo Fort</td>
+                        <td>Colombo Fort</td>
                         <td>2026-01-10</td>
                         <td>None</td>
                         <td>None</td>
                         <td>
                             <a href="edit-applicant.html?list=general&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="deleteRow(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>199287654321</td>
+                        <td>CMP-102</td>
+                        <td>S. K. Silva</td>
+                        <td>Train Guard</td>
+                        <td>Maradana</td>
+                        <td>2026-01-10</td>
+                        <td>None</td>
+                        <td>None</td>
+                        <td>
+                            <a href="edit-applicant.html?list=general&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -103,7 +197,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">2. Guard List</h3>
                 <div class="list-controls">
-                    <input type="search" id="guardSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Guard list" oninput="filterWaitingList('guard', 'guardSearchInput')">
+                    <input type="search" id="guardSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Guard list" onkeydown="if (event.key === 'Enter') filterWaitingList('guard', 'guardSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('guard', 'guardSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=guard" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -128,15 +222,15 @@
                         <td>1</td>
                         <td>199287654321</td>
                         <td>CMP-102</td>
-                        <td style="text-align: center;">S. K. Silva</td>
+                        <td>S. K. Silva</td>
                         <td>Train Guard</td>
-                        <td style="text-align: center;">Maradana</td>
+                        <td>Maradana</td>
                         <td>2026-02-14</td>
                         <td>Pending</td>
                         <td>None</td>
                         <td>
                             <a href="edit-applicant.html?list=guard&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="deleteRow(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -148,7 +242,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">3. Station Master List</h3>
                 <div class="list-controls">
-                    <input type="search" id="stationMasterSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Station Master list" oninput="filterWaitingList('station_master', 'stationMasterSearchInput')">
+                    <input type="search" id="stationMasterSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Station Master list" onkeydown="if (event.key === 'Enter') filterWaitingList('station_master', 'stationMasterSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('station_master', 'stationMasterSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=station_master" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -173,15 +267,31 @@
                         <td>1</td>
                         <td>198533445566</td>
                         <td>CMP-103</td>
-                        <td style="text-align: center;">M. N. Fernando</td>
+                        <td>M. N. Fernando</td>
                         <td>Station Master</td>
-                        <td style="text-align: center;">Gampaha</td>
+                        <td>Gampaha</td>
                         <td>2026-03-01</td>
                         <td>Urgent</td>
                         <td>None</td>
                         <td>
                             <a href="edit-applicant.html?list=station_master&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="deleteRow(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>1985334455587</td>
+                        <td>CMP-103</td>
+                        <td>M. N. Fernando</td>
+                        <td>Station Master</td>
+                        <td>Maradana</td>
+                        <td>2026-03-01</td>
+                        <td>Urgent</td>
+                        <td>None</td>
+                        <td>
+                            <a href="edit-applicant.html?list=station_master&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -193,7 +303,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">4. Controller List</h3>
                 <div class="list-controls">
-                    <input type="search" id="controllerSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Controller list" oninput="filterWaitingList('controller', 'controllerSearchInput')">
+                    <input type="search" id="controllerSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Controller list" onkeydown="if (event.key === 'Enter') filterWaitingList('controller', 'controllerSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('controller', 'controllerSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=controller" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -218,15 +328,15 @@
                         <td>1</td>
                         <td>199022334455</td>
                         <td>CMP-104</td>
-                        <td style="text-align: center;">T. G. Rathnayake</td>
+                        <td>T. G. Rathnayake</td>
                         <td>Controller</td>
-                        <td style="text-align: center;">HQ Colombo</td>
+                        <td>HQ Colombo</td>
                         <td>2026-03-10</td>
                         <td>None</td>
                         <td>None</td>
                         <td>
                             <a href="edit-applicant.html?list=controller&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="deleteRow(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -238,7 +348,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">5. Deputy Superintendent (Transportation) Colombo List</h3>
                 <div class="list-controls">
-                    <input type="search" id="deputySearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Deputy Superintendent list" oninput="filterWaitingList('deputy_commissioner', 'deputySearchInput')">
+                    <input type="search" id="deputySearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Deputy Superintendent list" onkeydown="if (event.key === 'Enter') filterWaitingList('deputy_commissioner', 'deputySearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('deputy_commissioner', 'deputySearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=deputy_commissioner" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -263,15 +373,15 @@
                         <td>1</td>
                         <td>198211223344</td>
                         <td>CMP-105</td>
-                        <td style="text-align: center;">W. M. D. Wickramasinghe</td>
+                        <td>W. M. D. Wickramasinghe</td>
                         <td>Deputy Commissioner</td>
-                        <td style="text-align: center;">Main Office</td>
+                        <td>Main Office</td>
                         <td>2026-04-05</td>
                         <td>Approved</td>
                         <td>None</td>
                         <td>
                             <a href="edit-applicant.html?list=deputy_commissioner&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="deleteRow(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -280,6 +390,8 @@
     </div>
 
     <script>
+        let rowToDelete = null;
+
         function showTable(tableId, event) {
             document.querySelectorAll('.table-card').forEach(card => card.classList.remove('active-table'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -287,11 +399,27 @@
             event.currentTarget.classList.add('active');
         }
 
-        function deleteRow(button) {
-            if (confirm("Are you sure you want to delete this applicant entry?")) {
-                button.closest('tr').remove();
-            }
+        function openDeleteModal(button) {
+            rowToDelete = button.closest('tr');
+            document.getElementById('deleteModal').style.display = 'flex';
         }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            rowToDelete = null;
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+            if (rowToDelete) {
+                rowToDelete.remove();
+                closeDeleteModal();
+                const toast = document.getElementById('systemToast');
+                toast.style.display = 'flex';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2200);
+            }
+        });
 
         function filterWaitingList(tableId, inputId) {
             const query = document.getElementById(inputId).value.trim().toLowerCase();
@@ -300,7 +428,11 @@
             rows.forEach(row => {
                 const nic = row.cells[1]?.textContent.toLowerCase() || '';
                 const applicantName = row.cells[3]?.textContent.toLowerCase() || '';
-                row.style.display = nic.includes(query) || applicantName.includes(query) ? '' : 'none';
+                if (query === '' || nic.includes(query) || applicantName.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
         }
     </script>

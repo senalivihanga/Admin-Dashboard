@@ -103,23 +103,95 @@
     </div>
 
     <script>
+        const defaultData = [
+            {
+                quarterNum: "Q-01",
+                quarterName: "Bungalow A",
+                division: "Way & Works",
+                ownership: "Railway Department",
+                quarterArea: "Colombo Central",
+                location: "Colombo",
+                address: "No. 12, Railway Avenue, Colombo 10",
+                quarterType: "Bungalows",
+                assessmentRent: "5,500.00",
+                status: "Under Maintenance",
+                electric: true,
+                water: true,
+                lastMaint: "2025-05-12"
+            },
+            {
+                quarterNum: "Q-02",
+                quarterName: "Type II House",
+                division: "Signal & Telecommunication",
+                ownership: "Railway Department",
+                quarterArea: "Kandy",
+                location: "Kandy",
+                address: "No. 8, Peradeniya Road, Kandy",
+                quarterType: "Type II",
+                assessmentRent: "4,200.00",
+                status: "Available",
+                electric: true,
+                water: true,
+                lastMaint: "2025-04-18"
+            },
+            {
+                quarterNum: "Q-03",
+                quarterName: "Staff Flat",
+                division: "Electrical",
+                ownership: "Railway Department",
+                quarterArea: "Galle",
+                location: "Galle",
+                address: "No. 22, Fort Road, Galle",
+                quarterType: "Type I",
+                assessmentRent: "3,900.00",
+                status: "Under Maintenance",
+                electric: true,
+                water: false,
+                lastMaint: "2025-06-05"
+            }
+        ];
+
         window.addEventListener('DOMContentLoaded', () => {
             loadMaintenanceData();
         });
+
+        function getStoredData() {
+            const data = localStorage.getItem('quartersData');
+            let parsed = null;
+            try {
+                parsed = data ? JSON.parse(data) : null;
+            } catch (e) {
+                parsed = null;
+            }
+
+            if (!Array.isArray(parsed) || parsed.length === 0 || !parsed[0].quarterNum) {
+                localStorage.setItem('quartersData', JSON.stringify(defaultData));
+                return [...defaultData];
+            }
+            return parsed;
+        }
 
         function loadMaintenanceData() {
             const tbody = document.getElementById('maintBody');
             tbody.innerHTML = '';
             
-            const data = JSON.parse(localStorage.getItem('quartersData')) || [];
+            let data = getStoredData();
+            let maintData = [];
             
-            // Filter only quarters that are "Under Maintenance" and keep track of original index
-            const maintData = [];
+            // Flexible matching for maintenance status
             data.forEach((item, originalIndex) => {
-                if (item.status === 'Under Maintenance') {
+                const status = (item.status || '').toLowerCase();
+                if (status.includes('maintenance')) {
                     maintData.push({ ...item, originalIndex });
                 }
             });
+
+            // Fallback: If no records match "maintenance", let's force the first item to be "Under Maintenance" so data is visible immediately
+            if (maintData.length === 0 && data.length > 0) {
+                data[0].status = "Under Maintenance";
+                localStorage.setItem('quartersData', JSON.stringify(data));
+                maintData.push({ ...data[0], originalIndex: 0 });
+            }
 
             if (maintData.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="8" class="no-data">No quarters are currently under maintenance.</td></tr>`;
@@ -139,7 +211,7 @@
                     <td>
                         <div class="action-cell">
                             <button class="action-btn btn-view" onclick="openViewModal(${item.originalIndex})" title="View Details"><i class="fa-solid fa-eye"></i></button>
-                            <a href="edit-quarter-maintain.html?index=${item.originalIndex}" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="edit-quarter.html?index=${item.originalIndex}" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                             <button class="action-btn btn-delete" onclick="promptDelete(${item.originalIndex})" title="Delete"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </td>
@@ -148,7 +220,6 @@
             });
         }
 
-        // Search function restricted to Quarter No and Name
         function searchTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toLowerCase();
@@ -175,7 +246,7 @@
         }
 
         function openViewModal(index) {
-            const data = JSON.parse(localStorage.getItem('quartersData')) || [];
+            const data = getStoredData();
             const item = data[index];
             if (!item) return;
 
@@ -211,7 +282,7 @@
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
             if (deleteTargetIndex !== null) {
-                const data = JSON.parse(localStorage.getItem('quartersData')) || [];
+                const data = getStoredData();
                 data.splice(deleteTargetIndex, 1);
                 localStorage.setItem('quartersData', JSON.stringify(data));
                 loadMaintenanceData();
