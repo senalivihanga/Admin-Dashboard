@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label>Computer Number</label>
-                    <input type="text" id="computerNo" value="CMP-101" required>
+                    <input type="text" id="computerNo" value="101" inputmode="numeric" pattern="[0-9]+" title="Enter digits only" required>
                 </div>
 
                 <div class="form-group">
@@ -80,6 +80,10 @@
     </div>
 
     <script>
+        document.getElementById('computerNo').addEventListener('input', event => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
+
         function updateApplicant(event) {
             event.preventDefault();
             

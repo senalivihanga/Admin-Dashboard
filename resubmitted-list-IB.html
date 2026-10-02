@@ -56,58 +56,75 @@
             text-decoration: underline;
         }
 
-        /* Top Action Bar */
-        .top-action-bar {
+        /* Search Card matching the requested image style */
+        .search-card {
+            background: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
+            border: 1px solid #e2e8f0;
         }
 
-        .search-box {
-            position: relative;
+        .search-wrapper {
             display: flex;
+            gap: 10px;
             align-items: center;
         }
 
-        .search-box input {
-            padding: 10px 15px 10px 38px;
+        .search-input {
+            padding: 10px 14px;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
             font-size: 0.9rem;
-            width: 320px;
+            width: 300px;
             outline: none;
-            transition: border-color 0.2s;
         }
 
-        .search-box input:focus {
+        .search-input:focus {
             border-color: #7A1C1C;
+            box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1);
         }
 
-        .search-box i {
-            position: absolute;
-            left: 12px;
-            color: #64748b;
+        .search-btn {
+            background-color: #7A1C1C;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
         }
 
-        .btn-print {
+        .search-btn:hover {
+            background-color: #571a1a;
+        }
+
+        .print-btn {
             background-color: #0284c7;
             color: white;
             border: none;
             padding: 10px 18px;
             border-radius: 8px;
-            cursor: pointer;
             font-weight: 600;
-            display: inline-flex;
+            cursor: pointer;
+            display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            text-decoration: none;
             transition: background-color 0.2s;
         }
 
-        .btn-print:hover {
+        .print-btn:hover {
             background-color: #0369a1;
         }
 
@@ -133,11 +150,14 @@
 
         .table-responsive {
             width: 100%;
+            box-sizing: border-box;
             overflow-x: auto;
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
             border: 1px solid #e2e8f0;
+            border-top: 5px solid #7A1C1C;
         }
 
         table {
@@ -145,30 +165,31 @@
             border-collapse: collapse;
             text-align: left;
             font-size: 0.9rem;
-            min-width: 1400px;
+            min-width: 1300px;
         }
 
         th, td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 10px;
+            border: 1px solid #cbd5e1;
             transition: all 0.3s ease;
             text-align: center;
+            vertical-align: middle;
+            font-size: 0.85rem;
         }
 
         th {
-            background-color: #7A1C1C;
-            color: #ffffff;
-            font-weight: 600;
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-weight: 700;
             text-transform: uppercase;
             font-size: 0.8rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 0;
         }
 
         tr:hover {
             background-color: #f1f5f9;
         }
 
-        /* Fixed Reason Badge Width to Prevent Cutting */
         .reason-badge {
             background-color: #fef2f2;
             color: #dc2626;
@@ -185,8 +206,8 @@
             word-wrap: break-word;
         }
 
-        /* Action Buttons */
-        .btn-view, .btn-approve, .btn-reject, .btn-edit-approval {
+        /* Action Buttons (Edit removed) */
+        .btn-view, .btn-approve, .btn-reject {
             width: 34px;
             height: 34px;
             border-radius: 6px;
@@ -209,9 +230,6 @@
 
         .btn-reject { background-color: #ef4444; }
         .btn-reject:hover { background-color: #dc2626; }
-
-        .btn-edit-approval { background-color: #f59e0b; }
-        .btn-edit-approval:hover { background-color: #d97706; }
 
         .action-group {
             display: flex;
@@ -249,7 +267,7 @@
             font-size: 1.2rem;
         }
 
-        .modal-content textarea, .modal-content select {
+        .modal-content textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #cbd5e1;
@@ -295,7 +313,7 @@
                 overflow: hidden !important;
             }
 
-            .back-link, .top-action-bar, .title-underline {
+            .back-link, .search-card, .title-underline {
                 display: none !important;
             }
 
@@ -310,6 +328,7 @@
                 overflow: visible !important;
                 box-shadow: none !important;
                 border: none !important;
+                padding: 0 !important;
                 margin-bottom: 0 !important;
             }
 
@@ -323,14 +342,13 @@
                 padding: 6px 8px !important;
             }
 
-            th:nth-child(8), td:nth-child(8),
-            th:nth-child(9), td:nth-child(9) {
+            th:nth-child(8), td:nth-child(8) {
                 display: none !important;
             }
 
             th {
-                background-color: #7A1C1C !important;
-                color: white !important;
+                background-color: #f8fafc !important;
+                color: #1e293b !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -346,12 +364,13 @@
             <div class="title-underline"></div>
         </div>
 
-        <div class="top-action-bar">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="filterTable()">
+        <!-- Search and Print Bar matching requested image -->
+        <div class="search-card">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." oninput="checkSearchClear(this)">
+                <button type="button" class="search-btn" onclick="filterTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
-            <button type="button" class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Report</button>
+            <button type="button" class="print-btn" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
         </div>
 
         <div id="systemAlert" class="system-alert">
@@ -380,6 +399,7 @@
         </div>
     </main>
 
+    <!-- Reject Modal -->
     <div id="rejectModal" class="modal">
         <div class="modal-content">
             <h3>Provide Rejection Reason</h3>
@@ -387,22 +407,6 @@
             <div class="modal-buttons">
                 <button type="button" class="btn-cancel" onclick="closeModal('rejectModal')">Cancel</button>
                 <button type="button" class="btn-reject" onclick="confirmRejection()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px;">Confirm Rejection</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <h3>Change Application Status</h3>
-            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px;">Switch approval or rejection status for this record:</p>
-            <select id="statusSelect">
-                <option value="Approved">Approve Application</option>
-                <option value="Rejected">Reject Application</option>
-            </select>
-            <textarea id="editReasonInput" placeholder="Enter reason if changing/rejecting status..." style="display:none;"></textarea>
-            <div class="modal-buttons">
-                <button type="button" class="btn-cancel" onclick="closeModal('editModal')">Cancel</button>
-                <button type="button" class="btn-approve" onclick="confirmStatusChange()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px; background-color: #3b82f6;">Save Changes</button>
             </div>
         </div>
     </div>
@@ -441,7 +445,6 @@
                         <div class="action-group">
                             <button type="button" class="btn-approve" onclick="handleApprove(this)" title="Approve"><i class="fa-solid fa-check"></i></button>
                             <button type="button" class="btn-reject" onclick="openRejectModal(this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
-                            <button type="button" class="btn-edit-approval" onclick="openEditModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
                         </div>
                     </td>
                 `;
@@ -456,6 +459,12 @@
                        item.name.toLowerCase().includes(searchVal);
             });
             renderTable(filtered);
+        }
+
+        function checkSearchClear(input) {
+            if (input.value.trim() === '') {
+                renderTable(resubmittedData);
+            }
         }
 
         function showSystemMessage(message, type = 'success') {
@@ -510,64 +519,17 @@
                 return;
             }
             
-            showSystemMessage("Application rejected successfully. New reason recorded in system log.", "error");
+            showSystemMessage("Application rejected successfully and removed from list.", "error");
+            const rejectedRow = currentRowTarget;
             closeModal('rejectModal');
 
-            if (currentRowTarget) {
-                currentRowTarget.classList.add('fade-out');
+            if (rejectedRow) {
+                rejectedRow.classList.add('fade-out');
                 setTimeout(() => {
-                    const appId = currentRowTarget.id.replace('row-', '');
+                    const appId = rejectedRow.id.replace('row-', '');
                     const index = resubmittedData.findIndex(item => item.id == appId);
                     if(index > -1) resubmittedData.splice(index, 1);
                     filterTable();
-                    currentRowTarget = null;
-                }, 400);
-            }
-        }
-
-        function openEditModal(button) {
-            currentRowTarget = button.closest('tr');
-            document.getElementById('editModal').style.display = 'flex';
-            document.getElementById('statusSelect').value = 'Approved';
-            document.getElementById('editReasonInput').style.display = 'none';
-            document.getElementById('editReasonInput').value = '';
-        }
-
-        document.getElementById('statusSelect').addEventListener('change', function() {
-            const reasonInput = document.getElementById('editReasonInput');
-            if (this.value === 'Rejected') {
-                reasonInput.style.display = 'block';
-            } else {
-                reasonInput.style.display = 'none';
-            }
-        });
-
-        function confirmStatusChange() {
-            const newStatus = document.getElementById('statusSelect').value;
-            const editReason = document.getElementById('editReasonInput').value.trim();
-
-            if (newStatus === 'Rejected' && !editReason) {
-                showSystemMessage("Error: Please provide a reason when changing status to Rejected.", "error");
-                return;
-            }
-
-            showSystemMessage(`Application status successfully updated to: ${newStatus}`, "success");
-            closeModal('editModal');
-
-            if (currentRowTarget) {
-                currentRowTarget.classList.add('fade-out');
-                setTimeout(() => {
-                    const appId = currentRowTarget.id.replace('row-', '');
-                    const index = resubmittedData.findIndex(item => item.id == appId);
-                    if(index > -1) {
-                        if (newStatus === 'Rejected') {
-                            resubmittedData[index].reason = editReason;
-                        } else {
-                            resubmittedData.splice(index, 1);
-                        }
-                    }
-                    filterTable();
-                    currentRowTarget = null;
                 }, 400);
             }
         }

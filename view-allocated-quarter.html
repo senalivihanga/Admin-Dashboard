@@ -9,34 +9,36 @@
     <style>
         .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
-        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        
+        /* Topic updated: black color, underline removed, and placed inside view card */
+        .page-title { text-align: center; color: #000000; font-size: 1.8rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        
         .view-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
         .view-row { display: flex; border-bottom: 1px solid #f1f5f9; padding: 12px 0; font-size: 0.95rem; }
         .view-row:last-child { border-bottom: none; }
         .view-label { font-weight: 700; width: 220px; color: #475569; }
-        .view-value { color: #1e293b; flex: 1; }
-        .btn-back-list { display: block; width: 100%; text-align: center; background-color: #7A1C1C; color: white; padding: 10px; border-radius: 6px; font-weight: 600; text-decoration: none; margin-top: 25px; }
-        .btn-back-list:hover { background-color: #5c1414; }
+        .view-value { color: #1e293b; flex: 1; font-weight: 400; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <a href="allocated-quarters.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to List</a>
-        <h2 class="page-title">Allocation Detailed View</h2>
 
         <div class="view-card" id="viewCard">
-            <!-- Dynamic Data will load here -->
+            <!-- Topic moved inside box with black color and no underline -->
+            <h2 class="page-title">Allocation Detailed View</h2>
+            <div id="viewContent">
+                <!-- Dynamic Data will load here -->
+            </div>
         </div>
-
-        <a href="allocated-quarters.html" class="btn-back-list">Back to Table</a>
     </div>
 
     <script>
     const defaultAllocatedData = [
         {
             nic: "199812345678",
-            computerNo: "CMP-101",
+            computerNo: "101",
             quarterType: "Grade II",
             residentName: "A. B. Perera",
             designation: "Clerk",
@@ -50,20 +52,19 @@
         const urlParams = new URLSearchParams(window.location.search);
         const index = urlParams.get('id');
         
-        // localStorage එකේ දත්ත නැත්නම් හෝ හිස් නම් default data එක පාවිච්චි කරන්න
         let data = JSON.parse(localStorage.getItem('allocatedQuartersData'));
         if (!data || data.length === 0) {
             data = defaultAllocatedData;
             localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
         }
 
+        const viewContent = document.getElementById('viewContent');
         if (index !== null && data[index]) {
             const item = data[index];
-            const card = document.getElementById('viewCard');
-            card.innerHTML = `
+            viewContent.innerHTML = `
                 <div class="view-row"><div class="view-label">Auto ID:</div><div class="view-value">${parseInt(index) + 1}</div></div>
                 <div class="view-row"><div class="view-label">NIC:</div><div class="view-value">${item.nic}</div></div>
-                <div class="view-row"><div class="view-label">Computer No:</div><div class="view-value"><b>${item.computerNo}</b></div></div>
+                <div class="view-row"><div class="view-label">Computer No:</div><div class="view-value">${item.computerNo}</div></div>
                 <div class="view-row"><div class="view-label">Quarter Type:</div><div class="view-value">${item.quarterType}</div></div>
                 <div class="view-row"><div class="view-label">Resident Name:</div><div class="view-value">${item.residentName}</div></div>
                 <div class="view-row"><div class="view-label">Designation:</div><div class="view-value">${item.designation}</div></div>
@@ -72,7 +73,7 @@
                 <div class="view-row"><div class="view-label">Other:</div><div class="view-value">${item.other || 'None'}</div></div>
             `;
         } else {
-            document.getElementById('viewCard').innerHTML = `<p style="text-align: center; color: #dc2626; font-weight: 600;">Record not found!</p>`;
+            viewContent.innerHTML = `<p style="text-align: center; color: #dc2626; font-weight: 600; padding: 20px 0;">Record not found!</p>`;
         }
     });
 </script>

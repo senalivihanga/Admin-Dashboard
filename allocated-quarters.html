@@ -9,28 +9,65 @@
     <style>
         .container { max-width: 1500px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
-        .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow-x: auto; position: relative; }
-        .page-title { text-align: center; color: #000000; font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 6px; }
-        .top-action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        
+        .page-title { 
+            text-align: center; 
+            color: #7A1C1C; 
+            font-size: 1.8rem; 
+            margin-bottom: 25px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-decoration: underline; 
+            text-underline-offset: 6px; 
+            font-weight: 700;
+        }
+
+        /* Search Bar Card Box */
+        .search-card { 
+            background: #ffffff; 
+            padding: 20px 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            margin-bottom: 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
+
+        /* Table Card Box */
+        .table-card { 
+            background: #ffffff; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06); 
+            border-top: 5px solid #7A1C1C; 
+            overflow-x: auto; 
+            position: relative; 
+        }
+
         .search-wrapper { display: flex; gap: 10px; align-items: center; }
-        .search-input { padding: 9px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 280px; outline: none; }
+        .search-input { padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 300px; outline: none; }
         .search-input:focus { border-color: #7A1C1C; box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1); }
-        .search-btn { background-color: #2563eb; color: white; border: none; padding: 9px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
-        .search-btn:hover { background-color: #1d4ed8; }
-        .add-btn { background-color: #16a34a; color: white; border: none; padding: 9px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
-        .add-btn:hover { background-color: #15803d; }
+        
+        .search-btn { background-color: #7A1C1C; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
+        .search-btn:hover { background-color: #571a1a; }
+        
+        .add-btn { background-color: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
+        .add-btn:hover { background-color: #059669; }
+
         .allocated-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1200px; }
         .allocated-table th, .allocated-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
         .allocated-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
         .allocated-table td { color: #334155; }
-        .allocated-table td:nth-child(5), .allocated-table td:nth-child(7) { text-align: center; } 
         
         .action-cell { display: flex; justify-content: center; align-items: center; gap: 6px; }
         .action-btn { border: none; width: 32px; height: 32px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s; }
-        .btn-view { background-color: #0ea5e9; color: white; }
-        .btn-view:hover { background-color: #0284c7; }
-        .btn-edit { background-color: #f59e0b; color: white; }
-        .btn-edit:hover { background-color: #d97706; }
+        .btn-view { background-color: #8b5cf6; color: white; }
+        .btn-view:hover { background-color: #7c3aed; }
+        .btn-edit { background-color: #2563eb; color: white; }
+        .btn-edit:hover { background-color: #1d4ed8; }
         .btn-delete { background-color: #dc2626; color: white; }
         .btn-delete:hover { background-color: #b91c1c; }
         
@@ -49,17 +86,19 @@
     <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
 
-        <div class="table-card">
-            <h2 class="page-title">Allocated Quarters List</h2>
+        <h2 class="page-title">Allocated Quarters List</h2>
 
-            <div class="top-action-bar">
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Computer No...">
-                    <button class="search-btn" onclick="searchTable()"><i class="fa-solid fa-search"></i> Search</button>
-                </div>
-                <a href="add-allocated-quarter.html" class="add-btn"><i class="fa-solid fa-plus"></i> Add New Allocation</a>
+        <!-- Separate Search Card Box -->
+        <div class="search-card">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Computer No..." oninput="if (this.value.trim() === '') searchTable()">
+                <button class="search-btn" onclick="searchTable()"><i class="fa-solid fa-search"></i> Search</button>
             </div>
+            <a href="add-allocated-quarter.html" class="add-btn"><i class="fa-solid fa-plus"></i> Add New Allocation</a>
+        </div>
 
+        <!-- Separate Table Card Box -->
+        <div class="table-card">
             <table class="allocated-table" id="allocatedTable">
                 <thead>
                     <tr>
@@ -104,6 +143,16 @@
                 workplace: "Colombo Fort",
                 allocatedDate: "2026-01-10",
                 other: "None"
+            },
+            {
+                nic: "199912345678",
+                computerNo: "102",
+                quarterType: "Grade III",
+                residentName: "N. K. Silva",
+                designation: "Station Master",
+                workplace: "Maradana",
+                allocatedDate: "2026-02-15",
+                other: "Sample record"
             }
         ];
 
@@ -114,6 +163,14 @@
             if (data) {
                 const parsed = JSON.parse(data);
                 if (parsed.length > 0) {
+                    const dummyRecord = defaultAllocatedData.find(item => item.other === 'Sample record');
+                    if (!localStorage.getItem('allocatedQuartersDummySeeded')) {
+                        if (!parsed.some(item => item.nic === dummyRecord.nic && item.computerNo === dummyRecord.computerNo)) {
+                            parsed.push(dummyRecord);
+                            saveStoredData(parsed);
+                        }
+                        localStorage.setItem('allocatedQuartersDummySeeded', 'true');
+                    }
                     return parsed;
                 }
             }

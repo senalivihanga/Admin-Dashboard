@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label>Computer Number</label>
-                    <input type="text" id="computerNo" placeholder="Enter Computer Number" required>
+                    <input type="text" id="computerNo" inputmode="numeric" pattern="[0-9]+" title="Enter digits only" placeholder="Enter Computer Number" required>
                 </div>
 
                 <div class="form-group">
@@ -80,6 +80,10 @@
     </div>
 
     <script>
+        document.getElementById('computerNo').addEventListener('input', event => {
+            event.target.value = event.target.value.replace(/\D/g, '');
+        });
+
         function saveApplicant(event) {
             event.preventDefault();
             

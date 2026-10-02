@@ -126,7 +126,7 @@
             <div class="search-wrapper">
                 <div class="search-box-wrapper">
                     <i class="fa-solid fa-search"></i>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search by Quarter No or Name...">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search by Quarter No or Name..." oninput="if (this.value.trim() === '') searchTable()">
                 </div>
                 <button class="search-btn" onclick="searchTable()"><i class="fa-solid fa-search"></i> Search</button>
             </div>

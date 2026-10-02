@@ -137,7 +137,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">1. General List</h3>
                 <div class="list-controls">
-                    <input type="search" id="generalSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search General list" onkeydown="if (event.key === 'Enter') filterWaitingList('general', 'generalSearchInput')">
+                    <input type="search" id="generalSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search General list" onkeydown="if (event.key === 'Enter') filterWaitingList('general', 'generalSearchInput')" oninput="if (this.value.trim() === '') filterWaitingList('general', 'generalSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('general', 'generalSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=general" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -161,7 +161,7 @@
                     <tr>
                         <td>1</td>
                         <td>199812345678</td>
-                        <td>CMP-101</td>
+                        <td>101</td>
                         <td>A. B. Perera</td>
                         <td>Clerk</td>
                         <td>Colombo Fort</td>
@@ -176,7 +176,7 @@
                     <tr>
                         <td>2</td>
                         <td>199287654321</td>
-                        <td>CMP-102</td>
+                        <td>102</td>
                         <td>S. K. Silva</td>
                         <td>Train Guard</td>
                         <td>Maradana</td>
@@ -197,7 +197,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">2. Guard List</h3>
                 <div class="list-controls">
-                    <input type="search" id="guardSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Guard list" onkeydown="if (event.key === 'Enter') filterWaitingList('guard', 'guardSearchInput')">
+                    <input type="search" id="guardSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Guard list" onkeydown="if (event.key === 'Enter') filterWaitingList('guard', 'guardSearchInput')" oninput="if (this.value.trim() === '') filterWaitingList('guard', 'guardSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('guard', 'guardSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=guard" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -221,7 +221,7 @@
                     <tr>
                         <td>1</td>
                         <td>199287654321</td>
-                        <td>CMP-102</td>
+                        <td>102</td>
                         <td>S. K. Silva</td>
                         <td>Train Guard</td>
                         <td>Maradana</td>
@@ -242,7 +242,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">3. Station Master List</h3>
                 <div class="list-controls">
-                    <input type="search" id="stationMasterSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Station Master list" onkeydown="if (event.key === 'Enter') filterWaitingList('station_master', 'stationMasterSearchInput')">
+                    <input type="search" id="stationMasterSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Station Master list" onkeydown="if (event.key === 'Enter') filterWaitingList('station_master', 'stationMasterSearchInput')" oninput="if (this.value.trim() === '') filterWaitingList('station_master', 'stationMasterSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('station_master', 'stationMasterSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=station_master" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -266,7 +266,7 @@
                     <tr>
                         <td>1</td>
                         <td>198533445566</td>
-                        <td>CMP-103</td>
+                        <td>103</td>
                         <td>M. N. Fernando</td>
                         <td>Station Master</td>
                         <td>Gampaha</td>
@@ -282,7 +282,7 @@
                     <tr>
                         <td>2</td>
                         <td>1985334455587</td>
-                        <td>CMP-103</td>
+                        <td>103</td>
                         <td>M. N. Fernando</td>
                         <td>Station Master</td>
                         <td>Maradana</td>
@@ -303,7 +303,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">4. Controller List</h3>
                 <div class="list-controls">
-                    <input type="search" id="controllerSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Controller list" onkeydown="if (event.key === 'Enter') filterWaitingList('controller', 'controllerSearchInput')">
+                    <input type="search" id="controllerSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Controller list" onkeydown="if (event.key === 'Enter') filterWaitingList('controller', 'controllerSearchInput')" oninput="if (this.value.trim() === '') filterWaitingList('controller', 'controllerSearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('controller', 'controllerSearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=controller" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -327,7 +327,7 @@
                     <tr>
                         <td>1</td>
                         <td>199022334455</td>
-                        <td>CMP-104</td>
+                        <td>104</td>
                         <td>T. G. Rathnayake</td>
                         <td>Controller</td>
                         <td>HQ Colombo</td>
@@ -348,7 +348,7 @@
             <div class="section-header-bar">
                 <h3 class="section-subtitle">5. Deputy Superintendent (Transportation) Colombo List</h3>
                 <div class="list-controls">
-                    <input type="search" id="deputySearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Deputy Superintendent list" onkeydown="if (event.key === 'Enter') filterWaitingList('deputy_commissioner', 'deputySearchInput')">
+                    <input type="search" id="deputySearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search Deputy Superintendent list" onkeydown="if (event.key === 'Enter') filterWaitingList('deputy_commissioner', 'deputySearchInput')" oninput="if (this.value.trim() === '') filterWaitingList('deputy_commissioner', 'deputySearchInput')">
                     <button type="button" class="search-btn" onclick="filterWaitingList('deputy_commissioner', 'deputySearchInput')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                     <a href="add-applicant.html?list=deputy_commissioner" class="add-btn"><i class="fa-solid fa-plus"></i> Add Applicant</a>
                 </div>
@@ -372,7 +372,7 @@
                     <tr>
                         <td>1</td>
                         <td>198211223344</td>
-                        <td>CMP-105</td>
+                        <td>105</td>
                         <td>W. M. D. Wickramasinghe</td>
                         <td>Deputy Commissioner</td>
                         <td>Main Office</td>
