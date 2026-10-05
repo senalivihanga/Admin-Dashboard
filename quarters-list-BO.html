@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quarters Details - Sri Lanka Railways Admin</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		body {
+			background-color: #f8fafc;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.container { width: 100%; max-width: none; box-sizing: border-box; margin: 30px auto; padding: 0 12px; }
+		.back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+		.page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+		.section-header-bar { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+		.search-wrapper { display: flex; gap: 10px; align-items: center; }
+		.search-box-wrapper { position: relative; display: flex; align-items: center; }
+		.search-box-wrapper i { position: absolute; left: 14px; color: #64748b; font-size: 0.9rem; }
+		.search-input { padding: 10px 14px 10px 40px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 300px; outline: none; transition: all 0.2s; background-color: #ffffff; }
+		.search-input:focus { border-color: #7A1C1C; box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1); }
+		.search-btn { background-color: #7A1C1C; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; font-size: 0.9rem; }
+		.search-btn:hover { background-color: #5c1414; }
+		.maintenance-btn { background-color: #2563eb; color: white; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: background-color 0.2s; }
+		.maintenance-btn:hover { background-color: #1d4ed8; }
+		.table-card { background: #ffffff; padding: 12px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow: hidden; position: relative; }
+		.table-responsive { width: 100%; overflow: hidden; }
+		.quarters-table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; }
+		.quarters-table th, .quarters-table td { padding: 8px 5px; border: 1px solid #e2e8f0; vertical-align: middle; font-size: 0.75rem; text-align: center; overflow-wrap: anywhere; }
+		.quarters-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0; }
+		.quarters-table td { color: #4b5563; font-weight: normal; }
+		.quarters-table tbody tr { transition: background-color 0.15s ease; }
+		.quarters-table tbody tr:hover { background-color: #f1f5f9; }
+		.facility-container { display: grid; gap: 5px; }
+		.facility-item { display: flex; align-items: center; justify-content: center; gap: 6px; }
+		.facility-label { color: #334155; font-size: inherit; font-weight: normal; text-align: left; }
+		.badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 7px; border-radius: 20px; font-size: inherit; font-weight: normal; }
+		.badge-active { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+		.badge-inactive { background-color: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+
+		@media (max-width: 640px) {
+			.container { margin: 20px auto; padding: 0 6px; }
+			.page-title { font-size: 1.5rem; }
+			.section-header-bar, .table-card { padding: 10px; }
+			.search-wrapper { width: 100%; flex-wrap: wrap; }
+			.search-box-wrapper, .search-input { width: 100%; box-sizing: border-box; }
+			.search-btn { justify-content: center; }
+			.maintenance-btn { margin-left: auto; }
+			.quarters-table th, .quarters-table td { padding: 4px 2px; font-size: 0.58rem; line-height: 1.2; }
+			.quarters-table th { font-size: 0.52rem; }
+			.badge { gap: 2px; padding: 2px 3px; }
+			.facility-item { flex-direction: column; gap: 2px; }
+			.facility-label { text-align: center; }
+		}
+	</style>
+</head>
+<body>
+	<main class="container">
+		<a href="BO.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+		<h2 class="page-title">Quarters Details</h2>
+
+		<div class="section-header-bar">
+			<div class="search-wrapper">
+				<div class="search-box-wrapper">
+					<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+					<input type="search" id="searchInput" class="search-input" placeholder="Search by Quarter No or Name..." aria-label="Search quarters" oninput="searchTable()">
+				</div>
+				<button type="button" class="search-btn" onclick="searchTable()"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search</button>
+			</div>
+			<a href="maintenance-BO.html" class="maintenance-btn"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Under Maintenance Quarters</a>
+		</div>
+
+		<div class="table-card">
+			<div class="table-responsive">
+				<table class="quarters-table" id="quartersTable">
+					<colgroup>
+						<col style="width: 4%">
+						<col style="width: 9%">
+						<col style="width: 10%">
+						<col style="width: 9%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 12%">
+						<col style="width: 7%">
+						<col style="width: 8%">
+						<col style="width: 8%">
+						<col style="width: 12%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Quarter No.</th>
+							<th>Quarter Name</th>
+							<th>Quarter Division</th>
+							<th>Ownership</th>
+							<th>Quarter Area (sq.ft)</th>
+							<th>Quarter Location</th>
+							<th>Address</th>
+							<th>Quarter Type</th>
+							<th>Assessment Rent (LKR)</th>
+							<th>Status</th>
+							<th>Facility (Electricity &amp; Water)</th>
+						</tr>
+					</thead>
+					<tbody id="quartersBody"></tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+
+	<script>
+		const defaultData = [
+			{ quarterNum: "Q-01", quarterName: "Bungalow A", division: "Way & Works", ownership: "Railway Department", quarterArea: "1,450 sq.ft", location: "Colombo", address: "No. 12, Railway Avenue, Colombo 10", quarterType: "Bungalows", assessmentRent: "5,500.00", status: "Under Maintenance", electric: true, water: true },
+			{ quarterNum: "Q-02", quarterName: "Type II House", division: "Signal & Telecommunication", ownership: "Railway Department", quarterArea: "950 sq.ft", location: "Kandy", address: "No. 8, Peradeniya Road, Kandy", quarterType: "Type II", assessmentRent: "4,200.00", status: "Available", electric: true, water: true },
+			{ quarterNum: "Q-03", quarterName: "Staff Flat", division: "Electrical", ownership: "Railway Department", quarterArea: "800 sq.ft", location: "Galle", address: "No. 22, Fort Road, Galle", quarterType: "Type I", assessmentRent: "3,900.00", status: "Occupied", electric: true, water: false },
+			{ quarterNum: "Q-04", quarterName: "Annex Unit", division: "Mechanical", ownership: "Railway Department", quarterArea: "600 sq.ft", location: "Anuradhapura", address: "No. 45, Station Road, Anuradhapura", quarterType: "Type III", assessmentRent: "2,750.00", status: "Available", electric: false, water: true }
+		];
+
+		function getQuarterData() {
+			try {
+				const storedData = JSON.parse(localStorage.getItem('quartersData_v2'));
+				if (Array.isArray(storedData) && storedData.length > 0 && storedData[0].quarterNum) {
+					return storedData;
+				}
+			} catch (error) {
+				return defaultData;
+			}
+			return defaultData;
+		}
+
+		function loadTableData() {
+			const tbody = document.getElementById('quartersBody');
+			tbody.innerHTML = '';
+
+			getQuarterData().forEach((item, index) => {
+				const electricBadge = item.electric
+					? '<span class="badge badge-active">Available</span>'
+					: '<span class="badge badge-inactive">Unavailable</span>';
+				const waterBadge = item.water
+					? '<span class="badge badge-active">Available</span>'
+					: '<span class="badge badge-inactive">Unavailable</span>';
+				const row = document.createElement('tr');
+
+				row.innerHTML = `
+					<td>${index + 1}</td>
+					<td>${item.quarterNum || 'N/A'}</td>
+					<td>${item.quarterName || 'N/A'}</td>
+					<td>${item.division || 'N/A'}</td>
+					<td>${item.ownership || 'N/A'}</td>
+					<td>${item.quarterArea || 'N/A'}</td>
+					<td>${item.location || 'N/A'}</td>
+					<td>${item.address || 'N/A'}</td>
+					<td>${item.quarterType || 'N/A'}</td>
+					<td>Rs. ${item.assessmentRent || '0.00'}</td>
+					<td>${item.status || 'N/A'}</td>
+					<td>
+						<div class="facility-container">
+							<div class="facility-item"><span class="facility-label">Electricity</span>${electricBadge}</div>
+							<div class="facility-item"><span class="facility-label">Water</span>${waterBadge}</div>
+						</div>
+					</td>
+				`;
+				tbody.appendChild(row);
+			});
+
+			searchTable();
+		}
+
+		function searchTable() {
+			const query = document.getElementById('searchInput').value.trim().toLowerCase();
+			document.querySelectorAll('#quartersBody tr').forEach(row => {
+				const quarterNumber = row.cells[1].textContent.toLowerCase();
+				const quarterName = row.cells[2].textContent.toLowerCase();
+				row.style.display = quarterNumber.includes(query) || quarterName.includes(query) ? '' : 'none';
+			});
+		}
+
+		window.addEventListener('DOMContentLoaded', loadTableData);
+	</script>
+</body>
+</html>

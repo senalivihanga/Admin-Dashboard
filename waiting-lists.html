@@ -34,73 +34,17 @@
         .btn-edit:hover { background-color:#1d4ed8; }
         .btn-delete { background-color: #dc2626; color: white; }
         .btn-delete:hover { background-color: #b91c1c; }
-
-        .custom-msg-box {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.55);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-        }
-        .custom-msg-card {
-            background: #fff;
-            border-radius: 16px;
-            width: min(92vw, 420px);
-            padding: 25px 22px 20px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-            text-align: center;
-        }
-        .custom-msg-card p {
-            color: #1f2937;
-            font-size: 1.02rem;
-            line-height: 1.6;
-            margin-bottom: 18px;
-        }
-        .custom-msg-card i {
-            display: block;
-            color: #dc2626;
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        .msg-btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .msg-btn {
-            border: none;
-            border-radius: 8px;
-            padding: 10px 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
+        .custom-msg-box { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); display: none; align-items: center; justify-content: center; z-index: 999; }
+        .custom-msg-card { background: #fff; border-radius: 16px; width: min(92vw, 420px); padding: 25px 22px 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.18); text-align: center; }
+        .custom-msg-card p { color: #1f2937; font-size: 1.02rem; line-height: 1.6; margin-bottom: 18px; }
+        .custom-msg-card i { display: block; color: #dc2626; font-size: 2rem; margin-bottom: 10px; }
+        .msg-btn-group { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .msg-btn { border: none; border-radius: 8px; padding: 10px 18px; font-weight: 700; cursor: pointer; transition: 0.2s ease; }
         .msg-btn-yes { background: #dc2626; color: white; }
         .msg-btn-yes:hover { background: #b91c1c; }
         .msg-btn-no { background: #e2e8f0; color: #1f2937; }
         .msg-btn-no:hover { background: #cbd5e1; }
-        .system-toast {
-            position: fixed;
-            right: 24px;
-            top: 24px;
-            background: #f0fdf4;
-            color: #166534;
-            border: 1px solid #86efac;
-            border-left: 6px solid #22c55e;
-            padding: 14px 18px;
-            border-radius: 12px;
-            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.18);
-            display: none;
-            z-index: 1000;
-            font-weight: 700;
-            align-items: center;
-            gap: 10px;
-            max-width: 380px;
-            line-height: 1.4;
-        }
+        .system-toast { position: fixed; right: 24px; top: 24px; background: #f0fdf4; color: #166534; border: 1px solid #86efac; border-left: 6px solid #22c55e; padding: 14px 18px; border-radius: 12px; box-shadow: 0 12px 30px rgba(34, 197, 94, 0.18); display: none; z-index: 1000; font-weight: 700; align-items: center; gap: 10px; max-width: 380px; line-height: 1.4; }
         .system-toast i { color: #16a34a; font-size: 1.1rem; }
     </style>
 </head>
@@ -168,10 +112,7 @@
                         <td>2026-01-10</td>
                         <td>None</td>
                         <td>None</td>
-                        <td>
-                            <a href="edit-applicant.html?list=general&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                        </td>
+                        <td><a href="edit-applicant.html?list=general&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a> <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -183,10 +124,7 @@
                         <td>2026-01-10</td>
                         <td>None</td>
                         <td>None</td>
-                        <td>
-                            <a href="edit-applicant.html?list=general&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                        </td>
+                        <td><a href="edit-applicant.html?list=general&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a> <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -228,10 +166,7 @@
                         <td>2026-02-14</td>
                         <td>Pending</td>
                         <td>None</td>
-                        <td>
-                            <a href="edit-applicant.html?list=guard&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                        </td>
+                        <td><a href="edit-applicant.html?list=guard&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a> <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -273,10 +208,7 @@
                         <td>2026-03-01</td>
                         <td>Urgent</td>
                         <td>None</td>
-                        <td>
-                            <a href="edit-applicant.html?list=station_master&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                        </td>
+                        <td><a href="edit-applicant.html?list=station_master&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a> <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
 
                     <tr>
@@ -289,10 +221,7 @@
                         <td>2026-03-01</td>
                         <td>Urgent</td>
                         <td>None</td>
-                        <td>
-                            <a href="edit-applicant.html?list=station_master&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                        </td>
+                        <td><a href="edit-applicant.html?list=station_master&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a> <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -334,10 +263,7 @@
                         <td>2026-03-10</td>
                         <td>None</td>
                         <td>None</td>
-                        <td>
-                            <a href="edit-applicant.html?list=controller&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                        </td>
+                        <td><a href="edit-applicant.html?list=controller&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a> <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -379,10 +305,7 @@
                         <td>2026-04-05</td>
                         <td>Approved</td>
                         <td>None</td>
-                        <td>
-                            <a href="edit-applicant.html?list=deputy_commissioner&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-                            <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                        </td>
+                        <td><a href="edit-applicant.html?list=deputy_commissioner&id=1" class="action-btn btn-edit" title="Edit"><i class="fa-solid fa-pen"></i></a> <button class="action-btn btn-delete" onclick="openDeleteModal(this)" title="Delete"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>

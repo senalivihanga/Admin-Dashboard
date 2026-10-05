@@ -14,104 +14,64 @@
             padding: 0;
         }
 
-        .approval-container {
-            max-width: 1450px;
-            margin: 30px auto;
+        .container {
+            max-width: 1500px;
+            margin: 40px auto;
             padding: 0 20px;
-        }
-
-        .approval-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .approval-container h2 {
-            font-size: 2rem;
-            color: #7A1C1C;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Full width underline for header */
-        .title-underline {
-            width: 100%;
-            max-width: 500px;
-            height: 4px;
-            background: linear-gradient(to right, #7A1C1C, #e11d48);
-            margin: 0 auto;
-            border-radius: 2px;
         }
 
         .back-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 20px;
             color: #7A1C1C;
             text-decoration: none;
             font-weight: 600;
+            margin-bottom: 20px;
         }
 
-        .back-link:hover {
+        .page-title {
+            text-align: center;
+            color: #7A1C1C;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             text-decoration: underline;
+            text-underline-offset: 6px;
+            font-weight: 700;
         }
 
-        /* Top Action Bar for Search & Print */
-        .top-action-bar {
+        .search-card {
+            background: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
         }
 
-        .search-box {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-box input {
-            padding: 10px 15px 10px 38px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            font-size: 0.9rem;
-            width: 300px;
-            outline: none;
+        .table-card {
             background: #ffffff;
-            transition: border-color 0.2s;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-top: 5px solid #7A1C1C;
+            overflow-x: auto;
+            position: relative;
         }
 
-        .search-box input:focus {
-            border-color: #7A1C1C;
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 12px;
-            color: #64748b;
-        }
-
-        .btn-print {
-            background-color: #0284c7;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn-print:hover {
-            background-color: #0366d6;
-        }
+        .search-wrapper { display: flex; gap: 10px; align-items: center; }
+        .search-input { padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 300px; outline: none; }
+        .search-input:focus { border-color: #7A1C1C; box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1); }
+        .search-btn { background-color: #7A1C1C; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
+        .search-btn:hover { background-color: #571a1a; }
+        .print-btn { background-color: #0284c7; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
+        .print-btn:hover { background-color: #0369a1; }
 
         /* System Custom Alert Box */
         .system-alert {
@@ -134,38 +94,17 @@
             border-color: #bbf7d0;
         }
 
-        /* Table Styling (Centered) */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
+        .approval-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .approval-table th, .approval-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
+        .approval-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; text-transform: uppercase; }
+        .approval-table td { color: #334155; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        th, td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: center !important;
-            transition: all 0.3s ease;
-        }
-
-        th {
-            background-color: #7A1C1C;
-            color: #ffffff;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
+        .action-cell { display: flex; justify-content: center; align-items: center; gap: 6px; }
+        .action-btn { border: none; width: 32px; height: 32px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s; color: white; }
+        .btn-approve { background-color: #10b981; }
+        .btn-approve:hover { background-color: #059669; }
+        .btn-reject { background-color: #dc2626; }
+        .btn-reject:hover { background-color: #b91c1c; }
 
         tr:hover {
             background-color: #f1f5f9;
@@ -189,7 +128,7 @@
             width: 32px;
             height: 32px;
             border-radius: 6px;
-            background-color: #3b82f6;
+            background-color: #8b5cf6;
             color: white;
             display: inline-flex;
             align-items: center;
@@ -200,7 +139,7 @@
         }
 
         .btn-view-symbol:hover {
-            background-color: #2563eb;
+            background-color: #7c3aed;
         }
 
         /* Symbol-only Action Buttons */
@@ -238,11 +177,6 @@
             background-color: #ef4444;
         }
         .btn-reject:hover { background-color: #dc2626; }
-
-        .btn-edit-approval {
-            background-color: #f59e0b;
-        }
-        .btn-edit-approval:hover { background-color: #d97706; }
 
         /* Modal Overlay */
         .modal {
@@ -314,73 +248,28 @@
             transition: all 0.4s ease;
         }
 
-        /* Print Media Settings to completely eliminate empty/overflow pages */
         @media print {
-            @page {
-                size: landscape;
-                margin: 5mm;
-            }
-
-            html, body {
-                background-color: #ffffff !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                height: 100% !important;
-                overflow: hidden !important;
-            }
-
-            .back-link, .top-action-bar, .system-alert {
-                display: none !important;
-            }
-
-            .approval-container {
-                max-width: 100% !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            .table-responsive {
-                overflow: visible !important;
-                box-shadow: none !important;
-                border: none !important;
-                margin-bottom: 0 !important;
-            }
-
-            table {
-                width: 100% !important;
-                font-size: 8.5pt;
-            }
-
-            th, td {
-                padding: 8px 10px !important;
-            }
-
-            /* Hide View Application (10th) and Action (11th) columns during print */
+            @page { size: landscape; margin: 10mm; }
+            body { background-color: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .back-link, .search-card, .system-alert { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+            .table-card { box-shadow: none !important; border: none !important; padding: 0 !important; overflow: visible !important; }
+            .approval-table { width: 100% !important; font-size: 8pt !important; }
+            .approval-table th, .approval-table td { padding: 6px 4px !important; }
             th:nth-child(10), td:nth-child(10),
             th:nth-child(11), td:nth-child(11) {
                 display: none !important;
-            }
-
-            th {
-                background-color: #7A1C1C !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
             }
         }
     </style>
 </head>
 <body>
 
-    <main class="approval-container">
+    <main class="container">
         <!-- Connected back to Personal File Dashboard -->
         <a href="PF.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
         
-        <div class="approval-header">
-            <h2>Application Approval List</h2>
-            <div class="title-underline"></div>
-        </div>
+        <h2 class="page-title">Application Approval List</h2>
 
         <!-- System Message Notification Area -->
         <div id="systemAlert" class="system-alert">
@@ -389,16 +278,16 @@
         </div>
 
         <!-- Search Bar and Print Option Bar -->
-        <div class="top-action-bar">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="filterTable()">
+        <div class="search-card">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." oninput="checkSearchClear(this)">
+                <button type="button" class="search-btn" onclick="filterTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
-            <button type="button" class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+            <button type="button" class="print-btn" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
         </div>
 
-        <div class="table-responsive">
-            <table>
+        <div class="table-card">
+            <table class="approval-table" id="approvalTable">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -427,24 +316,7 @@
             <textarea id="rejectionReasonInput" placeholder="Enter reason for rejecting this application..."></textarea>
             <div class="modal-buttons">
                 <button type="button" class="btn-cancel" onclick="closeModal('rejectModal')">Cancel</button>
-                <button type="button" class="btn-action-symbol btn-reject" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px; font-weight: 600;" onclick="confirmRejection()"><i class="fa-solid fa-xmark"></i> Confirm Rejection</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Approval Confirmation Modal -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <h3>Change Application Status</h3>
-            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px;">Switch approval or rejection status for this record:</p>
-            <select id="statusSelect">
-                <option value="Approved">Approve Application</option>
-                <option value="Rejected">Reject Application</option>
-            </select>
-            <textarea id="editReasonInput" placeholder="Enter reason if changing/rejecting status..." style="display:none;"></textarea>
-            <div class="modal-buttons">
-                <button type="button" class="btn-cancel" onclick="closeModal('editModal')">Cancel</button>
-                <button type="button" class="btn-approve" onclick="confirmStatusChange()" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px; background-color: #3b82f6; font-weight: 600;">Save Changes</button>
+                <button type="button" class="btn-action-symbol btn-reject" style="width: auto; height: auto; padding: 6px 14px; border-radius: 5px; font-weight: 600;" onclick="confirmRejection()">Confirm Rejection</button>
             </div>
         </div>
     </div>
@@ -485,7 +357,6 @@
                         <div class="action-group">
                             <button type="button" class="btn-action-symbol btn-approve" onclick="handleApprove(this)" title="Approve"><i class="fa-solid fa-check"></i></button>
                             <button type="button" class="btn-action-symbol btn-reject" onclick="openRejectModal(this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
-                            <button type="button" class="btn-action-symbol btn-edit-approval" onclick="openEditModal(this)" title="Edit Approval"><i class="fa-solid fa-pen-to-square"></i></button>
                         </div>
                     </td>
                 `;
@@ -500,6 +371,12 @@
                        item.name.toLowerCase().includes(searchVal);
             });
             renderTable(filtered);
+        }
+
+        function checkSearchClear(input) {
+            if (input.value.trim() === '') {
+                renderTable(applicationData);
+            }
         }
 
         function showSystemMessage(message, type = 'success') {
@@ -553,63 +430,25 @@
                 showSystemMessage("Error: Please provide a valid rejection reason.", "error");
                 return;
             }
-            
-            showSystemMessage("Application rejected successfully. Reason recorded in system log.", "error");
-            closeModal('rejectModal');
 
-            if (currentRowTarget) {
-                currentRowTarget.classList.add('fade-out');
-                setTimeout(() => {
-                    const appId = currentRowTarget.id.replace('row-', '');
-                    const index = applicationData.findIndex(item => item.id == appId);
-                    if(index > -1) applicationData.splice(index, 1);
-                    filterTable();
-                    currentRowTarget = null;
-                }, 400);
-            }
-        }
-
-        function openEditModal(button) {
-            currentRowTarget = button.closest('tr');
-            document.getElementById('editModal').style.display = 'flex';
-            document.getElementById('statusSelect').value = 'Approved';
-            document.getElementById('editReasonInput').style.display = 'none';
-            document.getElementById('editReasonInput').value = '';
-        }
-
-        document.getElementById('statusSelect').addEventListener('change', function() {
-            const reasonInput = document.getElementById('editReasonInput');
-            if (this.value === 'Rejected') {
-                reasonInput.style.display = 'block';
-            } else {
-                reasonInput.style.display = 'none';
-            }
-        });
-
-        function confirmStatusChange() {
-            const newStatus = document.getElementById('statusSelect').value;
-            const editReason = document.getElementById('editReasonInput').value.trim();
-
-            if (newStatus === 'Rejected' && !editReason) {
-                showSystemMessage("Error: Please provide a reason when changing status to Rejected.", "error");
+            const rejectedRow = currentRowTarget;
+            if (!rejectedRow) {
+                closeModal('rejectModal');
                 return;
             }
 
-            showSystemMessage(`Application status successfully updated to: ${newStatus}`, "success");
-            closeModal('editModal');
+            const rejectedAppId = Number(rejectedRow.id.replace('row-', ''));
+            closeModal('rejectModal');
 
-            if (currentRowTarget) {
-                currentRowTarget.classList.add('fade-out');
-                setTimeout(() => {
-                    const appId = currentRowTarget.id.replace('row-', '');
-                    const index = applicationData.findIndex(item => item.id == appId);
-                    if(index > -1) {
-                        applicationData.splice(index, 1);
-                    }
-                    filterTable();
-                    currentRowTarget = null;
-                }, 400);
-            }
+            rejectedRow.classList.add('fade-out');
+            setTimeout(() => {
+                const index = applicationData.findIndex(item => item.id === rejectedAppId);
+                if (index > -1) {
+                    applicationData.splice(index, 1);
+                }
+                filterTable();
+                showSystemMessage("Application rejected successfully.", "error");
+            }, 400);
         }
 
         window.onload = function() {

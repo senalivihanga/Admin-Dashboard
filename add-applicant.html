@@ -8,16 +8,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background-color: #f4f4f4; }
-        .form-wrapper { max-width: 650px; margin: 40px auto; padding: 0 20px; }
+        .form-wrapper { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         .card { background: #ffffff; padding: 35px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 5px solid #7A1C1C; }
         .card h2 { color: #222; font-size: 1.5rem; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
         .form-group { margin-bottom: 18px; }
+        .card form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; font-size: 0.95rem; }
         .form-group input, .form-group select { width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; box-sizing: border-box; }
         .form-group input:focus, .form-group select:focus { border-color: #7A1C1C; }
         .btn-save { width: 100%; padding: 12px; background-color:  #10b981; color: #ffffff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; }
         .btn-save:hover { background-color: #059669; }
+        .card form .btn-save { grid-column: 1 / -1; }
+
+        @media (max-width: 640px) {
+            .form-wrapper { margin: 24px auto; }
+            .card { padding: 24px 20px; }
+            .card form { grid-template-columns: 1fr; }
+            .card form .btn-save { grid-column: auto; }
+        }
     </style>
 </head>
 <body>
