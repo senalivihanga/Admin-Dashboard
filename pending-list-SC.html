@@ -41,34 +41,56 @@
         .back-link:hover {
             text-decoration: underline;
         }
-        .top-action-bar {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
+        .search-card {
+            background: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
             gap: 15px;
+            border: 1px solid #e2e8f0;
         }
-        .search-box {
-            position: relative;
+
+        .search-wrapper {
             display: flex;
+            gap: 10px;
             align-items: center;
         }
-        .search-box input {
-            padding: 10px 15px 10px 38px;
+
+        .search-input {
+            padding: 10px 14px;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
             font-size: 0.9rem;
             width: 300px;
             outline: none;
         }
-        .search-box input:focus {
+
+        .search-input:focus {
             border-color: #7A1C1C;
+            box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1);
         }
-        .search-box i {
-            position: absolute;
-            left: 12px;
-            color: #64748b;
+
+        .search-btn {
+            background-color: #7A1C1C;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: #571a1a;
         }
         .badge {
             width: 32px;
@@ -82,31 +104,60 @@
         }
         .table-responsive {
             width: 100%;
+            box-sizing: border-box;
             overflow-x: auto;
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
             border: 1px solid #e2e8f0;
+            border-top: 5px solid #7A1C1C;
         }
         table {
             width: 100%;
+            table-layout: fixed;
             border-collapse: collapse;
             text-align: center;
             font-size: 0.9rem;
         }
+
         th, td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 10px;
+            border: 1px solid #cbd5e1;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            overflow-wrap: anywhere;
         }
+
         th {
             background-color: #7A1C1C;
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             font-size: 0.8rem;
+            letter-spacing: 0;
         }
-        tr:hover {
+        tbody tr:nth-child(even) {
+            background-color: #fff7f7;
+        }
+        tbody tr:hover {
             background-color: #f1f5f9;
+        }
+
+        @media (max-width: 640px) {
+            .table-responsive {
+                padding: 8px;
+            }
+
+            th, td {
+                padding: 6px 3px;
+                font-size: 0.68rem;
+            }
+
+            .badge {
+                width: 24px;
+                height: 24px;
+            }
         }
     </style>
 </head>
@@ -116,10 +167,10 @@
         <div class="approval-header">
             <h2>Pending Applications Log</h2>
         </div>
-        <div class="top-action-bar">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search by NIC or Name..." onkeyup="renderTable()">
+        <div class="search-card">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." oninput="checkSearchClear(this)">
+                <button type="button" class="search-btn" onclick="renderTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
         </div>
         <div class="table-responsive">
@@ -151,7 +202,9 @@
             const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
             tbody.innerHTML = "";
 
-            const filtered = pendingData.filter(item => item.nic.toLowerCase().includes(searchVal) || item.name.toLowerCase().includes(searchVal));
+            const filtered = pendingData.filter(item =>
+                Object.values(item).some(value => String(value).toLowerCase().includes(searchVal))
+            );
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #64748b; padding: 30px;">No pending records found.</td></tr>`;
@@ -171,6 +224,12 @@
                     </tr>
                 `;
             });
+        }
+
+        function checkSearchClear(input) {
+            if (input.value.trim() === '') {
+                renderTable();
+            }
         }
 
         window.onload = renderTable;

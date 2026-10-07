@@ -37,7 +37,7 @@
             width: 100%;
             max-width: 750px;
             height: 4px;
-            background: linear-gradient(to right, #7A1C1C, #e11d48);
+            background: linear-gradient(to right, #7A1C1C, #7A1C1C);
             margin: 0 auto;
             border-radius: 2px;
         }
@@ -56,7 +56,6 @@
             text-decoration: underline;
         }
 
-        /* Search Card matching the requested image style */
         .search-card {
             background: #ffffff;
             padding: 20px 25px;
@@ -206,7 +205,6 @@
             word-wrap: break-word;
         }
 
-        /* Action Buttons (Edit removed) */
         .btn-view, .btn-approve, .btn-reject {
             width: 34px;
             height: 34px;
@@ -239,7 +237,6 @@
             flex-wrap: wrap;
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -298,7 +295,6 @@
             transition: all 0.4s ease;
         }
 
-        /* Print Media Styles */
         @media print {
             @page {
                 size: landscape;
@@ -365,7 +361,6 @@
             <div class="title-underline"></div>
         </div>
 
-        <!-- Search and Print Bar matching requested image -->
         <div class="search-card">
             <div class="search-wrapper">
                 <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." oninput="checkSearchClear(this)">
@@ -400,7 +395,6 @@
         </div>
     </main>
 
-    <!-- Reject Modal -->
     <div id="rejectModal" class="modal">
         <div class="modal-content">
             <h3>Provide Rejection Reason</h3>

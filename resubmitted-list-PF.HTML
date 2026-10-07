@@ -37,7 +37,7 @@
             width: 100%;
             max-width: 750px;
             height: 4px;
-            background: linear-gradient(to right, #7A1C1C, #e11d48);
+            background: linear-gradient(to right, #7A1C1C, #7A1C1C);
             margin: 0 auto;
             border-radius: 2px;
         }
@@ -189,7 +189,6 @@
             background-color: #f1f5f9;
         }
 
-        /* Fixed Reason Badge Width to Prevent Cutting */
         .reason-badge {
             background-color: #fef2f2;
             color: #dc2626;
@@ -206,7 +205,6 @@
             word-wrap: break-word;
         }
 
-        /* Action Buttons */
         .btn-view, .btn-approve, .btn-reject {
             width: 34px;
             height: 34px;
@@ -239,7 +237,6 @@
             flex-wrap: wrap;
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -298,7 +295,6 @@
             transition: all 0.4s ease;
         }
 
-        /* Print Media Styles */
         @media print {
             @page {
                 size: landscape;
@@ -408,7 +404,7 @@
     </main>
 
     <div id="rejectModal" class="modal">
-                <div class="modal-content">
+        <div class="modal-content">
             <h3>Provide Rejection Reason</h3>
             <textarea id="rejectionReasonInput" placeholder="Enter reason for rejecting this application..."></textarea>
             <div class="modal-buttons">
@@ -525,14 +521,15 @@
                 showSystemMessage("Error: Please provide a valid rejection reason.", "error");
                 return;
             }
-            
-            showSystemMessage("Application rejected successfully. New reason recorded in system log.", "error");
+
+            showSystemMessage("Application rejected successfully and removed from list.", "error");
+            const rejectedRow = currentRowTarget;
             closeModal('rejectModal');
 
-            if (currentRowTarget) {
-                currentRowTarget.classList.add('fade-out');
+            if (rejectedRow) {
+                rejectedRow.classList.add('fade-out');
                 setTimeout(() => {
-                    const appId = currentRowTarget.id.replace('row-', '');
+                    const appId = rejectedRow.id.replace('row-', '');
                     const index = resubmittedData.findIndex(item => item.id == appId);
                     if(index > -1) resubmittedData.splice(index, 1);
                     filterTable();

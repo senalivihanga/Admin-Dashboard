@@ -7,26 +7,163 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .container { max-width: 1500px; margin: 40px auto; padding: 0 20px; }
-        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #5c060d; text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: color 0.2s; }
-        .back-link:hover { color: #4a050a; }
-        .page-title { text-align: center; color: #5c060d; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container { 
+            max-width: 1400px; 
+            margin: 30px auto; 
+            padding: 0 20px; 
+        }
+
+        .back-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            color: #7A1C1C; 
+            text-decoration: none; 
+            font-weight: 600; 
+            margin-bottom: 20px; 
+            transition: color 0.2s; 
+        }
+        .back-link:hover { 
+            text-decoration: underline; 
+        }
+
+        .page-title { 
+            text-align: center; 
+            color: #7A1C1C; 
+            font-size: 2rem; 
+            margin-bottom: 30px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-decoration: underline; 
+            text-underline-offset: 8px; 
+        }
         
-        .management-section { background: #ffffff; padding: 20px 0; border: none; box-shadow: none; margin-bottom: 40px; }
-        .section-header-bar { display: flex; justify-content: flex-start; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        /* Top Action Bar matching the reference design */
+        .top-action-bar {
+            background: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #e2e8f0;
+        }
 
-        .search-box-wrapper { position: relative; display: flex; align-items: center; }
-        .search-box-wrapper i { position: absolute; left: 14px; color: #64748b; font-size: 0.9rem; }
-        .search-input { padding: 10px 14px 10px 40px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; width: 320px; outline: none; transition: all 0.2s; background-color: #ffffff; }
-        .search-input:focus { border-color: #5c060d; box-shadow: 0 0 0 3px rgba(92, 6, 13, 0.1); }
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
 
-        .data-table { width: 100%; border-collapse: collapse; text-align: center; min-width: 1200px; }
-        .data-table th, .data-table td { padding: 14px 14px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; font-size: 0.85rem; }
-        .data-table th { background-color:#7A1C1C; color: #ffffff; font-weight: 700; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; text-align: center; }
-        .data-table td { color: #4b5563; text-align: center; }
-        .data-table td:nth-child(3), .data-table td:nth-child(4), .data-table td:nth-child(5) { text-align: center; }
-        .data-table tbody tr { transition: background-color 0.15s ease; }
-        .data-table tbody tr:hover { background-color: #fdf8f8; }
+        .search-input {
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 300px;
+            outline: none;
+            transition: all 0.2s;
+            background-color: #ffffff;
+        }
+        .search-input:focus { 
+            border-color: #7A1C1C; 
+            box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1); 
+        }
+
+        .search-btn {
+            background-color: #7A1C1C;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .search-btn:hover {
+            background-color: #571a1a;
+        }
+
+        .btn-print {
+            background-color: #0284c7;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-print:hover {
+            background-color: #0369a1;
+        }
+
+        /* Table Card Container with Top Border */
+        .management-section { 
+            background: #ffffff; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06); 
+            border: 1px solid #e2e8f0;
+            border-top: 5px solid #7A1C1C; 
+            margin-bottom: 40px; 
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .data-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            text-align: center; 
+            min-width: 1200px; 
+        }
+        .data-table th, .data-table td { 
+            padding: 14px 16px; 
+            border: 1px solid #e2e8f0; 
+            vertical-align: middle; 
+            font-size: 0.85rem; 
+        }
+        .data-table th { 
+            background-color: #f8fafc; 
+            color: #1e293b; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            letter-spacing: 0.5px; 
+            text-align: center; 
+        }
+        .data-table td { 
+            color: #334155; 
+            text-align: center; 
+        }
+        .data-table tbody tr { 
+            transition: background-color 0.15s ease; 
+        }
+        .data-table tbody tr:hover { 
+            background-color: #f1f5f9; 
+        }
 
         .applicant-info { display: flex; flex-direction: column; gap: 2px; text-align: left; }
         .applicant-name { font-weight: normal; color: #111827; font-size: 0.85rem; }
@@ -44,22 +181,56 @@
         .status-resolved { background-color: #f0fdf4; color: #15803d; }
 
         .complaint-text { width: 100%; max-width: 350px; white-space: normal; word-break: break-word; color: #1f2937; font-weight: normal; text-align: left; }
+
+        #noResultsRow {
+            display: none;
+            text-align: center;
+            color: #64748b;
+            font-weight: 500;
+            padding: 20px;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .back-link, .top-action-bar {
+                display: none !important;
+            }
+            .management-section {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            .table-responsive {
+                overflow: visible !important;
+            }
+            .data-table {
+                width: 100% !important;
+                min-width: 100% !important;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Subject Clerk Dashboard</a>
-        <h2 class="page-title"> Inquiries & Complaints</h2>
+        <a href="SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        <h2 class="page-title">Inquiries & Complaints</h2>
+
+        <!-- Top Action Bar with Search and Print Button -->
+        <div class="top-action-bar">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." oninput="handleSearchInput(this)">
+                <button type="button" class="search-btn" onclick="searchTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            </div>
+            
+            <button onclick="window.print()" class="btn-print">
+                <i class="fa-solid fa-print"></i> Print / Save as PDF
+            </button>
+        </div>
 
         <div class="management-section">
-            <div class="section-header-bar">
-                <div class="search-box-wrapper">
-                    <i class="fa-solid fa-search"></i>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Name..." onkeyup="searchTable()">
-                </div>
-            </div>
-
             <div class="table-responsive" style="overflow-x: auto;">
                 <table class="data-table" id="inquiryTable">
                     <thead>
@@ -139,6 +310,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <div id="noResultsRow">No matching inquiries found.</div>
             </div>
         </div>
     </div>
@@ -146,9 +318,19 @@
     <script>
         function searchTable() {
             const input = document.getElementById("searchInput");
-            const filter = input.value.toLowerCase();
+            const filter = input.value.trim().toLowerCase();
             const table = document.getElementById("inquiryTable");
             const tr = table.getElementsByTagName("tr");
+            const noResults = document.getElementById("noResultsRow");
+            let visibleCount = 0;
+
+            if (filter === "") {
+                for (let i = 1; i < tr.length; i++) {
+                    tr[i].style.display = "";
+                }
+                noResults.style.display = "none";
+                return;
+            }
 
             for (let i = 1; i < tr.length; i++) {
                 const tdNic = tr[i].getElementsByTagName("td")[1];
@@ -166,6 +348,15 @@
                 }
 
                 tr[i].style.display = rowMatched ? "" : "none";
+                if (rowMatched) visibleCount++;
+            }
+
+            noResults.style.display = visibleCount === 0 ? "block" : "none";
+        }
+
+        function handleSearchInput(input) {
+            if (input.value.trim() === "") {
+                searchTable();
             }
         }
     </script>

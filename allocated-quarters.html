@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .container { max-width: 1500px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 1650px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         
         .page-title { 
@@ -57,7 +57,7 @@
         .add-btn { background-color: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
         .add-btn:hover { background-color: #059669; }
 
-        .allocated-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1200px; }
+        .allocated-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1400px; }
         .allocated-table th, .allocated-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
         .allocated-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
         .allocated-table td { color: #334155; }
@@ -91,7 +91,7 @@
         <!-- Separate Search Card Box -->
         <div class="search-card">
             <div class="search-wrapper">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Computer No..." oninput="if (this.value.trim() === '') searchTable()">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC, Computer No or Quarter No..." oninput="if (this.value.trim() === '') searchTable()">
                 <button class="search-btn" onclick="searchTable()"><i class="fa-solid fa-search"></i> Search</button>
             </div>
             <a href="add-allocated-quarter.html" class="add-btn"><i class="fa-solid fa-plus"></i> Add New Allocation</a>
@@ -105,6 +105,9 @@
                         <th>No.</th>
                         <th>NIC</th>
                         <th>Computer No.</th>
+                        <th>Quarter No.</th>
+                        <th>Quarter Name</th>
+                        <th>Quarter Location</th>
                         <th>Quarter Type</th>
                         <th>Resident Name</th>
                         <th>Designation</th>
@@ -137,6 +140,9 @@
             {
                 nic: "199812345678",
                 computerNo: "101",
+                quarterNo: "Q-01",
+                quarterName: "Sunflower Manor",
+                quarterLocation: "Colombo 10",
                 quarterType: "Grade II",
                 residentName: "A. B. Perera",
                 designation: "Clerk",
@@ -147,6 +153,9 @@
             {
                 nic: "199912345678",
                 computerNo: "102",
+                quarterNo: "Q-04",
+                quarterName: "Railway View",
+                quarterLocation: "Maradana",
                 quarterType: "Grade III",
                 residentName: "N. K. Silva",
                 designation: "Station Master",
@@ -160,21 +169,19 @@
 
         function getStoredData() {
             const data = localStorage.getItem('allocatedQuartersData');
-            if (data) {
-                const parsed = JSON.parse(data);
-                if (parsed.length > 0) {
-                    const dummyRecord = defaultAllocatedData.find(item => item.other === 'Sample record');
-                    if (!localStorage.getItem('allocatedQuartersDummySeeded')) {
-                        if (!parsed.some(item => item.nic === dummyRecord.nic && item.computerNo === dummyRecord.computerNo)) {
-                            parsed.push(dummyRecord);
-                            saveStoredData(parsed);
-                        }
-                        localStorage.setItem('allocatedQuartersDummySeeded', 'true');
-                    }
-                    return parsed;
+            const storedData = data ? JSON.parse(data) : [];
+
+            const mergedData = [...defaultAllocatedData];
+            storedData.forEach(item => {
+                const isDuplicate = mergedData.some(existing =>
+                    existing.nic === item.nic && existing.computerNo === item.computerNo
+                );
+                if (!isDuplicate) {
+                    mergedData.push(item);
                 }
-            }
-            return defaultAllocatedData;
+            });
+
+            return mergedData;
         }
 
         function saveStoredData(data) {
@@ -192,6 +199,9 @@
                     <td>${index + 1}</td>
                     <td>${item.nic}</td>
                     <td>${item.computerNo}</td>
+                    <td>${item.quarterNo || '-'}</td>
+                    <td>${item.quarterName || '-'}</td>
+                    <td>${item.quarterLocation || '-'}</td>
                     <td>${item.quarterType}</td>
                     <td>${item.residentName}</td>
                     <td>${item.designation}</td>
@@ -218,12 +228,14 @@
             for (let i = 0; i < trs.length; i++) {
                 const nicTd = trs[i].getElementsByTagName("td")[1];
                 const compNoTd = trs[i].getElementsByTagName("td")[2];
-                
-                if (nicTd || compNoTd) {
+                const quarterNoTd = trs[i].getElementsByTagName("td")[3];
+
+                if (nicTd || compNoTd || quarterNoTd) {
                     const nicText = nicTd ? nicTd.textContent.toLowerCase() : "";
                     const compText = compNoTd ? compNoTd.textContent.toLowerCase() : "";
+                    const quarterNoText = quarterNoTd ? quarterNoTd.textContent.toLowerCase() : "";
 
-                    if (nicText.includes(input) || compText.includes(input)) {
+                    if (nicText.includes(input) || compText.includes(input) || quarterNoText.includes(input)) {
                         trs[i].style.display = "";
                     } else {
                         trs[i].style.display = "none";

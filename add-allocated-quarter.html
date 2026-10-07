@@ -48,6 +48,18 @@
                     <input type="text" id="computerNo" class="form-control" inputmode="numeric" pattern="[0-9]+" title="Enter digits only" required placeholder="Enter computer number">
                 </div>
                 <div class="form-group">
+                    <label for="quarterNo">Quarter No.</label>
+                    <input type="text" id="quarterNo" class="form-control" required placeholder="Enter quarter number">
+                </div>
+                <div class="form-group">
+                    <label for="quarterName">Quarter Name</label>
+                    <input type="text" id="quarterName" class="form-control" required placeholder="Enter quarter name">
+                </div>
+                <div class="form-group">
+                    <label for="quarterLocation">Quarter Location</label>
+                    <input type="text" id="quarterLocation" class="form-control" required placeholder="Enter quarter location">
+                </div>
+                <div class="form-group">
                     <label for="quarterType">Quarter Type</label>
                     <input type="text" id="quarterType" class="form-control" required placeholder="Enter quarter type">
                 </div>
@@ -67,12 +79,12 @@
                     <label for="allocatedDate">Allocated Date</label>
                     <input type="date" id="allocatedDate" class="form-control" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group full-width">
                     <label for="other">Other</label>
                     <textarea id="other" class="form-control" rows="3" placeholder="Additional notes (optional)"></textarea>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-submit" style="width: auto;">Save Allocation</button>
+                    <button type="submit" class="btn btn-submit">Save Allocation</button>
                 </div>
             </form>
         </div>
@@ -89,6 +101,9 @@
             const newItem = {
                 nic: document.getElementById('nic').value,
                 computerNo: document.getElementById('computerNo').value,
+                quarterNo: document.getElementById('quarterNo').value,
+                quarterName: document.getElementById('quarterName').value,
+                quarterLocation: document.getElementById('quarterLocation').value,
                 quarterType: document.getElementById('quarterType').value,
                 residentName: document.getElementById('residentName').value,
                 designation: document.getElementById('designation').value,

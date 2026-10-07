@@ -11,9 +11,80 @@
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
         
+        /* Top Action Bar matching reference design */
+        .top-action-bar {
+            background: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            width: 300px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #7A1C1C;
+            box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1);
+        }
+
+        .search-btn {
+            background-color: #7A1C1C;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: #571a1a;
+        }
+
+        .btn-print {
+            background-color: #0284c7;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-print:hover {
+            background-color: #0369a1;
+        }
+
         .management-section { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; margin-bottom: 40px; }
-        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .section-subtitle { color: #7A1C1C; font-size: 1.4rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
 
         .data-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1100px; }
         .data-table th, .data-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
@@ -23,6 +94,137 @@
         /* Specific column alignments from the reference design */
         .data-table td:nth-child(4), 
         .data-table td:nth-child(5) { text-align: left; }
+
+        /* Status and Facility Badges styling */
+        .badge-status {
+            font-weight: 600;
+        }
+        
+        .facility-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 4px 0;
+        }
+
+        .facility-label {
+            width: 75px;
+            text-align: right;
+            color: #334155;
+        }
+
+        .badge-available {
+            background-color: #d1fae5;
+            color: #065f46;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-unavailable {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #noResultsRow {
+            display: none;
+            text-align: center;
+            color: #64748b;
+            font-weight: 500;
+            padding: 20px;
+        }
+
+        @page {
+            size: landscape;
+            margin: 10mm;
+        }
+
+        @media print {
+            .container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .page-title {
+                margin-bottom: 12px;
+            }
+
+            .back-link, .top-action-bar {
+                display: none !important;
+            }
+
+            .management-section {
+                width: 100%;
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            #availableTableContainer {
+                overflow: visible !important;
+            }
+
+            .data-table {
+                width: 100%;
+                min-width: 0;
+                table-layout: fixed;
+                font-size: 7pt;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 4px 3px;
+                font-size: 7pt;
+                overflow-wrap: anywhere;
+            }
+
+            .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 5%; }
+            .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 8%; }
+            .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 10%; }
+            .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 10%; }
+            .data-table th:nth-child(5), .data-table td:nth-child(5) { width: 18%; }
+            .data-table th:nth-child(6), .data-table td:nth-child(6) { width: 10%; }
+            .data-table th:nth-child(7), .data-table td:nth-child(7) { width: 12%; }
+            .data-table th:nth-child(8), .data-table td:nth-child(8) { width: 11%; }
+            .data-table th:nth-child(9), .data-table td:nth-child(9) { width: 16%; }
+
+            .data-table thead {
+                display: table-header-group;
+            }
+
+            .data-table tr {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .facility-row {
+                display: block;
+                margin: 2px 0;
+            }
+
+            .facility-label {
+                width: auto;
+                text-align: center;
+            }
+
+            #noResultsRow {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -31,12 +233,21 @@
         <a href="assign-quarters-SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Assign Quarters Management</a>
         <h2 class="page-title">Available Quarters Portal</h2>
 
-        <div class="management-section" id="availableQuartersTile">
-            <div class="section-header-bar">
-                <h3 class="section-subtitle"><i class="fa-solid fa-house-chimney"></i> Available Quarters Registry</h3>
+        <!-- Top Action Bar with Search and Print Button -->
+        <div class="top-action-bar">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by Quarter No, Location or Name..." oninput="handleSearchInput(this)">
+                <button type="button" class="search-btn" onclick="searchTable()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
+            
+            <button onclick="window.print()" class="btn-print">
+                <i class="fa-solid fa-print"></i> Print / Save as PDF
+            </button>
+        </div>
+
+        <div class="management-section" id="availableQuartersTile">
             <div id="availableTableContainer" class="table-responsive" style="overflow-x: auto;">
-                <table class="data-table">
+                <table class="data-table" id="quartersTable">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -59,10 +270,16 @@
                             <td>No. 12, Railway Avenue, Colombo 10</td>
                             <td>Bungalows</td>
                             <td><b>Rs. 5500.00</b></td>
-                            <td><span style="color: #d97706; font-weight: 600;">Under Maintenance</span></td>
+                            <td><span class="badge-status" style="color: #d97706;">Under Maintenance</span></td>
                             <td>
-                                <span style="display:inline-flex; align-items:center; gap:4px; margin-right:8px;"><i class="fa-solid fa-bolt" style="color: #ca8a04;"></i> Elec</span>
-                                <span style="display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-droplet" style="color: #0284c7;"></i> Water</span>
+                                <div class="facility-row">
+                                    <span class="facility-label">Electricity</span>
+                                    <span class="badge-available" title="Available" aria-label="Available"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="facility-row">
+                                    <span class="facility-label">Water</span>
+                                    <span class="badge-available" title="Available" aria-label="Available"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -73,17 +290,80 @@
                             <td>No. 45, Station Road, Maradana</td>
                             <td>Grade III</td>
                             <td><b>Rs. 3500.00</b></td>
-                            <td><span style="color: #16a34a; font-weight: 600;">Available</span></td>
+                            <td><span class="badge-status" style="color: #16a34a;">Available</span></td>
                             <td>
-                                <span style="display:inline-flex; align-items:center; gap:4px; margin-right:8px;"><i class="fa-solid fa-bolt" style="color: #ca8a04;"></i> Elec</span>
-                                <span style="display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-droplet" style="color: #0284c7;"></i> Water</span>
+                                <div class="facility-row">
+                                    <span class="facility-label">Electricity</span>
+                                    <span class="badge-available" title="Available" aria-label="Available"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="facility-row">
+                                    <span class="facility-label">Water</span>
+                                    <span class="badge-unavailable" title="Unavailable" aria-label="Unavailable"><i class="fa-solid fa-xmark" aria-hidden="true"></i></span>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div id="noResultsRow">No matching quarters found.</div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Client-side search functionality
+        function searchTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.trim().toLowerCase();
+            const table = document.getElementById("quartersTable");
+            const tr = table.getElementsByTagName("tr");
+            const noResults = document.getElementById("noResultsRow");
+            let visibleCount = 0;
+
+            if (filter === "") {
+                for (let i = 1; i < tr.length; i++) {
+                    tr[i].style.display = "";
+                }
+                noResults.style.display = "none";
+                return;
+            }
+
+            for (let i = 1; i < tr.length; i++) {
+                let found = false;
+                const td = tr[i].getElementsByTagName("td");
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        const accessibleLabels = [...td[j].querySelectorAll("[aria-label]")]
+                            .map(element => element.getAttribute("aria-label"))
+                            .join(" ");
+                        const cellText = `${td[j].innerText} ${accessibleLabels}`.toLowerCase();
+                        if (cellText.indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                tr[i].style.display = found ? "" : "none";
+                if (found) visibleCount++;
+            }
+
+            noResults.style.display = visibleCount === 0 ? "block" : "none";
+        }
+
+        function handleSearchInput(input) {
+            if (input.value.trim() === "") {
+                searchTable();
+            }
+        }
+
+        window.addEventListener("beforeprint", () => {
+            document.querySelectorAll("#quartersTable tbody tr").forEach(row => {
+                row.style.display = "";
+            });
+            document.getElementById("noResultsRow").style.display = "none";
+        });
+
+        window.addEventListener("afterprint", searchTable);
+    </script>
 
 </body>
 </html>

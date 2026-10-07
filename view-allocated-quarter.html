@@ -10,7 +10,6 @@
         .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         
-        /* Topic updated: black color, underline removed, and placed inside view card */
         .page-title { text-align: center; color: #000000; font-size: 1.8rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
         
         .view-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
@@ -26,7 +25,6 @@
         <a href="allocated-quarters.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to List</a>
 
         <div class="view-card" id="viewCard">
-            <!-- Topic moved inside box with black color and no underline -->
             <h2 class="page-title">Allocation Detailed View</h2>
             <div id="viewContent">
                 <!-- Dynamic Data will load here -->
@@ -39,12 +37,28 @@
         {
             nic: "199812345678",
             computerNo: "101",
+            quarterNo: "Q-01",
+            quarterName: "Sunflower Manor",
+            quarterLocation: "Colombo 10",
             quarterType: "Grade II",
             residentName: "A. B. Perera",
             designation: "Clerk",
             workplace: "Colombo Fort",
             allocatedDate: "2026-01-10",
             other: "None"
+        },
+        {
+            nic: "199912345678",
+            computerNo: "102",
+            quarterNo: "Q-04",
+            quarterName: "Railway View",
+            quarterLocation: "Maradana",
+            quarterType: "Grade III",
+            residentName: "N. K. Silva",
+            designation: "Station Master",
+            workplace: "Maradana",
+            allocatedDate: "2026-02-15",
+            other: "Sample record"
         }
     ];
 
@@ -52,24 +66,35 @@
         const urlParams = new URLSearchParams(window.location.search);
         const index = urlParams.get('id');
         
-        let data = JSON.parse(localStorage.getItem('allocatedQuartersData'));
-        if (!data || data.length === 0) {
-            data = defaultAllocatedData;
-            localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
-        }
+        const storedData = JSON.parse(localStorage.getItem('allocatedQuartersData')) || [];
+        let data = [...defaultAllocatedData];
+
+        storedData.forEach(item => {
+            const isDuplicate = data.some(existing =>
+                existing.nic === item.nic && existing.computerNo === item.computerNo
+            );
+            if (!isDuplicate) {
+                data.push(item);
+            }
+        });
+
+        localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
 
         const viewContent = document.getElementById('viewContent');
         if (index !== null && data[index]) {
             const item = data[index];
             viewContent.innerHTML = `
                 <div class="view-row"><div class="view-label">Auto ID:</div><div class="view-value">${parseInt(index) + 1}</div></div>
-                <div class="view-row"><div class="view-label">NIC:</div><div class="view-value">${item.nic}</div></div>
-                <div class="view-row"><div class="view-label">Computer No:</div><div class="view-value">${item.computerNo}</div></div>
-                <div class="view-row"><div class="view-label">Quarter Type:</div><div class="view-value">${item.quarterType}</div></div>
-                <div class="view-row"><div class="view-label">Resident Name:</div><div class="view-value">${item.residentName}</div></div>
-                <div class="view-row"><div class="view-label">Designation:</div><div class="view-value">${item.designation}</div></div>
-                <div class="view-row"><div class="view-label">Workplace:</div><div class="view-value">${item.workplace}</div></div>
-                <div class="view-row"><div class="view-label">Allocated Date:</div><div class="view-value">${item.allocatedDate}</div></div>
+                <div class="view-row"><div class="view-label">NIC:</div><div class="view-value">${item.nic || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Computer No:</div><div class="view-value">${item.computerNo || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Quarter No:</div><div class="view-value">${item.quarterNo || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Quarter Name:</div><div class="view-value">${item.quarterName || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Quarter Location:</div><div class="view-value">${item.quarterLocation || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Quarter Type:</div><div class="view-value">${item.quarterType || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Resident Name:</div><div class="view-value">${item.residentName || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Designation:</div><div class="view-value">${item.designation || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Workplace:</div><div class="view-value">${item.workplace || '-'}</div></div>
+                <div class="view-row"><div class="view-label">Allocated Date:</div><div class="view-value">${item.allocatedDate || '-'}</div></div>
                 <div class="view-row"><div class="view-label">Other:</div><div class="view-value">${item.other || 'None'}</div></div>
             `;
         } else {

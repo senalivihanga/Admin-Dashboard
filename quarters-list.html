@@ -17,7 +17,6 @@
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
         
-        /* Box container for search and action buttons */
         .section-header-bar { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
         
         .search-wrapper { display: flex; gap: 10px; align-items: center; }
@@ -37,13 +36,12 @@
         .btn-print { background-color: #0284c7; color: #ffffff; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 0.875rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
         .btn-print:hover { background-color: #0369a1; }
 
-        /* Table Card Box Style with Top Border matching the image */
         .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; overflow-x: auto; position: relative; }
         .table-responsive { width: 100%; overflow-x: auto; }
-        .quarters-table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; min-width: 1500px; }
+        .quarters-table { width: 100%; max-width: 100%; table-layout: auto; border-collapse: collapse; text-align: left; min-width: 1200px; }
         
         .quarters-table th, .quarters-table td { 
-            padding: 14px 12px; 
+            padding: 15px 12px; 
             border: 1px solid #e2e8f0; 
             vertical-align: middle; 
             font-size: 0.85rem; 
@@ -122,7 +120,7 @@
             .quarters-table col:nth-child(5) { width: 7% !important; }
             .quarters-table col:nth-child(6) { width: 6% !important; }
             .quarters-table col:nth-child(7) { width: 6% !important; }
-            .quarters-table col:nth-child(8) { width: 9% !important; }
+            .quarters-table col:nth-child(8) { width: 12% !important; }
             .quarters-table col:nth-child(9) { width: 7% !important; }
             .quarters-table col:nth-child(10) { width: 7% !important; }
             .quarters-table col:nth-child(11) { width: 7% !important; }
@@ -165,11 +163,11 @@
                         <col style="width: 4%">
                         <col style="width: 7%">
                         <col style="width: 8%">
-                        <col style="width: 8%">
+                        <col style="width: 10%">
                         <col style="width: 7%">
                         <col style="width: 6%">
-                        <col style="width: 6%">
                         <col style="width: 8%">
+                        <col style="width: 10%">
                         <col style="width: 7%">
                         <col style="width: 7%">
                         <col style="width: 7%">
@@ -190,7 +188,7 @@
                             <th>Assessment Rent (LKR)</th>
                             <th>Status</th>
                             <th>Facility (Electricity & Water)</th>
-                            <th id="actionTh">Actions</th>
+                            <th id="actionTh" class="action-column-header">View</th>
                         </tr>
                     </thead>
                     <tbody id="quartersBody">
@@ -228,17 +226,18 @@
             const maintBtn = document.getElementById('maintBtn');
             const addQuarterBtn = document.getElementById('addQuarterBtn');
             const backLink = document.getElementById('backLink');
+            const actionHeader = document.getElementById('actionTh');
+            const isReadOnlyRole = userRole === 'bo' || userRole === 'BO';
+
+            if (actionHeader && isReadOnlyRole) {
+                actionHeader.style.display = 'none';
+            }
 
             if (userRole === 'bo' || userRole === 'BO') {
                 if(printBtn) printBtn.style.setProperty('display', 'none', 'important');
                 if(maintBtn) maintBtn.style.display = 'none';
                 if(addQuarterBtn) addQuarterBtn.style.display = 'none';
                 if(backLink) backLink.href = 'BO.html';
-            } else if (userRole === 'sc' || userRole === 'SC') {
-                if(maintBtn) maintBtn.style.display = 'none';
-                if(addQuarterBtn) addQuarterBtn.style.display = 'none';
-                if(printBtn) printBtn.style.display = 'inline-flex';
-                if(backLink) backLink.href = 'SC.html';
             } else {
                 if(maintBtn) maintBtn.style.display = 'inline-flex';
                 if(addQuarterBtn) addQuarterBtn.style.display = 'inline-flex';
@@ -342,7 +341,7 @@
                 const tr = document.createElement('tr');
                 
                 let actionsHtml = '';
-                if (userRole === 'sc' || userRole === 'SC' || userRole === 'bo' || userRole === 'BO') {
+                if (userRole === 'bo' || userRole === 'BO') {
                     actionsHtml = `
                         <div class="action-cell">
                             <a href="view-quarters-list.html?index=${index}" class="action-btn btn-view" title="View Details"><i class="fa-solid fa-eye"></i></a>
@@ -358,26 +357,50 @@
                     `;
                 }
 
-                tr.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${item.quarterNum || 'N/A'}</td>
-                    <td>${item.quarterName || 'N/A'}</td>
-                    <td>${item.division || 'N/A'}</td>
-                    <td>${item.ownership || 'N/A'}</td>
-                    <td>${item.quarterArea || 'N/A'}</td>
-                    <td>${item.location || 'N/A'}</td>
-                    <td>${item.address || 'N/A'}</td>
-                    <td>${item.quarterType || 'N/A'}</td>
-                    <td>Rs. ${item.assessmentRent || '0.00'}</td>
-                    <td>${item.status || 'N/A'}</td>
-                    <td>
-                        <div class="facility-container">
-                            <div class="facility-item"><span class="facility-label">Electricity</span>${electricBadge}</div>
-                            <div class="facility-item"><span class="facility-label">Water</span>${waterBadge}</div>
-                        </div>
-                    </td>
-                    <td>${actionsHtml}</td>
-                `;
+                const isReadOnlyRole = userRole === 'bo' || userRole === 'BO';
+
+                if (isReadOnlyRole) {
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.quarterNum || 'N/A'}</td>
+                        <td>${item.quarterName || 'N/A'}</td>
+                        <td>${item.division || 'N/A'}</td>
+                        <td>${item.ownership || 'N/A'}</td>
+                        <td>${item.quarterArea || 'N/A'}</td>
+                        <td>${item.location || 'N/A'}</td>
+                        <td>${item.address || 'N/A'}</td>
+                        <td>${item.quarterType || 'N/A'}</td>
+                        <td>Rs. ${item.assessmentRent || '0.00'}</td>
+                        <td>${item.status || 'N/A'}</td>
+                        <td>
+                            <div class="facility-container">
+                                <div class="facility-item"><span class="facility-label">Electricity</span>${electricBadge}</div>
+                                <div class="facility-item"><span class="facility-label">Water</span>${waterBadge}</div>
+                            </div>
+                        </td>
+                    `;
+                } else {
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.quarterNum || 'N/A'}</td>
+                        <td>${item.quarterName || 'N/A'}</td>
+                        <td>${item.division || 'N/A'}</td>
+                        <td>${item.ownership || 'N/A'}</td>
+                        <td>${item.quarterArea || 'N/A'}</td>
+                        <td>${item.location || 'N/A'}</td>
+                        <td>${item.address || 'N/A'}</td>
+                        <td>${item.quarterType || 'N/A'}</td>
+                        <td>Rs. ${item.assessmentRent || '0.00'}</td>
+                        <td>${item.status || 'N/A'}</td>
+                        <td>
+                            <div class="facility-container">
+                                <div class="facility-item"><span class="facility-label">Electricity</span>${electricBadge}</div>
+                                <div class="facility-item"><span class="facility-label">Water</span>${waterBadge}</div>
+                            </div>
+                        </td>
+                        <td>${actionsHtml}</td>
+                    `;
+                }
                 
                 tbody.appendChild(tr);
             });

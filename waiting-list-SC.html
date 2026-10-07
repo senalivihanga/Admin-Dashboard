@@ -7,222 +7,265 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .container { max-width: 1350px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 1250px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
-        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
-        
-        .management-section { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; margin-bottom: 40px; }
-        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .section-subtitle { color: #7A1C1C; font-size: 1.4rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
-        
-        .tab-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
-        .tab-btn { background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.2s ease; }
+        .page-title { text-align: center; color: #7A1C1C; font-size: 2rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; text-underline-offset: 8px; }
+        .tab-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .tab-btn { background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s ease; }
         .tab-btn:hover { background-color: #e2e8f0; }
         .tab-btn.active { background-color: #7A1C1C; color: white; border-color: #7A1C1C; }
-
-        .table-card-inner { display: none; overflow-x: auto; }
-        .table-card-inner.active-table { display: block; }
-
-        .data-table { width: 100%; border-collapse: collapse; text-align: center; min-width: 950px; }
-        .data-table th, .data-table td { padding: 10px 8px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
-        .data-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; text-transform: uppercase; font-size: 0.78rem; }
-        .data-table td { color: #334155; }
-        .data-table td:nth-child(4), .data-table td:nth-child(7) { text-align: left; }
+        .table-card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; display: none; overflow-x: auto; }
+        .table-card.active-table { display: block; }
+        .search-card { background: #ffffff; padding: 16px 20px; margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .section-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+        .section-subtitle { color: #7A1C1C; font-size: 1.3rem; font-weight: 700; margin: 0; }
+        .list-controls { display: flex; align-items: center; gap: 10px; }
+        .list-search-input { width: 230px; max-width: 45vw; padding: 9px 11px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; }
+        .list-search-input:focus { outline: 2px solid rgba(122, 28, 28, 0.18); border-color: #7A1C1C; }
+        .search-btn { background: #7A1C1C; color: white; border: 0; padding: 9px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .search-btn:hover { background: #5c1414; }
+        .waiting-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 900px; }
+        .waiting-table th, .waiting-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
+        .waiting-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
+        .waiting-table tbody td { color: #334155; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.85rem; font-weight: 400; }
+        .waiting-table td:nth-child(4), .waiting-table td:nth-child(7) { text-align: left; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <a href="assign-quarters-SC.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Assign Quarters Management</a>
-        <h2 class="page-title">Waiting Lists Portal</h2>
+        <h2 class="page-title">Waiting Lists</h2>
 
-        <div class="management-section" id="waitingListsTile">
+        <!-- Tabs -->
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="showTable('general', event)">1. General List</button>
+            <button class="tab-btn" onclick="showTable('guard', event)">2. Guard List</button>
+            <button class="tab-btn" onclick="showTable('station_master', event)">3. Station Master List</button>
+            <button class="tab-btn" onclick="showTable('controller', event)">4. Controller List</button>
+            <button class="tab-btn" onclick="showTable('deputy_commissioner', event)">5. Deputy Superintendent (Transportation) Colombo List</button>
+        </div>
+
+        <div class="search-card">
+            <div class="list-controls">
+                <input type="search" id="waitingListSearchInput" class="list-search-input" placeholder="Search by NIC or name" aria-label="Search active waiting list" onkeydown="if (event.key === 'Enter') filterActiveWaitingList()" oninput="if (this.value.trim() === '') filterActiveWaitingList()">
+                <button type="button" class="search-btn" onclick="filterActiveWaitingList()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            </div>
+        </div>
+
+        <!-- 1. General List Table -->
+        <div id="general" class="table-card active-table">
             <div class="section-header-bar">
-                <h3 class="section-subtitle"><i class="fa-solid fa-list-check"></i> Waiting Lists Overview</h3>
+                <h3 class="section-subtitle">1. General List</h3>
             </div>
+            <table class="waiting-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>NIC</th>
+                        <th>Computer No.</th>
+                        <th>Applicant's Name</th>
+                        <th>Designation</th>
+                        <th>Workplace</th>
+                        <th>Allocated Date</th>
+                        <th>Allocated House Type</th>
+                        <th>Other</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>199812345678</td>
+                        <td>101</td>
+                        <td style="text-align: center;">A. B. Perera</td>
+                        <td>Clerk</td>
+                        <td style="text-align: center;">Colombo Fort</td>
+                        <td style="text-align: center;">2026-01-10</td>
+                        <td>None</td>
+                        <td>None</td>
+                    </tr>
 
-            <!-- Tabs -->
-            <div class="tab-container">
-                <button class="tab-btn active" onclick="showTable('general', event)">1. General List</button>
-                <button class="tab-btn" onclick="showTable('guard', event)">2. Guard List</button>
-                <button class="tab-btn" onclick="showTable('station_master', event)">3. Station Master List</button>
-                <button class="tab-btn" onclick="showTable('controller', event)">4. Controller List</button>
-                <button class="tab-btn" onclick="showTable('deputy_commissioner', event)">5. Deputy Superintendent (Transportation) Colombo List</button>
-            </div>
+                    <tr>
+                        <td>2</td>
+                        <td>199812345648</td>
+                        <td>102</td>
+                        <td style="text-align: center;">A. B. Perera</td>
+                        <td>Clerk</td>
+                        <td style="text-align: center;">Colombo Fort</td>
+                        <td style="text-align: center;">2026-01-10</td>
+                        <td>None</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-            <!-- 1. General List Table -->
-            <div id="general" class="table-card-inner active-table">
-                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">General List</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>NIC</th>
-                            <th>Computer No.</th>
-                            <th>Applicant's Name</th>
-                            <th>Designation</th>
-                            <th>Workplace</th>
-                            <th>Allocated Date</th>
-                            <th>Allocated House Type</th>
-                            <th>Other</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>199812345678</td>
-                            <td><b>CMP-101</b></td>
-                            <td style="text-align: center;">A. B. Perera</td>
-                            <td>Clerk</td>
-                            <td style="text-align: center;">Colombo Fort</td>
-                            <td style="text-align: center;">2026-01-10</td>
-                            <td>None</td>
-                            <td>None</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- 2. Guard List Table -->
+        <div id="guard" class="table-card">
+            <div class="section-header-bar">
+                <h3 class="section-subtitle">2. Guard List</h3>
             </div>
+            <table class="waiting-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>NIC</th>
+                        <th>Computer No.</th>
+                        <th>Applicant's Name</th>
+                        <th>Designation</th>
+                        <th>Workplace</th>
+                        <th>Allocated Date</th>
+                        <th>Allocated House Type</th>
+                        <th>Other</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>199287654321</td>
+                        <td>102</td>
+                        <td style="text-align: center;">S. K. Silva</td>
+                        <td>Train Guard</td>
+                        <td style="text-align: center;">Maradana</td>
+                        <td style="text-align: center;">2026-02-14</td>
+                        <td>Pending</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-            <!-- 2. Guard List Table -->
-            <div id="guard" class="table-card-inner">
-                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Guard List</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>NIC</th>
-                            <th>Computer No.</th>
-                            <th>Applicant's Name</th>
-                            <th>Designation</th>
-                            <th>Workplace</th>
-                            <th>Allocated Date</th>
-                            <th>Allocated House Type</th>
-                            <th>Other</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>199287654321</td>
-                            <td><b>CMP-102</b></td>
-                            <td style="text-align: center;">S. K. Silva</td>
-                            <td>Train Guard</td>
-                            <td style="text-align: center;">Maradana</td>
-                            <td style="text-align: center;">2026-01-10</td>
-                            <td>Pending</td>
-                            <td>None</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- 3. Station Master List Table -->
+        <div id="station_master" class="table-card">
+            <div class="section-header-bar">
+                <h3 class="section-subtitle">3. Station Master List</h3>
             </div>
+            <table class="waiting-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>NIC</th>
+                        <th>Computer No.</th>
+                        <th>Applicant's Name</th>
+                        <th>Designation</th>
+                        <th>Workplace</th>
+                        <th>Allocated Date</th>
+                        <th>Allocated House Type</th>
+                        <th>Other</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>198533445566</td>
+                        <td>103</td>
+                        <td style="text-align: center;">M. N. Fernando</td>
+                        <td>Station Master</td>
+                        <td style="text-align: center;">Gampaha</td>
+                        <td style="text-align: center;">2026-03-01</td>
+                        <td>Urgent</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-            <!-- 3. Station Master List Table -->
-            <div id="station_master" class="table-card-inner">
-                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Station Master List</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>NIC</th>
-                            <th>Computer No.</th>
-                            <th>Applicant's Name</th>
-                            <th>Designation</th>
-                            <th>Workplace</th>
-                            <th>Allocated Date</th>
-                            <th>Allocated House Type</th>
-                            <th>Other</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>198533445566</td>
-                            <td><b>CMP-103</b></td>
-                            <td style="text-align: center;">M. N. Fernando</td>
-                            <td>Station Master</td>
-                            <td style="text-align: center;">Gampaha</td>
-                            <td style="text-align: center;">2026-01-10</td>
-                            <td>Urgent</td>
-                            <td>None</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- 4. Controller List Table -->
+        <div id="controller" class="table-card">
+            <div class="section-header-bar">
+                <h3 class="section-subtitle">4. Controller List</h3>
             </div>
+            <table class="waiting-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>NIC</th>
+                        <th>Computer No.</th>
+                        <th>Applicant's Name</th>
+                        <th>Designation</th>
+                        <th>Workplace</th>
+                        <th>Allocated Date</th>
+                        <th>Allocated House Type</th>
+                        <th>Other</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>199022334455</td>
+                        <td>104</td>
+                        <td style="text-align: center;">T. G. Rathnayake</td>
+                        <td>Controller</td>
+                        <td style="text-align: center;">HQ Colombo</td>
+                        <td style="text-align: center;">2026-03-10</td>
+                        <td>None</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-            <!-- 4. Controller List Table -->
-            <div id="controller" class="table-card-inner">
-                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Controller List</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>NIC</th>
-                            <th>Computer No.</th>
-                            <th>Applicant's Name</th>
-                            <th>Designation</th>
-                            <th>Workplace</th>
-                            <th>Allocated Date</th>
-                            <th>Allocated House Type</th>
-                            <th>Other</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>199022334455</td>
-                            <td><b>CMP-104</b></td>
-                            <td style="text-align: center;">T. G. Rathnayake</td>
-                            <td>Controller</td>
-                            <td style="text-align: center;">HQ Colombo</td>
-                            <td style="text-align: center;">2026-01-10</td>
-                            <td>None</td>
-                            <td>None</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- 5. Deputy Commissioner List Table -->
+        <div id="deputy_commissioner" class="table-card">
+            <div class="section-header-bar">
+                <h3 class="section-subtitle">5. Deputy Superintendent (Transportation) Colombo List</h3>
             </div>
-
-            <!-- 5. Deputy Commissioner List Table -->
-            <div id="deputy_commissioner" class="table-card-inner">
-                <h4 style="color: #7A1C1C; margin-bottom: 12px; font-size: 1.1rem;">Deputy Superintendent (Transportation) Colombo List</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>NIC</th>
-                            <th>Computer No.</th>
-                            <th>Applicant's Name</th>
-                            <th>Designation</th>
-                            <th>Workplace</th>
-                            <th>Allocated Date</th>
-                            <th>Allocated House Type</th>
-                            <th>Other</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>198211223344</td>
-                            <td><b>CMP-105</b></td>
-                            <td style="text-align: center;">W. M. D. Wickramasinghe</td>
-                            <td>Deputy Commissioner</td>
-                            <td style="text-align: center;">Main Office</td>
-                            <td style="text-align: center;">2026-01-10</td>
-                            <td>Approved</td>
-                            <td>None</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="waiting-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>NIC</th>
+                        <th>Computer No.</th>
+                        <th>Applicant's Name</th>
+                        <th>Designation</th>
+                        <th>Workplace</th>
+                        <th>Allocated Date</th>
+                        <th>Allocated House Type</th>
+                        <th>Other</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>198211223344</td>
+                        <td>105</td>
+                        <td style="text-align: center;">W. M. D. Wickramasinghe</td>
+                        <td>Deputy Commissioner</td>
+                        <td style="text-align: center;">Main Office</td>
+                        <td style="text-align: center;">2026-04-05</td>
+                        <td>Approved</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <script>
         function showTable(tableId, event) {
-            document.querySelectorAll('.table-card-inner').forEach(card => card.classList.remove('active-table'));
+            document.querySelectorAll('.table-card').forEach(card => card.classList.remove('active-table'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tableId).classList.add('active-table');
             event.currentTarget.classList.add('active');
+            filterWaitingList(tableId);
+        }
+
+        function filterActiveWaitingList() {
+            const activeTable = document.querySelector('.table-card.active-table');
+            if (activeTable) {
+                filterWaitingList(activeTable.id);
+            }
+        }
+
+        function filterWaitingList(tableId) {
+            const query = document.getElementById('waitingListSearchInput').value.trim().toLowerCase();
+            const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+
+            rows.forEach(row => {
+                const nic = row.cells[1]?.textContent.toLowerCase() || '';
+                const applicantName = row.cells[3]?.textContent.toLowerCase() || '';
+                row.style.display = query === '' || nic.includes(query) || applicantName.includes(query) ? '' : 'none';
+            });
         }
     </script>
 </body>

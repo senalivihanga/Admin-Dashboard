@@ -10,7 +10,6 @@
         .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
         
-        /* Page title moved inside form-card, black color, no underline */
         .page-title { text-align: center; color: #000000; font-size: 1.8rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
         
         .form-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
@@ -26,7 +25,6 @@
         
         .form-actions { grid-column: span 2; margin-top: 10px; }
         
-        /* Requested button style */
         .btn-save { width: 100%; padding: 12px; background-color: #7A1C1C; color: #ffffff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; }
         .btn-save:hover { background-color: #5c1414; }
     </style>
@@ -49,6 +47,18 @@
                     <input type="text" id="computerNo" class="form-control" inputmode="numeric" pattern="[0-9]+" title="Enter digits only" required>
                 </div>
                 <div class="form-group">
+                    <label for="quarterNo">Quarter No.</label>
+                    <input type="text" id="quarterNo" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="quarterName">Quarter Name</label>
+                    <input type="text" id="quarterName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="quarterLocation">Quarter Location</label>
+                    <input type="text" id="quarterLocation" class="form-control" required>
+                </div>
+                <div class="form-group">
                     <label for="quarterType">Quarter Type</label>
                     <input type="text" id="quarterType" class="form-control" required>
                 </div>
@@ -68,7 +78,7 @@
                     <label for="allocatedDate">Allocated Date</label>
                     <input type="date" id="allocatedDate" class="form-control" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group full-width">
                     <label for="other">Other</label>
                     <textarea id="other" class="form-control" rows="3"></textarea>
                 </div>
@@ -84,12 +94,28 @@
         {
             nic: "199812345678",
             computerNo: "101",
+            quarterNo: "Q-01",
+            quarterName: "Sunflower Manor",
+            quarterLocation: "Colombo 10",
             quarterType: "Grade II",
             residentName: "A. B. Perera",
             designation: "Clerk",
             workplace: "Colombo Fort",
             allocatedDate: "2026-01-10",
             other: "None"
+        },
+        {
+            nic: "199912345678",
+            computerNo: "102",
+            quarterNo: "Q-04",
+            quarterName: "Railway View",
+            quarterLocation: "Maradana",
+            quarterType: "Grade III",
+            residentName: "N. K. Silva",
+            designation: "Station Master",
+            workplace: "Maradana",
+            allocatedDate: "2026-02-15",
+            other: "Sample record"
         }
     ];
 
@@ -102,22 +128,33 @@
     });
 
     window.addEventListener('DOMContentLoaded', () => {
-        data = JSON.parse(localStorage.getItem('allocatedQuartersData'));
-        if (!data || data.length === 0) {
-            data = defaultAllocatedData;
-            localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
-        }
+        const storedData = JSON.parse(localStorage.getItem('allocatedQuartersData')) || [];
+        data = [...defaultAllocatedData];
+
+        storedData.forEach(item => {
+            const isDuplicate = data.some(existing =>
+                existing.nic === item.nic && existing.computerNo === item.computerNo
+            );
+            if (!isDuplicate) {
+                data.push(item);
+            }
+        });
+
+        localStorage.setItem('allocatedQuartersData', JSON.stringify(data));
 
         if (index !== null && data[index]) {
             const item = data[index];
-            document.getElementById('nic').value = item.nic;
-            document.getElementById('computerNo').value = item.computerNo;
-            document.getElementById('quarterType').value = item.quarterType;
-            document.getElementById('residentName').value = item.residentName;
-            document.getElementById('designation').value = item.designation;
-            document.getElementById('workplace').value = item.workplace;
-            document.getElementById('allocatedDate').value = item.allocatedDate;
-            document.getElementById('other').value = item.other;
+            document.getElementById('nic').value = item.nic || '';
+            document.getElementById('computerNo').value = item.computerNo || '';
+            document.getElementById('quarterNo').value = item.quarterNo || '';
+            document.getElementById('quarterName').value = item.quarterName || '';
+            document.getElementById('quarterLocation').value = item.quarterLocation || '';
+            document.getElementById('quarterType').value = item.quarterType || '';
+            document.getElementById('residentName').value = item.residentName || '';
+            document.getElementById('designation').value = item.designation || '';
+            document.getElementById('workplace').value = item.workplace || '';
+            document.getElementById('allocatedDate').value = item.allocatedDate || '';
+            document.getElementById('other').value = item.other || '';
         } else {
             alert('Record not found!');
             window.location.href = 'allocated-quarters.html';
@@ -130,6 +167,9 @@
         data[index] = {
             nic: document.getElementById('nic').value,
             computerNo: document.getElementById('computerNo').value,
+            quarterNo: document.getElementById('quarterNo').value,
+            quarterName: document.getElementById('quarterName').value,
+            quarterLocation: document.getElementById('quarterLocation').value,
             quarterType: document.getElementById('quarterType').value,
             residentName: document.getElementById('residentName').value,
             designation: document.getElementById('designation').value,

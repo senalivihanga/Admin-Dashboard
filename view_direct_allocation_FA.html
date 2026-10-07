@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Direct Allocation - Sri Lanka Railways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .page-title { text-align: center; color: #000000; font-size: 1.8rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .view-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-top: 5px solid #7A1C1C; }
+        .view-row { display: flex; border-bottom: 1px solid #f1f5f9; padding: 12px 0; font-size: 0.95rem; }
+        .view-row:last-child { border-bottom: none; }
+        .view-label { font-weight: 700; width: 220px; color: #475569; }
+        .view-value { color: #1e293b; flex: 1; font-weight: 400; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="direct_allocation_FA.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to List</a>
+
+        <div class="view-card">
+            <h2 class="page-title">Direct Allocation Detailed View</h2>
+            <div id="viewContent">
+                <!-- Dynamic Data will load here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const index = urlParams.get('id');
+            
+            const allocations = JSON.parse(localStorage.getItem('directAllocations')) || [];
+            const viewContent = document.getElementById('viewContent');
+
+            if (index !== null && allocations[index]) {
+                const item = allocations[index];
+                viewContent.innerHTML = `
+                    <div class="view-row"><div class="view-label">Auto ID:</div><div class="view-value">${parseInt(index) + 1}</div></div>
+                    <div class="view-row"><div class="view-label">NIC Number:</div><div class="view-value">${item.nic || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Computer Number:</div><div class="view-value">${item.computerNo || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Full Name:</div><div class="view-value">${item.fullName || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Email Address:</div><div class="view-value">${item.email || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Mobile Number:</div><div class="view-value">${item.phone || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Quarter No.:</div><div class="view-value">${item.quarterNo || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Quarter Name:</div><div class="view-value">${item.quarterName || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Quarter Location:</div><div class="view-value">${item.quarterLocation || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Quarter Type:</div><div class="view-value">${item.quarterType || '-'}</div></div>
+                    <div class="view-row"><div class="view-label">Reason:</div><div class="view-value">${item.reason || '-'}</div></div>
+                `;
+            } else {
+                viewContent.innerHTML = `<p style="text-align: center; color: #dc2626; font-weight: 600; padding: 20px 0;">Record not found!</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
