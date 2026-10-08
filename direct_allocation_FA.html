@@ -45,6 +45,27 @@
         .search-btn { background-color: #7A1C1C; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
         .search-btn:hover { background-color: #571a1a; }
 
+        .right-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+        .btn-print { 
+            background-color: #0284c7; 
+            color: #ffffff; 
+            padding: 10px 18px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            border: none; 
+            cursor: pointer; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            text-decoration: none; 
+            transition: background 0.2s; 
+        }
+        .btn-print:hover { 
+            background-color: #0369a1; 
+        }
+
         .add-btn { background-color: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
         .add-btn:hover { background-color: #059669; }
 
@@ -59,7 +80,7 @@
             position: relative; 
         }
 
-        .allocation-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1300px; }
+        .allocation-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1200px; }
         .allocation-table th, .allocation-table td { padding: 12px 10px; border: 1px solid #cbd5e1; vertical-align: middle; font-size: 0.85rem; text-align: center; }
         .allocation-table th { background-color: #f8fafc; color: #1e293b; font-weight: 700; }
         .allocation-table td { color: #334155; }
@@ -84,6 +105,60 @@
         .msg-btn { padding: 8px 15px; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; }
         .msg-btn-yes { background-color: #dc2626; color: white; }
         .msg-btn-no { background-color: #64748b; color: white; }
+
+        /* Strict Print Optimization to avoid blank pages and fit full table */
+        @media print {
+            @page {
+                size: landscape;
+                margin: 10mm;
+            }
+            body, html {
+                background-color: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+            }
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .back-link, .search-card, .custom-msg-box {
+                display: none !important;
+            }
+            .table-card {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: transparent !important;
+            }
+            .table-responsive {
+                overflow: visible !important;
+            }
+            .allocation-table {
+                width: 100% !important;
+                min-width: 100% !important;
+                font-size: 8pt !important;
+            }
+            .allocation-table th, .allocation-table td {
+                padding: 6px 4px !important;
+                border: 1px solid #333333 !important;
+            }
+            .allocation-table th {
+                background-color: #f1f5f9 !important;
+                color: #000000 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            /* Hide Application Action and Actions columns during print */
+            .allocation-table th:nth-child(11), .allocation-table td:nth-child(11),
+            .allocation-table th:nth-child(12), .allocation-table td:nth-child(12) {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -93,38 +168,46 @@
 
         <h2 class="page-title">Direct Allocations List</h2>
 
-        <!-- Search Bar & Add Button Card -->
+        <!-- Search Bar & Action Buttons Card -->
         <div class="search-card">
             <div class="search-wrapper">
                 <input type="text" id="searchInput" class="search-input" placeholder="Search by NIC or Computer No..." oninput="if(this.value.trim() === '') searchTable()">
                 <button class="search-btn" onclick="searchTable()"><i class="fa-solid fa-search"></i> Search</button>
             </div>
-            <a href="add_direct_allocation_FA.html" class="add-btn"><i class="fa-solid fa-plus"></i> Add New Allocation</a>
+            
+            <div class="right-actions">
+                <button onclick="window.print()" class="btn-print">
+                    <i class="fa-solid fa-print"></i> Print / Save as PDF
+                </button>
+                <a href="add_direct_allocation_FA.html" class="add-btn"><i class="fa-solid fa-plus"></i> Add New Allocation</a>
+            </div>
         </div>
 
         <!-- Table Card -->
         <div class="table-card">
-            <table class="allocation-table" id="allocationTable">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>NIC</th>
-                        <th>Computer No.</th>
-                        <th>Full Name</th>
-                        <th>Mobile</th>
-                        <th>Quarter No.</th>
-                        <th>Quarter Name</th>
-                        <th>Quarter Location</th>
-                        <th>Quarter Type</th>
-                        <th>Reason</th>
-                        <th>Application Action</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Dynamic rows will load here -->
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="allocation-table" id="allocationTable">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIC</th>
+                            <th>Computer No.</th>
+                            <th>Full Name</th>
+                            <th>Quarter No.</th>
+                            <th>Quarter Name</th>
+                            <th>Quarter Location</th>
+                            <th>Quarter Type</th>
+                            <th>Mobile</th>
+                            <th>Reason</th>
+                            <th>Application Action</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Dynamic rows will load here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -141,6 +224,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const currentVersion = 'v9';
+            if (localStorage.getItem('directAllocations_version') !== currentVersion) {
+                localStorage.removeItem('directAllocations');
+                localStorage.setItem('directAllocations_version', currentVersion);
+            }
             loadTableData();
         });
 
@@ -153,37 +241,37 @@
             if (!allocations || allocations.length === 0) {
                 allocations = [
                     {
-                        nic: '199812345678',
-                        computerNo: 'COMP-101',
-                        fullName: 'Nimal Perera',
-                        phone: '0771234567',
-                        quarterNo: 'Q-101',
-                        quarterName: 'Grade II Quarter',
-                        quarterLocation: 'Colombo 10',
-                        quarterType: 'Single',
-                        reason: 'Service requirement'
-                    },
-                    {
-                        nic: '198765432123',
-                        computerNo: 'COMP-205',
-                        fullName: 'Anura Silva',
+                        nic: '981234567V',
+                        computerNo: '4021',
+                        fullName: 'H. M. Gunawardena',
+                        quarterNo: 'Q-01',
+                        quarterName: 'Bungalow A',
+                        quarterLocation: 'Colombo',
+                        quarterType: 'Bungalows',
                         phone: '0712345678',
-                        quarterNo: 'Q-205',
-                        quarterName: 'Grade III Quarter',
-                        quarterLocation: 'Maradana',
-                        quarterType: 'Family',
-                        reason: 'Relocation due to duty transfer'
+                        reason: 'Service Requirement'
                     },
                     {
-                        nic: '197654321987',
-                        computerNo: 'COMP-308',
-                        fullName: 'Madhavi Fernando',
-                        phone: '0763456789',
-                        quarterNo: 'Q-308',
-                        quarterName: 'Grade I Quarter',
-                        quarterLocation: 'Ratmalana',
-                        quarterType: 'Married',
-                        reason: 'Priority allotment'
+                        nic: '901245678V',
+                        computerNo: '4189',
+                        fullName: 'P. R. Jayasinghe',
+                        quarterNo: 'Q-02',
+                        quarterName: 'Type II House',
+                        quarterLocation: 'Kandy',
+                        quarterType: 'Type II',
+                        phone: '0779876543',
+                        reason: 'Transfer Basis'
+                    },
+                    {
+                        nic: '934512786V',
+                        computerNo: '5024',
+                        fullName: 'K. L. Wickramasinghe',
+                        quarterNo: 'Q-03',
+                        quarterName: 'Staff Flat',
+                        quarterLocation: 'Galle',
+                        quarterType: 'Type I',
+                        phone: '0751122334',
+                        reason: 'Medical Grounds'
                     }
                 ];
                 localStorage.setItem('directAllocations', JSON.stringify(allocations));
@@ -198,14 +286,14 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${index + 1}</td>
-                    <td>${item.nic || '-'}</td>
-                    <td>${item.computerNo || '-'}</td>
-                    <td>${item.fullName || '-'}</td>
-                    <td>${item.phone || '-'}</td>
-                    <td>${item.quarterNo || '-'}</td>
-                    <td>${item.quarterName || '-'}</td>
-                    <td>${item.quarterLocation || '-'}</td>
-                    <td>${item.quarterType || '-'}</td>
+                    <td>${item.nic || item.NIC || '-'}</td>
+                    <td>${item.computerNo || item.computer_no || item.computerNumber || '-'}</td>
+                    <td>${item.fullName || item.full_name || item.name || '-'}</td>
+                    <td>${item.quarterNo || item.quarter_no || item.quarterNumber || item.quarter || '-'}</td>
+                    <td>${item.quarterName || item.quarter_name || item.qName || '-'}</td>
+                    <td>${item.quarterLocation || item.quarter_location || item.location || '-'}</td>
+                    <td>${item.quarterType || item.quarter_type || item.type || '-'}</td>
+                    <td>${item.phone || item.mobile || item.telephone || '-'}</td>
                     <td>${item.reason || '-'}</td>
                     <td>
                         <a href="language_dashboard.html" class="btn-app" title="Go to Application"><i class="fa-solid fa-arrow-up-right-from-square"></i> Go to App</a>

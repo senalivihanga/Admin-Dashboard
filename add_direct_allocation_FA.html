@@ -10,14 +10,16 @@
         body { background-color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 8px; color: #7A1C1C; text-decoration: none; font-weight: 600; margin-bottom: 20px; }
+        .back-link:hover { text-decoration: underline; }
         .card { background: #ffffff; padding: 35px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 5px solid #7A1C1C; }
         .card h2 { color: #1e293b; font-size: 1.6rem; margin-bottom: 20px; text-transform: uppercase; text-align: center; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-weight: 600; color: #475569; margin-bottom: 8px; font-size: 0.95rem; }
         .form-group input, .form-group select { width: 100%; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 0.95rem; box-sizing: border-box; }
+        .form-group input:focus { border-color: #7A1C1C; box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1); }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .btn-submit { background-color: #059669; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; font-size: 1rem; transition: background 0.2s; }
-        .btn-submit:hover { background-color: #047857; }
+        .btn-submit { background-color: #10b981; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; font-size: 1rem; transition: background 0.2s; }
+        .btn-submit:hover { background-color: #059669; }
         #successAlert { display: none; background-color: #dcfce7; color: #166534; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; font-weight: 600; border: 1px solid #bbf7d0; text-align: center; }
     </style>
 </head>
@@ -27,7 +29,7 @@
         <a href="direct_allocation_FA.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Allocations List</a>
 
         <div class="card">
-            <h2><i class="fa-solid fa-hand-holding-heart"></i> Add Direct Quarter Allocation</h2>
+            <h2>Add Direct Quarter Allocation</h2>
             
             <div id="successAlert"><i class="fa-solid fa-circle-check"></i> Direct allocation saved successfully!</div>
 
@@ -44,46 +46,41 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Full Name:</label>
-                    <input type="text" id="fullName" required placeholder="Enter full name">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email Address:</label>
-                        <input type="email" id="email" required placeholder="Enter email address">
-                    </div>
-                    <div class="form-group">
-                        <label>Mobile Number:</label>
-                        <input type="text" id="phone" required placeholder="Enter mobile number">
-                    </div>
+                    <label>Name:</label>
+                    <input type="text" id="fullName" required placeholder="Enter your name">
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Quarter No.:</label>
-                        <input type="text" id="quarterNo" required placeholder="e.g., Q-01">
+                        <input type="text" id="quarterNo" required placeholder="Enter quarter number">
                     </div>
                     <div class="form-group">
                         <label>Quarter Name:</label>
-                        <input type="text" id="quarterName" required placeholder="e.g., Sunflower Manor">
+                        <input type="text" id="quarterName" required placeholder="Enter quarter name">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Quarter Location:</label>
-                        <input type="text" id="quarterLocation" required placeholder="e.g., Colombo 10">
+                        <input type="text" id="quarterLocation" required placeholder="Enter quarter location">
                     </div>
                     <div class="form-group">
                         <label>Quarter Type:</label>
-                        <input type="text" id="quarterType" required placeholder="e.g., Grade II">
+                        <input type="text" id="quarterType" required placeholder="Enter quarter type">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Approval Authority Reason:</label>
-                    <input type="text" id="reason" required placeholder="e.g., Special Service Requirement">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Mobile Number:</label>
+                        <input type="text" id="phone" required placeholder="Enter mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label>Approval Authority Reason:</label>
+                        <input type="text" id="reason" required placeholder="Enter reason ">
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit"><i class="fa-solid fa-check-circle"></i> Save Allocation</button>
@@ -99,12 +96,11 @@
                 nic: document.getElementById('nic').value,
                 computerNo: document.getElementById('computerNo').value,
                 fullName: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
                 quarterNo: document.getElementById('quarterNo').value,
                 quarterName: document.getElementById('quarterName').value,
                 quarterLocation: document.getElementById('quarterLocation').value,
                 quarterType: document.getElementById('quarterType').value,
+                phone: document.getElementById('phone').value,
                 reason: document.getElementById('reason').value
             };
 
